@@ -10,7 +10,10 @@
 */
 include_once 'admin_header.php';
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation('index.php');	
-echo $indexAdmin->renderIndex();
+
+$aboutAdmin = new ModuleAdmin();
+
+echo $aboutAdmin->addNavigation('about.php');
+echo $aboutAdmin->renderAbout('2MHAG2L3NZG8G', false);
+
 include 'admin_footer.php';

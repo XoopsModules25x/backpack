@@ -1,36 +1,15 @@
 <?php
-// $Id: backup.inc.php,v 0.91 2008/03/10 11:54:16 yoshis Exp $
-//  ------------------------------------------------------------------------ //
-//             BackPack - Bluemoon Backup/Restore Module for XOOPS           //
-//             Copyright (c) 2005,2007 Yoshi Sakai / Bluemoon inc.           //
-//                       <http://www.bluemooninc.biz/>                       //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-/*=============================================================================
-Based by class-1 MySQL Backup/Restore
-    (c) class-1 Web Design (http://www.class1web.co.uk), 2004
-=============================================================================*/
-
+/*
+*******************************************************
+***													***
+*** backpack										***
+*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Original author : Yoshi Sakai					***
+***													***
+*******************************************************
+*/
 // Define this to enable debugging
-DEFINE ("DEBUG", 0);
+DEFINE ('DEBUG', 0);
 
 function PMA_backquote($a_name, $do_it = TRUE){
     if ($do_it
@@ -51,9 +30,9 @@ function create_table_sql_string($tablename){
 	$field_string = "";
 	
 	// Get the field info and output to a string in the correct MySQL syntax
-	$result = mysql_query("DESCRIBE $tablename");
+	$result = mysqli_query("DESCRIBE $tablename");
 	if (DEBUG) echo "field_info\n\n";
-	while ($field_info = mysql_fetch_array($result)) {
+	while ($field_info = mysqli_fetch_array($result)) {
 		if (DEBUG) {
 			for ($i = 0; $i < count($field_info); $i++) {
 				echo "$i: $field_info[$i]\n";
@@ -68,9 +47,9 @@ function create_table_sql_string($tablename){
 		$field_string .= $crlf.sprintf("  `%s` %s%s%s%s",  $field_name, $field_type, $field_not_null, $field_auto_increment, $field_default);
 	}
 	// Get the index info and output to a string in the correct MySQL syntax
-	$result = mysql_query("SHOW KEYS FROM $tablename");	//SHOW INDEX FROM 
+	$result = mysqli_query("SHOW KEYS FROM $tablename");	//SHOW INDEX FROM 
 	if (DEBUG) echo "\nindex_info\n\n";
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
         $kname    = $row['Key_name'];
         $ktype  = (isset($row['Index_type'])) ? $row['Index_type'] : '';
         if (!$ktype && (isset($row['Comment']))) $ktype = $row['Comment']; // For Under MySQL v4.0.2
@@ -90,7 +69,7 @@ function create_table_sql_string($tablename){
             $index[$kname][] = PMA_backquote($row['Column_name'], 0);
         }
     } // end while
-    mysql_free_result($result);
+    mysqli_free_result($result);
     $index_string = "";
     while (list($x, $columns) = @each($index)) {
         $index_string     .= ',' . $crlf;
@@ -108,7 +87,7 @@ function create_table_sql_string($tablename){
     $index_string .= $crlf;
 	
 	// Get the table type and output it to a string in the correct MySQL syntax
-	$result = mysql_query("SHOW TABLE STATUS");
+	$result = mysqli_query("SHOW TABLE STATUS");
 	if (DEBUG) echo "\nstatus_info\n\n";
 	while ($status_info = mysql_fetch_array($result)) {
 		for ($i = 0; $i < count($status_info); $i++) {
@@ -134,20 +113,20 @@ function create_table_sql_string($tablename){
 function create_data_sql_string($tablename,$filename,$cfgZipType){
 	global $dump_line,$dump_buffer,$query_res;
 	// Get field names from MySQL and output to a string in the correct MySQL syntax
-	$query_res = mysql_query("SELECT * FROM $tablename");
+	$query_res = mysqli_query("SELECT * FROM $tablename");
 	
 	// Get table data from MySQL and output to a string in the correct MySQL syntax
 	$dump_buffer .= "-- \r\n-- ".$tablename." dump.\r\n-- \r\n";
 	$dump_line+=3;
-	while ($row = mysql_fetch_row($query_res)) {
+	while ($row = mysqli_fetch_row($query_res)) {
 		// Initialise the data string
 		$data_string = "";
 		// Loop through the records and append data to the string after escaping
-		for ($i = 0; $i < mysql_num_fields($query_res); $i++) {
+		for ($i = 0; $i < mysqli_num_fields($query_res); $i++) {
 			if (!isset($row[$i]) || is_null($row[$i]))
 				$data_string = sprintf("%s, NULL", $data_string);
 			else
-				$data_string = sprintf("%s, '%s'", $data_string, mysql_escape_string($row[$i]));
+				$data_string = sprintf("%s, '%s'", $data_string, mysqli_escape_string($row[$i]));
 			//$data_string = str_replace("`","\'",$data_string);
 		}
 		// Remove the first 2 characters (", ") from the data string
@@ -163,19 +142,19 @@ function create_data_sql_string($tablename,$filename,$cfgZipType){
 function make_download($filename,$cfgZipType){
 	global $backup_dir,$dump_line,$dump_buffer,$download_count,$download_fname,$mime_type;
 
-	if (($cfgZipType == 'bzip') && @function_exists('bzcompress')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
+	if (($cfgZipType == 'bzip') && function_exists('bzcompress')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
 		$filename .= $download_count>0 ? "-".$download_count.".sql" : ".sql"  ;
 	    $ext       = 'bz2';
 	    $mime_type = 'application/x-bzip';
         $op_buffer = bzcompress($dump_buffer);
-	} else if (($cfgZipType == 'gzip') && @function_exists('gzencode')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
+	} else if (($cfgZipType == 'gzip') && function_exists('gzencode')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
 		$filename .= $download_count>0 ? "-".$download_count.".sql" : ".sql"  ;
 	    $ext       = 'gz';
 	    $content_encoding = 'x-gzip';
 	    $mime_type = 'application/x-gzip';
         // without the optional parameter level because it bug
 	    $op_buffer = gzencode($dump_buffer,9);
-	} else if (($cfgZipType == 'zip') && @function_exists('gzcompress')) {	// (PMA_PHP_INT_VERSION >= 40000 && 
+	} else if (($cfgZipType == 'zip') && function_exists('gzcompress')) {	// (PMA_PHP_INT_VERSION >= 40000 && 
 		$filename .= $download_count>0 ? "-".$download_count : "";
 	    $ext       = 'zip';
 	    $mime_type = 'application/x-zip';
@@ -221,7 +200,7 @@ function check_dump_buffer($filename,$cfgZipType){
 		make_download($filename,$cfgZipType);
 		//unset($GLOBALS['dump_buffer']);
 		//unset($GLOBALS['dump_line']);
-		$dump_buffer = "";
+		$dump_buffer = '';
 		$dump_line = 0;
 	}
 }
@@ -237,7 +216,7 @@ function Lock_Tables($tablename_array){
 function backup_data($tablename_array, $backup_structure, $backup_data, $filename, $cfgZipType){
 	global $time_start,$dump_line,$dump_buffer,$download_count;
 	
-	$dump_buffer = "-- Bluemoon.Xoops Backup/Restore Module\r\n-- BackPack\r\n-- http://www.bluemooninc.biz/\r\n";
+	$dump_buffer = "-- CHG-WEB.Xoops Backup/Restore Module\r\n-- BackPack\r\n-- https://store.chg-web.com/\r\n";
 	$dump_buffer .= "-- --------------------------------------------\r\n";
 	preg_match_all("/\r\n/",$dump_buffer,$c);
 	$dump_line += count($c[0]);
@@ -253,7 +232,7 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
             header('X-pmaPing: Pong');
         }
 	}
-    mysql_query("UNLOCK TABLES");
+    mysqli_query("UNLOCK TABLES");
     if ( $dump_buffer ) make_download( $filename ,$cfgZipType );
 }
 function restore_data($filename, $restore_structure, $restore_data, $db_selected)
@@ -261,49 +240,51 @@ function restore_data($filename, $restore_structure, $restore_data, $db_selected
 	if (!file_exists($filename)) exit();
 	$handle = fopen("$filename", "r");
 
+	$prefix ='';
 	while (!feof($handle)) {
 //		$buffer = fgets($handle);
 		$buffer='';
 		while (!feof($handle)) {
-			$cbuff = ereg_replace("\n|\r|\t","",fgets($handle));
-			// print (ereg('--',$cbuff)?"true<br>":"false<br>");
-			if (!ereg('^--',$cbuff)) $buffer .= $cbuff;
-			if (ereg(';',$cbuff)!=false) break;
+			$temp = array("\r\n", "\n", "\r","\t");
+			$cbuff = str_replace($temp,"",fgets($handle));
+			if (!preg_match('`^--`',$cbuff)) $buffer .= $cbuff;
+			if (preg_match('`;`',$cbuff)!=false) break;
 		}
 		if (preg_match("/^CREATE TABLE|^INSERT INTO|^DELETE/i",$buffer)){
-			$match = explode(" ",$buffer);
-			$prefix = explode("_",$match[2]);
-			$prefix = preg_replace("/^`/","", $prefix[0]);
-			$buffer = preg_replace("/".$prefix."/" , XOOPS_DB_PREFIX , $buffer);
+			if (!$prefix){
+				$match = explode(" ",$buffer);
+				$prefix = explode("_",$match[2]);
+				$prefix = preg_replace("/^`/","", $prefix[0]);
+			}
+			$buffer = preg_replace("/".$prefix."_/" , XOOPS_DB_PREFIX."_" , $buffer);
 		}
-		//echo "[".$buffer."]";
 		if ($buffer) {
 			// if this line is a create table query then check if the table already exists
-			if (eregi("^CREATE TABLE",$buffer) ) {
+			if (preg_match('`^CREATE TABLE`i',$buffer) ) {
 				if ($restore_structure) { 
 					$tablename = explode(" ", $buffer);
-					$tablename = ereg_replace("`","",$tablename[2]);
-					$result = mysql_list_tables($db_selected);
-					for ($i = 0; $i < mysql_num_rows($result); $i++) {
-						if (mysql_tablename($result, $i) == $tablename) {
+					$tablename = preg_replace('/`/','',$tablename[2]);
+					$result = $xoopsDB->queryF('SHOW TABLES FROM '.$db_selected);
+					for ($i = 0; $i < $xoopsDB->getRowsNum($result); $i++) {
+						if (mysqli_tablename($result, $i) == $tablename) {
 							//$rand = substr(md5(time()), 0, 8);
 							//$random_tablename = sprintf("%s_bak_%s", $tablename, $rand);
-							mysql_query("DROP TABLE IF EXISTS $tablename");
+							mysqli_query("DROP TABLE IF EXISTS $tablename");
 							//mysql_query("RENAME TABLE $tablename TO $random_tablename");
 							//echo "Backed up $tablename to $random_tablename.<br />\n";
 						}
 					}
-					$result = mysql_query($buffer);
+					$result = mysqli_query($buffer);
 					if (!$result) {
-						echo mysql_error()."<br />\n";
+						echo mysqli_error()."<br />\n";
 					} else {
 						echo "Table '$tablename' successfully recreated.<br />\n";
 					}
 				}
 			} else {
 				if ($restore_data) {
-					$result = mysql_query($buffer);
-					if (!$result) echo mysql_error()."<br />\n";
+					$result = mysqli_query($buffer);
+					if (!$result) echo mysqli_error()."<br />\n";
 				}
 			}
 		}
@@ -314,8 +295,8 @@ function get_module_tables($dirname)
 {
     global $xoopsConfig;
     if (!$dirname ) return;
-    $module_handler =& xoops_gethandler('module');
-    $module =& $module_handler->getByDirname($dirname);
+    $module_handler = xoops_gethandler('module');
+    $module = $module_handler->getByDirname($dirname);
     // Get tables used by this module
     $modtables = $module->getInfo('tables');
     if ($modtables != false && is_array($modtables)) {
@@ -422,4 +403,3 @@ function PMA_formatByteDown($value, $limes = 6, $comma = 0)
     return array($return_value, $unit);
 } // end of the 'PMA_formatByteDown' function
 // end function
-?>

@@ -1,25 +1,14 @@
 <?php
-/* $Id: read_dump.lib.php,v 1.1.1.1 2005/08/07 03:49:45 yoshis Exp $ */
-// vim: expandtab sw=4 ts=4 sts=4:
-
-/**
- * Removes comment lines and splits up large sql files into individual queries
- *
- * Last revision: September 23, 2001 - gandon
- *
- * @param   array    the splitted sql commands
- * @param   string   the sql commands
- * @param   integer  the MySQL release number (because certains php3 versions
- *                   can't get the value of a constant from within a function)
- *
- * @return  boolean  always true
- *
- * @access  public
- */
-function PMA_splitSqlFile(&$ret, $sql, $release)
-{
-    // do not trim, see bug #1030644
-    //$sql          = trim($sql);
+/*
+*******************************************************
+***													***
+*** backpack										***
+*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Original author : Yoshi Sakai					***
+***													***
+*******************************************************
+*/
+function PMA_splitSqlFile(&$ret, $sql, $release) {
     $sql          = rtrim($sql, "\n\r");
     $sql_len      = strlen($sql);
     $char         = '';
@@ -140,14 +129,12 @@ function PMA_splitSqlFile(&$ret, $sql, $release)
 function PMA_readFile($path, $mime = '') {
     global $cfg;
 
-
     if (!file_exists($path)) {
         return FALSE;
     }
     switch ($mime) {
         case '':
-            $file = @fopen($path, 'rb');
-            if (!$file) {
+            if (!$file = fopen($path, 'rb')) {
                 return FALSE;
             }
             $test = fread($file, 3);
@@ -156,17 +143,15 @@ function PMA_readFile($path, $mime = '') {
             if ($test == 'BZh') return PMA_readFile($path, 'application/x-bzip');
             return PMA_readFile($path, 'text/plain');
         case 'text/plain':
-            $file = @fopen($path, 'rb');
-            if (!$file) {
+            if (!$file = fopen($path, 'rb')) {
                 return FALSE;
             }
             $content = fread($file, filesize($path));
             fclose($file);
             break;
         case 'application/x-gzip':
-            if ($cfg['GZipDump'] && @function_exists('gzopen')) {
-                $file = @gzopen($path, 'rb');
-                if (!$file) {
+            if ($cfg['GZipDump'] && function_exists('gzopen')) {
+               if (!$file = gzopen($path, 'rb')) {
                     return FALSE;
                 }
                 $content = '';
@@ -179,9 +164,8 @@ function PMA_readFile($path, $mime = '') {
             }
            break;
         case 'application/x-bzip':
-            if ($cfg['BZipDump'] && @function_exists('bzdecompress')) {
-                $file = @fopen($path, 'rb');
-                if (!$file) {
+            if ($cfg['BZipDump'] && function_exists('bzdecompress')) {
+               if (!$file = fopen($path, 'rb')) {
                     return FALSE;
                 }
                 $content = fread($file, filesize($path));
@@ -196,5 +180,3 @@ function PMA_readFile($path, $mime = '') {
     }
     return $content;
 }
-
-?>
