@@ -140,10 +140,9 @@ class backpack
                 $index[$kname][] = $this->PMA_backquote($row['Column_name'], 0);
             }
         } // end while
-        mysqli_free_result($result);
+        $xoopsDB->freeRecordSet($result);
         $index_string = '';
-        // @TODO : eachà supprimer
-        while (list($x, $columns) = @each($index)) {
+        foreach ($index as $x => $columns) {
             $index_string .= ',' . $crlf;
             if ('PRIMARY' == $x) {
                 $index_string .= '   PRIMARY KEY (';
@@ -155,7 +154,7 @@ class backpack
                 $index_string .= '   KEY `' . $x . '` (';
             }
             $index_string .= implode(', ', $columns) . ')';
-        } // end while
+        } // foreach
         $index_string .= $crlf;
 
         // Get the table type and output it to a string in the correct MySQL syntax
@@ -204,7 +203,7 @@ class backpack
             // Initialise the data string
             $data_string = '';
             // Loop through the records and append data to the string after escaping
-            for ($i = 0; $i < mysqli_num_fields($this->query_res); $i++) {
+            for ($i = 0; $i < $xoopsDB->getFieldsNum($this->query_res); $i++) {
                 if ('' != $data_string) {
                     $data_string .= ',';
                 }
