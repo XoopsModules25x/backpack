@@ -419,7 +419,9 @@ class backpack
                     if ($restore_structure) {
                         $tablename = explode(' ', $buffer);
                         $tablename = preg_replace('/`/', '', $tablename[2]);
-                        $result    = mysqli_list_tables($db_selected);
+//                        $result    = mysqli_list_tables($db_selected);
+                        $sql = "SHOW TABLES FROM $db_selected";
+                        $result = $xoopsDB->query($sql);
                         for ($i = 0; $i < $GLOBALS['xoopsDB']->getRowsNum($result); $i++) {
                             if (mysqli_tablename($result, $i) == $tablename) {
                                 //$rand = substr(md5(time()), 0, 8);
