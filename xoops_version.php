@@ -12,8 +12,8 @@
 $module_dirname = basename(__DIR__);
 
 $modversion['version']             = 2.01;
-$modversion['module_status']       = 'RC1';
-$modversion['release_date']        = '2020/11/03';
+$modversion['module_status']       = 'RC2';
+$modversion['release_date']        = '2020/11/06';
 $modversion['name']                = _MI_MOD_NAME;
 $modversion['description']         = _MI_MOD_DESC;
 $modversion['author']              = 'Cedric MONTUY / Original author : Yoshi Sakai';
