@@ -33,7 +33,8 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
                 }
                 // Backquotes or no backslashes before quotes: it's indeed the
                 // end of the string -> exit the loop
-                else if ('`' == $string_start || '\\' != $sql[$i - 1]) {
+
+                if ('`' == $string_start || '\\' != $sql[$i - 1]) {
                     $string_start      = '';
                     $in_string         = FALSE;
                     break;
@@ -55,9 +56,8 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
                         break;
                     }
                     // ... else loop
-                    else {
-                        $i++;
-                    }
+
+                    $i++;
                 } // end if...elseif...else
             } // end for
         } // end if (in string)

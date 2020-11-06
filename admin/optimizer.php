@@ -41,20 +41,22 @@ switch ($op) {
 		while($row = $xoopsDB->fetchRow($r)) {
 			$table[] = $row[0];
 		}
-		if (0 == count($table)) {
-			$ok = 0;
-			$message = _AM_PASOK_PASTABLE;
-			break;
-		} elseif (1 == count($table)) {
-			$xoopsDB->queryF('LOCK TABLES `'.$table[0].'` WRITE');
-		} elseif (count($table) > 1) {
-			$xoopsDB->queryF('LOCK TABLES `'.implode('` WRITE, `',$table).'` WRITE');
-		} else {
-			$ok = 0;
-			$message = _AM_ERROR_UNKNOWN;
-			break;
-		}
-		echo _AM_LOCK_BDD.'<br />';
+        if (0 == count($table)) {
+            $ok = 0;
+            $message = _AM_PASOK_PASTABLE;
+            break;
+        }
+
+        if (1 == count($table)) {
+            $xoopsDB->queryF('LOCK TABLES `'.$table[0].'` WRITE');
+        } elseif (count($table) > 1) {
+            $xoopsDB->queryF('LOCK TABLES `'.implode('` WRITE, `',$table).'` WRITE');
+        } else {
+            $ok = 0;
+            $message = _AM_ERROR_UNKNOWN;
+            break;
+        }
+        echo _AM_LOCK_BDD.'<br />';
 		$t1 = time();	
 		foreach ($table	as $val) {
 			$b1 = time();

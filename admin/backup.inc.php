@@ -16,9 +16,9 @@ function PMA_backquote($a_name, $do_it = TRUE){
         && PMA_MYSQL_INT_VERSION >= 32306
         && !empty($a_name) && '*' != $a_name) {
         return '`' . $a_name . '`';
-    } else {
-        return $a_name;
     }
+
+    return $a_name;
 } // end of the 'PMA_backquote()' function
 
 function create_table_sql_string($tablename){

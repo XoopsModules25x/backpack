@@ -68,10 +68,10 @@ class backpack {
 	        && PMA_MYSQL_INT_VERSION >= 32306
 	        && !empty($a_name) && '*' != $a_name) {
 	        return '`' . $a_name . '`';
-	    } else {
-	        return $a_name;
 	    }
-	} // end of the 'PMA_backquote()' function
+
+        return $a_name;
+    } // end of the 'PMA_backquote()' function
 	
 	public function create_table_sql_string($tablename){
 		global $xoopsDB;
@@ -401,22 +401,22 @@ class backpack {
 		$modtables = $module->getInfo('tables');
 		if (false != $modtables && is_array($modtables)) {
 			return $modtables;
-		}else{
-			// TABLES (loading mysql.sql)
-			$sql_file_path = XOOPS_TRUST_PATH . '/modules/' . $dirname.'/sql/mysql.sql' ;
-			$prefix_mod = $dirname ;
-			if( file_exists( $sql_file_path ) ) {
-				$sql_lines = file( $sql_file_path ) ;
-				foreach( $sql_lines as $sql_line ) {
-					if( preg_match( '/^CREATE TABLE \`?([a-zA-Z0-9_-]+)\`? /i' , $sql_line , $regs ) ) {
-						$modtables[] = $prefix_mod.'_'.$regs[1] ;
-					}
-				}
-				return $modtables;
-			}
 		}
-		
-		//die( "No Table" );
+
+        // TABLES (loading mysql.sql)
+        $sql_file_path = XOOPS_TRUST_PATH . '/modules/' . $dirname . '/sql/mysql.sql' ;
+        $prefix_mod    = $dirname ;
+        if( file_exists($sql_file_path ) ) {
+            $sql_lines = file( $sql_file_path ) ;
+            foreach( $sql_lines as $sql_line ) {
+                if( preg_match( '/^CREATE TABLE \`?([a-zA-Z0-9_-]+)\`? /i' , $sql_line , $regs ) ) {
+                    $modtables[] = $prefix_mod.'_'.$regs[1] ;
+                }
+            }
+            return $modtables;
+        }
+
+        //die( "No Table" );
 		redirect_header('./index.php', 1, _AM_NO_TABLE);
 	}
 	public function make_module_selection($select_dirname='',$addblank=0)
