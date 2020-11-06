@@ -352,22 +352,22 @@ function get_real_size($size=0) {
 /**
 * Displays the maximum size for an upload
 *
-* @param   integer  the size
+* @param int  the size
 *
 * @return  string   the message
 *
 * @access  public
 */
 function PMA_displayMaximumUploadSize($max_upload_size) {
-    list($max_size, $max_unit) = PMA_formatByteDown($max_upload_size);
+    [$max_size, $max_unit] = PMA_formatByteDown($max_upload_size);
     return '(' . sprintf(_AM_SELECTAFILE_DESC, $max_size, $max_unit) . ')';
 }
 /**
  * Formats $value to byte view
  *
  * @param    double   the value to format
- * @param    integer  the sensitiveness
- * @param    integer  the number of decimals to retain
+ * @param    int  the sensitiveness
+ * @param    int  the number of decimals to retain
  *
  * @return   array    the formatted value and its unit
  *
