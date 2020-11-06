@@ -66,7 +66,7 @@ class backpack {
 	public function PMA_backquote($a_name, $do_it = TRUE){
 	    if ($do_it
 	        && PMA_MYSQL_INT_VERSION >= 32306
-	        && !empty($a_name) && $a_name != '*') {
+	        && !empty($a_name) && '*' != $a_name) {
 	        return '`' . $a_name . '`';
 	    } else {
 	        return $a_name;
@@ -92,9 +92,9 @@ class backpack {
 			}
 			$field_name = $field_info[0];
 			$field_type = $field_info[1];
-			$field_not_null = ($field_info[2] == 'YES') ? '' : ' NOT NULL';
-			$field_default = ($field_info[4] == NULL) ? '' : sprintf(' default \'%s\'', $field_info[4]);;
-			$field_auto_increment = ($field_info[5] == NULL) ? '' : sprintf(' %s', $field_info[5]);
+			$field_not_null = ('YES' == $field_info[2]) ? '' : ' NOT NULL';
+			$field_default = (NULL == $field_info[4]) ? '' : sprintf(' default \'%s\'', $field_info[4]);;
+			$field_auto_increment = (NULL == $field_info[5]) ? '' : sprintf(' %s', $field_info[5]);
 			$field_string .= $field_string ? ',' : $field_header ;
 			$field_string .= $crlf.sprintf('  `%s` %s%s%s%s',  $field_name, $field_type, $field_not_null, $field_auto_increment, $field_default);
 		}
@@ -106,10 +106,10 @@ class backpack {
 	        $ktype  = (isset($row['Index_type'])) ? $row['Index_type'] : '';
 	        if (!$ktype && (isset($row['Comment']))) $ktype = $row['Comment']; // For Under MySQL v4.0.2
 	        $sub_part = (isset($row['Sub_part'])) ? $row['Sub_part'] : '';
-	         if ($kname != 'PRIMARY' && $row['Non_unique'] == 0) {
+	         if ('PRIMARY' != $kname && 0 == $row['Non_unique']) {
 	            $kname = 'UNIQUE KEY `'.$kname.'`';
 	        }
-	        if ($ktype == 'FULLTEXT') {
+	        if ('FULLTEXT' == $ktype) {
 	            $kname = 'FULLTEXT KEY `'.$kname.'`';
 	        }
 	        if (!isset($index[$kname])) {
@@ -126,11 +126,11 @@ class backpack {
 		// @TODO : eachà supprimer
 	    while (list($x, $columns) = @each($index)) {
 	        $index_string     .= ',' . $crlf;
-	        if ($x == 'PRIMARY') {
+	        if ('PRIMARY' == $x) {
 	            $index_string .= '   PRIMARY KEY (';
-	        } else if (substr($x, 0, 6) == 'UNIQUE') {
+	        } else if ('UNIQUE' == substr($x, 0, 6)) {
 	            $index_string .= '   UNIQUE ' . substr($x, 7) . ' (';
-	        } else if (substr($x, 0, 8) == 'FULLTEXT') {
+	        } else if ('FULLTEXT' == substr($x, 0, 8)) {
 	            $index_string .= '   FULLTEXT ' . substr($x, 9) . ' (';
 	        } else {
 	            $index_string .= '   KEY `' . $x . '` (';
@@ -177,7 +177,7 @@ class backpack {
 			$data_string = '';
 			// Loop through the records and append data to the string after escaping
 			for ($i = 0; $i < mysqli_num_fields($this->query_res); $i++) {
-				if ($data_string != '') $data_string .= ',';
+				if ('' != $data_string) $data_string .= ',';
 				if (!isset($row[$i]) || is_null($row[$i]))
 					$data_string .= 'NULL';
 				else
@@ -187,7 +187,7 @@ class backpack {
 			}
 			//die($data_string);
 			// URL change
-			if ( strcmp( $xoopsModuleConfig['xoopsurlto'], XOOPS_URL)<>0 )
+			if (0 <> strcmp($xoopsModuleConfig['xoopsurlto'], XOOPS_URL))
 				$data_string = preg_replace( '/' . preg_quote(XOOPS_URL, '/') . '/' , $xoopsModuleConfig['xoopsurlto'] , $data_string);
 			// Encoding change
 			/*
@@ -207,19 +207,19 @@ class backpack {
 	}
 	public function make_download($filename,$cfgZipType){
 	
-		if (($cfgZipType == 'bzip') && function_exists('bzcompress')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
+		if (('bzip' == $cfgZipType) && function_exists('bzcompress')) {	// (PMA_PHP_INT_VERSION >= 40004 &&
 			$filename .= $this->download_count>0 ? '-' . $this->download_count . '.sql' : '.sql';
 		    $ext       = 'bz2';
 		    $this->mime_type = 'application/x-bzip';
 	        $op_buffer = bzcompress($this->dump_buffer);
-		} elseif (($cfgZipType == 'gzip') && function_exists('gzencode')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
+		} elseif (('gzip' == $cfgZipType) && function_exists('gzencode')) {	// (PMA_PHP_INT_VERSION >= 40004 &&
 			$filename .= $this->download_count>0 ? '-' . $this->download_count . '.sql' : '.sql';
 		    $ext       = 'gz';
 		    $content_encoding = 'x-gzip';
 		    $this->mime_type = 'application/x-gzip';
 	        // without the optional parameter level because it bug
 		    $op_buffer = gzencode($this->dump_buffer,9);
-		} elseif (($cfgZipType == 'zip') && function_exists('gzcompress')) {	// (PMA_PHP_INT_VERSION >= 40000 && 
+		} elseif (('zip' == $cfgZipType) && function_exists('gzcompress')) {	// (PMA_PHP_INT_VERSION >= 40000 &&
 			$filename .= $this->download_count>0 ? '-' . $this->download_count : '';
 		    $ext       = 'zip';
 		    $this->mime_type = 'application/x-zip';
@@ -337,7 +337,7 @@ class backpack {
 				// print (ereg('--',$cbuff)?"true<br>":"false<br>");
 				//if (!ereg('^--',$cbuff)) $buffer .= $cbuff;
 				if (!preg_match('/^--/',$cbuff)) $buffer .= $cbuff;
-				if (preg_match('/;/',$cbuff)!=false) break;
+				if (false != preg_match('/;/', $cbuff)) break;
 			}
 			if (preg_match('/^CREATE TABLE|^INSERT INTO|^DELETE/i', $buffer)){
 				if (!$prefix){
@@ -399,7 +399,7 @@ class backpack {
 		$module = $module_handler->getByDirname($dirname);
 		// Get tables used by this module
 		$modtables = $module->getInfo('tables');
-		if ($modtables != false && is_array($modtables)) {
+		if (false != $modtables && is_array($modtables)) {
 			return $modtables;
 		}else{
 			// TABLES (loading mysql.sql)
@@ -429,7 +429,7 @@ class backpack {
 		$mod_selections  = '<select name="dirname">';
 		$mod_selections .= $addblank ? '<option value=""></option>' : '' ;
 		while(list($name, $dirname) = $xoopsDB->fetchRow( $result ) ) {
-			if (strcmp($dirname,$select_dirname)==0) $opt = 'selected';
+			if (0 == strcmp($dirname, $select_dirname)) $opt = 'selected';
 			else $opt = '';
 			$mod_selections .= '<option value="'.$dirname.'" '.$opt.'>'.$name.'</option>';
 		}

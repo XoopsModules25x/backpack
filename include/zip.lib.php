@@ -22,7 +22,7 @@ class zipfile
 
     protected function unix2DosTime($unixtime = 0)
     {
-        $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
+        $timearray = (0 == $unixtime) ? getdate() : getdate($unixtime);
 
         if ($timearray['year'] < 1980) {
             $timearray['year']    = 1980;

@@ -14,7 +14,7 @@ define ('DEBUG', 0);
 function PMA_backquote($a_name, $do_it = TRUE){
     if ($do_it
         && PMA_MYSQL_INT_VERSION >= 32306
-        && !empty($a_name) && $a_name != '*') {
+        && !empty($a_name) && '*' != $a_name) {
         return '`' . $a_name . '`';
     } else {
         return $a_name;
@@ -40,9 +40,9 @@ function create_table_sql_string($tablename){
 		}
 		$field_name = $field_info[0];
 		$field_type = $field_info[1];
-		$field_not_null = ($field_info[2] == 'YES') ? '' : ' NOT NULL';
-		$field_default = ($field_info[4] == NULL) ? '' : sprintf(" default '%s'", $field_info[4]);;
-		$field_auto_increment = ($field_info[5] == NULL) ? '' : sprintf(' %s', $field_info[5]);
+		$field_not_null = ('YES' == $field_info[2]) ? '' : ' NOT NULL';
+		$field_default = (NULL == $field_info[4]) ? '' : sprintf(" default '%s'", $field_info[4]);;
+		$field_auto_increment = (NULL == $field_info[5]) ? '' : sprintf(' %s', $field_info[5]);
 		$field_string .= $field_string ? ',' : $field_header ;
 		$field_string .= $crlf.sprintf('  `%s` %s%s%s%s', $field_name, $field_type, $field_not_null, $field_auto_increment, $field_default);
 	}
@@ -54,10 +54,10 @@ function create_table_sql_string($tablename){
         $ktype  = (isset($row['Index_type'])) ? $row['Index_type'] : '';
         if (!$ktype && (isset($row['Comment']))) $ktype = $row['Comment']; // For Under MySQL v4.0.2
         $sub_part = (isset($row['Sub_part'])) ? $row['Sub_part'] : '';
-         if ($kname != 'PRIMARY' && $row['Non_unique'] == 0) {
+         if ('PRIMARY' != $kname && 0 == $row['Non_unique']) {
             $kname = 'UNIQUE KEY `'.$kname.'`';
         }
-        if ($ktype == 'FULLTEXT') {
+        if ('FULLTEXT' == $ktype) {
             $kname = 'FULLTEXT KEY `'.$kname.'`';
         }
         if (!isset($index[$kname])) {
@@ -73,11 +73,11 @@ function create_table_sql_string($tablename){
     $index_string = '';
     while (list($x, $columns) = @each($index)) {
         $index_string     .= ',' . $crlf;
-        if ($x == 'PRIMARY') {
+        if ('PRIMARY' == $x) {
             $index_string .= '   PRIMARY KEY (';
-        } else if (substr($x, 0, 6) == 'UNIQUE') {
+        } else if ('UNIQUE' == substr($x, 0, 6)) {
             $index_string .= '   UNIQUE ' . substr($x, 7) . ' (';
-        } else if (substr($x, 0, 8) == 'FULLTEXT') {
+        } else if ('FULLTEXT' == substr($x, 0, 8)) {
             $index_string .= '   FULLTEXT ' . substr($x, 9) . ' (';
         } else {
             $index_string .= '   KEY `' . $x . '` (';
@@ -142,19 +142,19 @@ function create_data_sql_string($tablename,$filename,$cfgZipType){
 function make_download($filename,$cfgZipType){
 	global $backup_dir,$dump_line,$dump_buffer,$download_count,$download_fname,$mime_type;
 
-	if (($cfgZipType == 'bzip') && function_exists('bzcompress')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
+	if (('bzip' == $cfgZipType) && function_exists('bzcompress')) {	// (PMA_PHP_INT_VERSION >= 40004 &&
 		$filename .= $download_count>0 ? '-' . $download_count . '.sql' : '.sql';
 	    $ext       = 'bz2';
 	    $mime_type = 'application/x-bzip';
         $op_buffer = bzcompress($dump_buffer);
-	} else if (($cfgZipType == 'gzip') && function_exists('gzencode')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
+	} else if (('gzip' == $cfgZipType) && function_exists('gzencode')) {	// (PMA_PHP_INT_VERSION >= 40004 &&
 		$filename .= $download_count>0 ? '-' . $download_count . '.sql' : '.sql';
 	    $ext       = 'gz';
 	    $content_encoding = 'x-gzip';
 	    $mime_type = 'application/x-gzip';
         // without the optional parameter level because it bug
 	    $op_buffer = gzencode($dump_buffer,9);
-	} else if (($cfgZipType == 'zip') && function_exists('gzcompress')) {	// (PMA_PHP_INT_VERSION >= 40000 && 
+	} else if (('zip' == $cfgZipType) && function_exists('gzcompress')) {	// (PMA_PHP_INT_VERSION >= 40000 &&
 		$filename .= $download_count>0 ? '-' . $download_count : '';
 	    $ext       = 'zip';
 	    $mime_type = 'application/x-zip';
@@ -248,7 +248,7 @@ function restore_data($filename, $restore_structure, $restore_data, $db_selected
 			$temp = ["\r\n", "\n", "\r", "\t"];
 			$cbuff = str_replace($temp, '', fgets($handle));
 			if (!preg_match('`^--`',$cbuff)) $buffer .= $cbuff;
-			if (preg_match('`;`',$cbuff)!=false) break;
+			if (false != preg_match('`;`', $cbuff)) break;
 		}
 		if (preg_match('/^CREATE TABLE|^INSERT INTO|^DELETE/i', $buffer)){
 			if (!$prefix){
@@ -299,7 +299,7 @@ function get_module_tables($dirname)
     $module = $module_handler->getByDirname($dirname);
     // Get tables used by this module
     $modtables = $module->getInfo('tables');
-    if ($modtables != false && is_array($modtables)) {
+    if (false != $modtables && is_array($modtables)) {
         return $modtables;
     }
 }
@@ -313,7 +313,7 @@ function make_module_selection($select_dirname='',$addblank=0)
 	$mod_selections  = "<select name=\"dirname\">\n";
 	$mod_selections .= $addblank ? "<option value=''></option>\n" : '';
 	while(list($name, $dirname) = $xoopsDB->fetchRow( $result ) ) {
-		if (strcmp($dirname,$select_dirname)==0) $opt = 'selected';
+		if (0 == strcmp($dirname, $select_dirname)) $opt = 'selected';
 		else $opt= '';
 		$mod_selections .= "<option value=\"${dirname}\" ${opt}>${name}</option>\n";
 	}

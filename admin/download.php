@@ -49,9 +49,9 @@ ignore_user_abort();
 $fnamedotpos = strrpos($dl_filename,'.');
 $fext = substr($dl_filename,$fnamedotpos+1);
 $ctype = isset($ext2mime[$fext]) ? $ext2mime[$fext] : 'application/octet-stream-dummy';
-if ($fext == 'gz') $content_encoding = 'x-gzip';
+if ('gz' == $fext) $content_encoding = 'x-gzip';
 //echo $fext.$ctype; exit();
-if ($browser == 'IE' && (ini_get('zlib.output_compression')) ) {
+if ('IE' == $browser && (ini_get('zlib.output_compression')) ) {
     ini_set('zlib.output_compression', 'Off');
 }
 //if (!empty($content_encoding)) {
@@ -69,7 +69,7 @@ header('Content-Disposition: attachment; filename="' . $dl_filename . '"');
 //header("Content-Disposition: inline; filename=" . $dl_filename);
 header('x-extension: ' . $ctype );
 
-if ($browser == 'IE') {
+if ('IE' == $browser) {
     header('Pragma: public');
 	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 } else {

@@ -31,7 +31,7 @@ function format_time($seconds){
     $format = sprintf('%02d', $hour) . ':' . sprintf('%02d', $min) . ':' . sprintf('%02d', $sec);
     return $format;
 }
-if ($ok != 1) {
+if (1 != $ok) {
 	$op = '';
 }
 switch ($op) {
@@ -41,11 +41,11 @@ switch ($op) {
 		while($row = $xoopsDB->fetchRow($r)) {
 			$table[] = $row[0];
 		}
-		if (count($table) == 0) {
+		if (0 == count($table)) {
 			$ok = 0;
 			$message = _AM_PASOK_PASTABLE;
 			break;
-		} elseif (count($table) == 1) {
+		} elseif (1 == count($table)) {
 			$xoopsDB->queryF('LOCK TABLES `'.$table[0].'` WRITE');
 		} elseif (count($table) > 1) {
 			$xoopsDB->queryF('LOCK TABLES `'.implode('` WRITE, `',$table).'` WRITE');
@@ -75,7 +75,7 @@ switch ($op) {
 		$ok = 1;
 		xoops_confirm(['op' => 'conf_opt', 'ok' => 1], XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/optimizer.php', _AM_OPT_WARNING . '<br />' . _AM_PRECISION . '<br />' . _AM_VERIF_SUR . '<br /><a href="index.php">' . _AM_RETURNTOSTART . '</a>');
 }
-if ($ok != 1) {
+if (1 != $ok) {
 	echo $message;
 	echo '<p style="text-align: center;"><a href="index.php">'._AM_RETURNTOSTART.'</a></p>';
 }

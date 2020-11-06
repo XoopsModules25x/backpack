@@ -75,7 +75,7 @@ switch ($mode) {
 		$select_dirname = isset($_GET['dirname']) ? filter_input(INPUT_GET,'dirname',FILTER_SANITIZE_STRING) : 0;
 		$mod_selections = $bp->make_module_selection($select_dirname,1);
 		// Get list of tables in the database and output form
-		if ($action == 'module' && $dirname){
+		if ('module' == $action && $dirname){
 			$result = get_module_tables($dirname);
 			$num_tables = sizeof($result);
 			$checkall = true;
@@ -90,7 +90,7 @@ switch ($mode) {
 		echo '<p><strong>'._AM_SELECTTABLE.'</strong></p>';
 	    $checked   = (!empty($checkall) ? ' checked="checked"' : '');
 		for ($i = 0; $i < $num_tables; $i++) {
-			if ($action == 'module' && $dirname){
+			if ('module' == $action && $dirname){
 				$tablename = $xoopsDB->prefix($result[$i]);
 			} else {
 				$tablename = mysqli_tablename($result, $i);
@@ -100,7 +100,7 @@ switch ($mode) {
 				$i, $i, $tablename, $tablename);
 			echo '<tr><td class="main_left" colspan="2">'.$checkbox_string.'</td></tr>';
 		}
-		if ($action == 'module' && $dirname){
+		if ('module' == $action && $dirname){
 			echo '<input type="hidden" name="dirname" value="'.$dirname.'>';
 		}
 		echo '<tr><td colspan="2">';
@@ -121,13 +121,13 @@ switch ($mode) {
 		}
 		$sql_string = '';
 		$alltables = $backup_structure = $backup_data =0;
-		if (isset($_GET['alltables'])) $alltables = (filter_input(INPUT_GET,'alltables',FILTER_SANITIZE_STRING) == 'on') ? 1 : 0;
-		if (isset($_POST['alltables'])) $alltables = (filter_input(INPUT_POST,'alltables',FILTER_SANITIZE_STRING) == 'on') ? 1 : 0;
-		if (isset($_POST['structure'])) $backup_structure = (filter_input(INPUT_POST,'structure',FILTER_SANITIZE_STRING) == 'on') ? 1 : 0;
-		if (isset($_POST['data'])) $backup_data = (filter_input(INPUT_POST,'data',FILTER_SANITIZE_STRING) == 'on') ? 1 : 0;
+		if (isset($_GET['alltables'])) $alltables = ('on' == filter_input(INPUT_GET, 'alltables', FILTER_SANITIZE_STRING)) ? 1 : 0;
+		if (isset($_POST['alltables'])) $alltables = ('on' == filter_input(INPUT_POST, 'alltables', FILTER_SANITIZE_STRING)) ? 1 : 0;
+		if (isset($_POST['structure'])) $backup_structure = ('on' == filter_input(INPUT_POST, 'structure', FILTER_SANITIZE_STRING)) ? 1 : 0;
+		if (isset($_POST['data'])) $backup_data = ('on' == filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING)) ? 1 : 0;
 		$dirname = isset($_POST['dirname']) ? filter_input(INPUT_POST,'dirname',FILTER_SANITIZE_STRING) : 0;
 		if ($dirname){
-			if (strcmp($dirname,'system') == 0)
+			if (0 == strcmp($dirname, 'system'))
 				$result = $sys_tables;
 			else
 				$result = $bp->get_module_tables($dirname);
@@ -168,7 +168,7 @@ switch ($mode) {
 		$cfgZipType = filter_input(INPUT_POST,'file_compression',FILTER_SANITIZE_STRING); //$_POST['file_compression'] ;
 		$bp->backup_data($tablename_array, $backup_structure, $backup_data, $filename, $cfgZipType);
 		$download_fname = $bp->download_fname();
-		if ( $bp->download_count == 1 ){
+		if (1 == $bp->download_count){
 			//redirect_header("./download.php?url=".$download_fname[0]['filename'], 1, _AM_READY_TO_DOWNLOAD);
 		    $url= './download.php?url=' . $download_fname[0]['filename'];
 		    $time=1;
@@ -213,11 +213,11 @@ switch ($mode) {
 	
 	case DB_SELECT_FORM: {
 		echo '<table cellspacing="0" cellpadding="3">';
-		if ($action == 'backup') {
+		if ('backup' == $action) {
 			echo '<tr><td class="title">'._AM_TITLE_BCK.'</td></tr>';
 			echo '<tr><td class="main_left"><p><b>'._AM_SELECT_DATABASE.'</b>';
 		}
-		if ($action == 'backup') echo '<form method="post" action="index2.php?mode='.POST_DB_SELECT_FORM.'">';
+		if ('backup' == $action) echo '<form method="post" action="index2.php?mode=' . POST_DB_SELECT_FORM . '">';
 		echo '<input type="submit" value="Restore">';
 		echo '</form></p></td></tr></table>';
 		break;

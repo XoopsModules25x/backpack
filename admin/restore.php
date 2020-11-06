@@ -69,7 +69,7 @@ switch ($mode) {
 			fwrite($fp, $sql_str);
 			fclose($fp);
 		}
-		if ( strcmp(_CHARSET,'EUC-JP')==0 ){
+		if (0 == strcmp(_CHARSET, 'EUC-JP')){
 		    //$result = mysql_query( "SET NAMES 'ujis'" );
 			$result = $xoopsDB->queryF('SET NAMES \'ujis\'');
 		}
@@ -79,11 +79,11 @@ switch ($mode) {
 	}
 	case DB_SELECT_FORM: {
 		echo '<table cellspacing="0" cellpadding="3">';
-		if ($action == 'backup') {
+		if ('backup' == $action) {
 			echo '<tr><td class="title">'._AM_TITLE_BCK.'</td></tr>';
 			echo '<tr><td class="main_left"><p><b>'._AM_SELECT_DATABASE.'</b>';
 		}
-		if ($action == 'restore') {
+		if ('restore' == $action) {
 			$upload       = $_FILES['filename'];
 			$upload_tmp   = $_FILES['filename']['tmp_name'];	// Temp File name
 			$upload_name  = $_FILES['filename']['name'];		// Local File Name
@@ -123,9 +123,9 @@ switch ($mode) {
 			echo '<tr><td class="main_left"><p><b>restore from '.$upload_name.'</b>';
 			echo '<tr><td class="main_left"><p><b>replace URL from http://'.$replace_url.'</b>';
 			//$restore_structure = ($_POST['structure'] == "on") ? 1 : 0;
-			$restore_structure = (filter_input(INPUT_POST,'structure',FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) == 'on') ? 1 : 0;
+			$restore_structure = ('on' == filter_input(INPUT_POST, 'structure', FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE)) ? 1 : 0;
 			//$restore_data = ($_POST['data'] == "on") ? 1 : 0;
-			$restore_data = (filter_input(INPUT_POST,'data',FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) == 'on') ? 1 : 0;
+			$restore_data = ('on' == filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE)) ? 1 : 0;
 			echo '<form method="post" action="restore.php?mode='.RESTORE_DATA.'&filename=$upload_name&restore_structure=$restore_structure&restore_data=$restore_data\">\n';
 			sprintf('<form method="post" action="restore.php?mode=%s&filename=%s&restore_structure=%s&restore_data=%s">',RESTORE_DATA,$upload_name,$restore_structure,$restore_data);
 		}

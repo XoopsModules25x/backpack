@@ -27,7 +27,7 @@ if (!defined('PMA_PHP_INT_VERSION')) {
 }
 // Whether the os php is running on is windows or not
 if (!defined('PMA_IS_WINDOWS')) {
-    if (defined('PHP_OS') && stripos(PHP_OS,'win') !== false) {
+    if (defined('PHP_OS') && false !== stripos(PHP_OS, 'win')) {
         define('PMA_IS_WINDOWS', 1);
     } else {
         define('PMA_IS_WINDOWS', 0);
@@ -37,12 +37,12 @@ if (!defined('PMA_IS_WINDOWS')) {
 if (!defined('PMA_MYSQL_INT_VERSION')) {
     if (!empty($server)) {
         $result = mysql_query('SELECT VERSION() AS version');
-        if ($result != FALSE && @mysql_num_rows($result) > 0) {
+        if (FALSE != $result && @mysql_num_rows($result) > 0) {
             $row   = mysql_fetch_array($result);
             $match = explode('.', $row['version']);
         } else {
             $result = @mysql_query('SHOW VARIABLES LIKE \'version\'');
-            if ($result != FALSE && @mysql_num_rows($result) > 0){
+            if (FALSE != $result && @mysql_num_rows($result) > 0){
                 $row   = mysql_fetch_row($result);
                 $match = explode('.', $row[1]);
             }
