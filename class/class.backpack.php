@@ -61,11 +61,11 @@ class backpack
     }
     public function xoopsModuleConfig($dirname)
     {
-        $module_handler = xoops_getHandler('module');
-        $this_module = $module_handler->getByDirname($dirname);
+        $moduleHandler = xoops_getHandler('module');
+        $this_module = $moduleHandler->getByDirname($dirname);
         $mid = $this_module->getVar('mid');
-        $config_handler = xoops_getHandler('config');
-        $this->xoopsModuleConfig = $config_handler->getConfigsByCat(0, $mid);
+        $configHandler = xoops_getHandler('config');
+        $this->xoopsModuleConfig = $configHandler->getConfigsByCat(0, $mid);
     }
     public function PMA_backquote($a_name, $do_it = true)
     {
@@ -92,7 +92,7 @@ class backpack
         if ($this->debug) {
             echo $tablename." .field_info\n\n";
         }
-        while ($field_info = mysqli_fetch_array($result)) {
+        while (false !== ($field_info = mysqli_fetch_array($result))) {
             if ($this->debug) {
                 for ($i = 0, $iMax = count($field_info); $i < $iMax; $i++) {
                     echo $i.': '.$field_info[$i]."\n";
@@ -101,9 +101,9 @@ class backpack
             $field_name = $field_info[0];
             $field_type = $field_info[1];
             $field_not_null = ('YES' == $field_info[2]) ? '' : ' NOT NULL';
-            $field_default = (null == $field_info[4]) ? '' : sprintf(' default \'%s\'', $field_info[4]);
+            $field_default = (null === $field_info[4]) ? '' : sprintf(' default \'%s\'', $field_info[4]);
             ;
-            $field_auto_increment = (null == $field_info[5]) ? '' : sprintf(' %s', $field_info[5]);
+            $field_auto_increment = (null === $field_info[5]) ? '' : sprintf(' %s', $field_info[5]);
             $field_string .= $field_string ? ',' : $field_header ;
             $field_string .= $crlf.sprintf('  `%s` %s%s%s%s', $field_name, $field_type, $field_not_null, $field_auto_increment, $field_default);
         }
@@ -112,7 +112,7 @@ class backpack
         if ($this->debug) {
             echo "\nindex_info\n\n";
         }
-        while ($row = mysqli_fetch_array($result)) {
+        while (false !== ($row = mysqli_fetch_array($result))) {
             $kname    = $row['Key_name'];
             $ktype  = $row['Index_type'] ?? '';
             if (!$ktype && (isset($row['Comment']))) {
@@ -158,7 +158,7 @@ class backpack
         if ($this->debug) {
             echo "\nstatus_info\n\n";
         }
-        while ($status_info = mysqli_fetch_array($result)) {
+        while (false !== ($status_info = mysqli_fetch_array($result))) {
             for ($i = 0, $iMax = count($status_info); $i < $iMax; $i++) {
                 if ($this->debug) {
                     echo "$i: $status_info[$i]\n";
@@ -192,7 +192,7 @@ class backpack
         // Get table data from MySQL and output to a string in the correct MySQL syntax
         $this->dump_buffer .= "-- \r\n-- ".$tablename." dump.\r\n-- \r\n";
         $this->dump_line+=3;
-        while ($row = $xoopsDB->fetchRow($this->query_res)) {
+        while (false !== ($row = $xoopsDB->fetchRow($this->query_res))) {
             // Initialise the data string
             $data_string = '';
             // Loop through the records and append data to the string after escaping
@@ -203,7 +203,7 @@ class backpack
                 if (!isset($row[$i]) || is_null($row[$i])) {
                     $data_string .= 'NULL';
                 } else {
-                    //$data_string .= '"'.mysqli_real_escape_string($row[$i]).'"';
+                    //$data_string .= '"'.$GLOBALS['xoopsDB']->escape($row[$i]).'"';
                     $data_string .= '"'.$xoopsDB->escape($row[$i]).'"';
                 }
                 //$data_string = str_replace("`","\'",$data_string);
@@ -260,7 +260,7 @@ class backpack
         }
         $fpathname = $this->backup_dir.$filename.'.'.$ext;
         if ($this->debug) {
-            echo $fpathname . '<br />';
+            echo $fpathname . '<br>';
         }
         $fp = fopen($fpathname, 'w');
         fwrite($fp, $op_buffer);
@@ -310,7 +310,7 @@ class backpack
         if (!$max_dumpsize) {
             $max_dumpsize = MAX_DUMPSIZE;
         }
-        //echo $this->dump_line . " - " .strlen( bin2hex( $this->dump_buffer)) / 2  . "byte<br />";
+        //echo $this->dump_line . " - " .strlen( bin2hex( $this->dump_buffer)) / 2  . "byte<br>";
         if ($this->dump_line >= MAX_DUMPLINE || $this->dump_size >= $max_dumpsize) {
             $this->make_download($filename, $cfgZipType);
             //unset($GLOBALS['dump_buffer']);
@@ -381,7 +381,7 @@ class backpack
                 if (!preg_match('/^--/', $cbuff)) {
                     $buffer .= $cbuff;
                 }
-                if (false != preg_match('/;/', $cbuff)) {
+                if (false !== preg_match('/;/', $cbuff)) {
                     break;
                 }
             }
@@ -408,22 +408,22 @@ class backpack
                         $tablename = explode(' ', $buffer);
                         $tablename = preg_replace('/`/', '', $tablename[2]);
                         $result = mysqli_list_tables($db_selected);
-                        for ($i = 0; $i < mysqli_num_rows($result); $i++) {
+                        for ($i = 0; $i < $GLOBALS['xoopsDB']->getRowsNum($result); $i++) {
                             if (mysqli_tablename($result, $i) == $tablename) {
                                 //$rand = substr(md5(time()), 0, 8);
                                 //$random_tablename = sprintf("%s_bak_%s", $tablename, $rand);
                                 //mysqli_query("DROP TABLE IF EXISTS $tablename");
                                 $xoopsDB->queryF('DROP TABLE IF EXISTS '.$tablename);
                                 //mysqli_query("RENAME TABLE $tablename TO $random_tablename");
-                                //echo "Backed up $tablename to $random_tablename.<br />\n";
+                                //echo "Backed up $tablename to $random_tablename.<br>\n";
                             }
                         }
                         //$result = mysqli_query($buffer);
                         $xoopsDB->queryF($buffer);
                         if (!$result) {
-                            echo mysqli_error()."<br />\n";
+                            echo $GLOBALS['xoopsDB']->error()."<br>\n";
                         } else {
-                            echo "Table '$tablename' successfully recreated.<br />\n";
+                            echo "Table '$tablename' successfully recreated.<br>\n";
                         }
                     }
                 } else {
@@ -432,7 +432,7 @@ class backpack
                         //$result = mysqli_query($buffer);
                         $xoopsDB->queryF($buffer);
                         if (!$result) {
-                            echo mysqli_error()."<br />\n";
+                            echo $GLOBALS['xoopsDB']->error()."<br>\n";
                         }
                     }
                 }
@@ -446,11 +446,11 @@ class backpack
         if (!$dirname) {
             return;
         }
-        $module_handler = xoops_getHandler('module');
-        $module = $module_handler->getByDirname($dirname);
+        $moduleHandler = xoops_getHandler('module');
+        $module = $moduleHandler->getByDirname($dirname);
         // Get tables used by this module
         $modtables = $module->getInfo('tables');
-        if (false != $modtables && is_array($modtables)) {
+        if (false !== $modtables && is_array($modtables)) {
             return $modtables;
         }
 

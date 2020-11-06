@@ -50,7 +50,7 @@ define('_AM_REPLACEURL', 'Remplacer le lien (sans http://)');
 define('_AM_REPLACEURL_DESC', "Renseigner le lien. Remplacer par '.XOOPS_URL.'");
 // After V1.01
 define('_AM_VERIF_SUR', '&Ecirc;tes-vous s&ucirc;r de vouloir continuer ?');
-define('_AM_PRECISION', 'Suivant la taille de votre base de donn&eacute;es, <br />un d&eacute;lai plus ou moins long sera n&eacute;cessaire');
+define('_AM_PRECISION', 'Suivant la taille de votre base de donn&eacute;es, <br>un d&eacute;lai plus ou moins long sera n&eacute;cessaire');
 define('_AM_PASOK_PASTABLE', 'Aucune table pr&eacute;sente dans la BDD');
 define('_AM_PROCESS_EFFECTUE', 'Processus effectu&eacute; :');
 define('_AM_LOCK_BDD', 'Verrouillage des tables de la BDD');

@@ -9,7 +9,7 @@
 *******************************************************
 */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 // phpMyAdmin release
 if (!defined('PMA_VERSION')) {
@@ -36,14 +36,14 @@ if (!defined('PMA_IS_WINDOWS')) {
 // MySQL Version
 if (!defined('PMA_MYSQL_INT_VERSION')) {
     if (!empty($server)) {
-        $result = mysql_query('SELECT VERSION() AS version');
-        if (false != $result && @mysql_num_rows($result) > 0) {
-            $row   = mysql_fetch_array($result);
+        $result = $GLOBALS['xoopsDB']->queryF('SELECT VERSION() AS version');
+        if (false !== $result && @$GLOBALS['xoopsDB']->getRowsNum($result) > 0) {
+            $row   = $GLOBALS['xoopsDB']->fetchBoth($result);
             $match = explode('.', $row['version']);
         } else {
-            $result = @mysql_query('SHOW VARIABLES LIKE \'version\'');
-            if (false != $result && @mysql_num_rows($result) > 0) {
-                $row   = mysql_fetch_row($result);
+            $result = @$GLOBALS['xoopsDB']->queryF('SHOW VARIABLES LIKE \'version\'');
+            if (false !== $result && @$GLOBALS['xoopsDB']->getRowsNum($result) > 0) {
+                $row   = $GLOBALS['xoopsDB']->fetchRow($result);
                 $match = explode('.', $row[1]);
             }
         }

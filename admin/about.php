@@ -8,12 +8,12 @@
 ***													***
 *******************************************************
 */
-include_once 'admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$aboutAdmin = new ModuleAdmin();
+$aboutAdmin = \Xmf\Module\Admin::getInstance();
 
-echo $aboutAdmin->addNavigation('about.php');
-echo $aboutAdmin->renderAbout('2MHAG2L3NZG8G', false);
+$aboutAdmin->displayNavigation('about.php');
+$aboutAdmin->renderAbout('2MHAG2L3NZG8G', false);
 
-include 'admin_footer.php';
+require __DIR__ . '/admin_footer.php';

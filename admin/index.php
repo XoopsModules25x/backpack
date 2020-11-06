@@ -8,9 +8,9 @@
 ***													***
 *******************************************************
 */
-include_once 'admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation('index.php');
-echo $indexAdmin->renderIndex();
-include 'admin_footer.php';
+$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation('index.php');
+$adminObject->displayIndex();
+require __DIR__ . '/admin_footer.php';

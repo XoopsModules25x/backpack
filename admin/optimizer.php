@@ -18,10 +18,10 @@ $table = [];
 $op = (isset($_POST['op'])) ? filter_input(INPUT_POST, 'op', FILTER_SANITIZE_STRING, ['flags' => FILTER_NULL_ON_FAILURE]) : false;
 $ok = (isset($_POST['ok'])) ? filter_input(INPUT_POST, 'ok', FILTER_SANITIZE_STRING, ['flags' => FILTER_NULL_ON_FAILURE]) : false;
 
-include_once 'admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation('optimizer.php');
+$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation('optimizer.php');
 
 function format_time($seconds)
 {
@@ -37,9 +37,9 @@ if (1 != $ok) {
 }
 switch ($op) {
     case 'conf_opt':
-        echo _AM_PROCESS_EFFECTUE.'<br />';
+        echo _AM_PROCESS_EFFECTUE.'<br>';
         $r = $xoopsDB->queryF('SHOW TABLES');
-        while ($row = $xoopsDB->fetchRow($r)) {
+        while (false !== ($row = $xoopsDB->fetchRow($r))) {
             $table[] = $row[0];
         }
         if (0 == count($table)) {
@@ -57,29 +57,29 @@ switch ($op) {
             $message = _AM_ERROR_UNKNOWN;
             break;
         }
-        echo _AM_LOCK_BDD.'<br />';
+        echo _AM_LOCK_BDD.'<br>';
         $t1 = time();
         foreach ($table	as $val) {
             $b1 = time();
             if ($xoopsDB->query('OPTIMIZE TABLE `'.$val.'`')) {
                 $b2 = time();
                 $table_time = $b2 - $b1;
-                echo _AM_OPTIMIZE . ' ' . $val . ' OK (' . _AM_TEMPS_ECOULE .' : ' . format_time($table_time) . ')<br />';
+                echo _AM_OPTIMIZE . ' ' . $val . ' OK (' . _AM_TEMPS_ECOULE .' : ' . format_time($table_time) . ')<br>';
             }
         }
         $xoopsDB->queryF('UNLOCK TABLES');
-        echo _AM_UNLOCK_BDD.'<br />';
+        echo _AM_UNLOCK_BDD.'<br>';
         $t2 = time();
         $total_time = $t2 - $t1;
-        echo _AM_TEMPS_TOT.' : '.format_time($total_time) .'<br />';
+        echo _AM_TEMPS_TOT.' : '.format_time($total_time) .'<br>';
         echo '<p style="text-align: center;"><a href="index.php">'._AM_RETURNTOSTART.'</a></p>';
         break;
     default:
         $ok = 1;
-        xoops_confirm(['op' => 'conf_opt', 'ok' => 1], XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/optimizer.php', _AM_OPT_WARNING . '<br />' . _AM_PRECISION . '<br />' . _AM_VERIF_SUR . '<br /><a href="index.php">' . _AM_RETURNTOSTART . '</a>');
+        xoops_confirm(['op' => 'conf_opt', 'ok' => 1], XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/optimizer.php', _AM_OPT_WARNING . '<br>' . _AM_PRECISION . '<br>' . _AM_VERIF_SUR . '<br><a href="index.php">' . _AM_RETURNTOSTART . '</a>');
 }
 if (1 != $ok) {
     echo $message;
     echo '<p style="text-align: center;"><a href="index.php">'._AM_RETURNTOSTART.'</a></p>';
 }
-include 'admin_footer.php';
+require __DIR__ . '/admin_footer.php';

@@ -8,14 +8,14 @@
 ***													***
 *******************************************************
 */
-defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
 $path = dirname(__DIR__, 3);
-include_once $path . '/mainfile.php';
+require_once $path . '/mainfile.php';
 
 $dirname         = basename(dirname(__DIR__));
-$module_handler  = xoops_getHandler('module');
-$module          = $module_handler->getByDirname($dirname);
+$moduleHandler  = xoops_getHandler('module');
+$module          = $moduleHandler->getByDirname($dirname);
 $pathIcon32      = $module->getInfo('icons32');
 $pathModuleAdmin = $module->getInfo('dirmoduleadmin');
 $pathLanguage    = $path . $pathModuleAdmin;
@@ -25,7 +25,7 @@ if (!file_exists($fileinc = $pathLanguage . '/language/' . $GLOBALS['xoopsConfig
     $fileinc = $pathLanguage . '/language/english/main.php';
 }
 
-include_once $fileinc;
+require_once $fileinc;
 
 $adminmenu = [];
 $i = 1;

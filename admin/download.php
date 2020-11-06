@@ -12,12 +12,12 @@ ini_set('memory_limit', '20M');
 if (!ini_get('safe_mode')) {
     set_time_limit(0);
 }
-include_once 'admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation('download.php.php');
+$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation('download.php.php');
 
-include '../include/ext2mime.php';		// Load the decode array of extension to MIME
+require dirname(__DIR__) . '/include/ext2mime.php';		// Load the decode array of extension to MIME
 
 $fpathname = htmlspecialchars(rawurldecode($_GET['url']), ENT_QUOTES);
 $dl_filename = $fpathname;
@@ -34,7 +34,7 @@ if (!file_exists($fpathname)) {
         $fp = fopen($fpathname.'.log', 'r');
         while (!feof($fp)) {
             $line = fgets($fp);
-            echo $line.'<br />';
+            echo $line.'<br>';
         }
         fclose($fp);
         exit();

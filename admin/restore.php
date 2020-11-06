@@ -8,10 +8,10 @@
 ***													***
 *******************************************************
 */
-include_once 'admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation('restore.php');
+$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation('restore.php');
 
 $mode = '' ;
 $action = '' ;
@@ -51,7 +51,7 @@ switch ($mode) {
         if (!ini_get('safe_mode')) {
             set_time_limit(TIME_LIMIT);
         }
-        echo '<p><strong>'._AM_RESTORE_OK.'</strong><br />'._AM_RESTORE_MESS1.'</p>';
+        echo '<p><strong>'._AM_RESTORE_OK.'</strong><br>'._AM_RESTORE_MESS1.'</p>';
         $fnamedotpos = strrpos($filename, '.');
         $fext = substr($filename, $fnamedotpos+1);
         $sql_str = '';
@@ -84,7 +84,7 @@ switch ($mode) {
             fclose($fp);
         }
         if (0 == strcmp(_CHARSET, 'EUC-JP')) {
-            //$result = mysql_query( "SET NAMES 'ujis'" );
+            //$result = $GLOBALS['xoopsDB']->queryF( "SET NAMES 'ujis'" );
             $result = $xoopsDB->queryF('SET NAMES \'ujis\'');
         }
         $bp->restore_data($bp->backup_dir.$filename, $restore_structure, $restore_data, $db_selected, $replace_url);
@@ -130,7 +130,7 @@ switch ($mode) {
                 // Upload file
                 $ret_val = move_uploaded_file($upload_tmp, $bp->backup_dir.$upload_name);
                 if (!$ret_val) {
-                    echo '<br /><br />'._AM_MESS_ERROR_6.'<br />'._AM_MESS_ERROR_7.'</p></td></tr></table>';
+                    echo '<br><br>'._AM_MESS_ERROR_6.'<br>'._AM_MESS_ERROR_7.'</p></td></tr></table>';
                     break;
                 }
             }
@@ -169,15 +169,15 @@ switch ($mode) {
         sprintf('<form method="post" enctype="multipart/form-data" action="%s/modules/backpack/admin/restore.php?mode=%s&action=restore">', XOOPS_URL, DB_SELECT_FORM);
         echo '<table class="outer" style="width: 100%"><tr><td class=head colspan="2">'._AM_RESTORETITLE1.'</td></tr>';
         echo '<tr><td class="odd"  style="width: 30%"><b>'._AM_SELECTAFILE.'</b> (gz, bz, sql)</td>';
-        echo '<td><input type="hidden" name="MAX_FILE_SIZE" value="'.$maxbyte.'" />';
-        echo '<input type="file" name="filename" />'.$bp->PMA_displayMaximumUploadSize($max_upload_size).'</td></tr>';
+        echo '<td><input type="hidden" name="MAX_FILE_SIZE" value="'.$maxbyte.'">';
+        echo '<input type="file" name="filename">'.$bp->PMA_displayMaximumUploadSize($max_upload_size).'</td></tr>';
         echo '<tr><td class="odd"><b>'._AM_DETAILSTORESTORE.'</b></td>';
-        echo '<td><input type="checkbox" name="structure" checked />&nbsp;'._AM_TABLESTRUCTURE.'&nbsp;&nbsp;&nbsp;<input type="checkbox" name="data" checked />&nbsp;'._AM_TABLEDATA.'</td></tr>';
+        echo '<td><input type="checkbox" name="structure" checked>&nbsp;'._AM_TABLESTRUCTURE.'&nbsp;&nbsp;&nbsp;<input type="checkbox" name="data" checked>&nbsp;'._AM_TABLEDATA.'</td></tr>';
         // preg_replace URL
         echo '<tr><td class="odd" style="width: 30%"><b>'._AM_REPLACEURL.'</b> </td>';
         echo '<td><input type="text" name="replace_url"> '._AM_REPLACEURL_DESC.'</td></tr>';
         // submit
-        echo '<tr><td colspan="2" style="text-align: center;"><input type="submit" value="'._AM_RESTORE.'" /></td></tr></table></form>';
+        echo '<tr><td colspan="2" style="text-align: center;"><input type="submit" value="'._AM_RESTORE.'"></td></tr></table></form>';
         echo '</p>';
         /*
         ** for import only
@@ -187,15 +187,15 @@ switch ($mode) {
         sprintf('<form method="post" action="%s/modules/backpack/admin/restore.php?mode=%s&action=restore">', XOOPS_URL, DB_SELECT_FORM);
         echo '<table class="outer" style="width: 100%"><tr><td class="head" colspan="2">'.sprintf(_AM_RESTORETITLE2, $bp->backup_dir).'</td></tr>';
         echo '<tr><td class="odd" style="width: 30%"><b>'._AM_UPLOADEDFILENAME.'</b> (gz, bz, sql)</td>';
-        echo '<td><input type="text" name="uploadedfilename" />'._AM_UPLOADEDFILENAME_DESC.'</td></tr>';
+        echo '<td><input type="text" name="uploadedfilename">'._AM_UPLOADEDFILENAME_DESC.'</td></tr>';
         echo '<tr><td class="odd"><b>'._AM_DETAILSTORESTORE.'</b></td>';
-        echo '<td><input type="checkbox" name="structure" checked />&nbsp;'._AM_TABLESTRUCTURE.'&nbsp;&nbsp;&nbsp;<input type="checkbox" name="data" checked />&nbsp;'._AM_TABLEDATA.'</td></tr>';
+        echo '<td><input type="checkbox" name="structure" checked>&nbsp;'._AM_TABLESTRUCTURE.'&nbsp;&nbsp;&nbsp;<input type="checkbox" name="data" checked>&nbsp;'._AM_TABLEDATA.'</td></tr>';
         // preg_replace URL
         echo '<tr><td class="odd" style="width: 30%"><b>'._AM_REPLACEURL.'</b></td>';
         echo '<td><input type="text" name="replace_url"> '._AM_REPLACEURL_DESC.'</td></tr>';
         // submit
-        echo '<tr><td colspan="2" style="text-align: center;"><input type="submit" value="'._AM_RESTORE.'" /></td></tr></table></form>';
+        echo '<tr><td colspan="2" style="text-align: center;"><input type="submit" value="'._AM_RESTORE.'"></td></tr></table></form>';
         echo '</p>';
     }
 }
-include 'admin_footer.php';
+require __DIR__ . '/admin_footer.php';

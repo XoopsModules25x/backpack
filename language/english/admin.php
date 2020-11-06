@@ -50,7 +50,7 @@ define('_AM_REPLACEURL', 'Replace URL(ommit http://)');
 define('_AM_REPLACEURL_DESC', 'Describe the URL perplace to \''.XOOPS_URL.'\'');
 // After V1.01
 define('_AM_VERIF_SUR', 'Are you sure you want to continue ?');
-define('_AM_PRECISION', 'Depending on the size of your database, <br />a shorter or longer period is necessary');
+define('_AM_PRECISION', 'Depending on the size of your database, <br>a shorter or longer period is necessary');
 define('_AM_PASOK_PASTABLE', 'No tables found in the database');
 define('_AM_PROCESS_EFFECTUE', 'Process :');
 define('_AM_LOCK_BDD', 'Locking tables of the database');

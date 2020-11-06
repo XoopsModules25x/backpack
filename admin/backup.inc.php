@@ -36,7 +36,7 @@ function create_table_sql_string($tablename)
     if (DEBUG) {
         echo "field_info\n\n";
     }
-    while ($field_info = mysqli_fetch_array($result)) {
+    while (false !== ($field_info = mysqli_fetch_array($result))) {
         if (DEBUG) {
             for ($i = 0, $iMax = count($field_info); $i < $iMax; $i++) {
                 echo "$i: $field_info[$i]\n";
@@ -45,9 +45,9 @@ function create_table_sql_string($tablename)
         $field_name = $field_info[0];
         $field_type = $field_info[1];
         $field_not_null = ('YES' == $field_info[2]) ? '' : ' NOT NULL';
-        $field_default = (null == $field_info[4]) ? '' : sprintf(" default '%s'", $field_info[4]);
+        $field_default = (null === $field_info[4]) ? '' : sprintf(" default '%s'", $field_info[4]);
         ;
-        $field_auto_increment = (null == $field_info[5]) ? '' : sprintf(' %s', $field_info[5]);
+        $field_auto_increment = (null === $field_info[5]) ? '' : sprintf(' %s', $field_info[5]);
         $field_string .= $field_string ? ',' : $field_header ;
         $field_string .= $crlf.sprintf('  `%s` %s%s%s%s', $field_name, $field_type, $field_not_null, $field_auto_increment, $field_default);
     }
@@ -56,7 +56,7 @@ function create_table_sql_string($tablename)
     if (DEBUG) {
         echo "\nindex_info\n\n";
     }
-    while ($row = mysqli_fetch_array($result)) {
+    while (false !== ($row = mysqli_fetch_array($result))) {
         $kname    = $row['Key_name'];
         $ktype  = $row['Index_type'] ?? '';
         if (!$ktype && (isset($row['Comment']))) {
@@ -100,7 +100,7 @@ function create_table_sql_string($tablename)
     if (DEBUG) {
         echo "\nstatus_info\n\n";
     }
-    while ($status_info = mysql_fetch_array($result)) {
+    while (false !== ($status_info = $GLOBALS['xoopsDB']->fetchBoth($result))) {
         for ($i = 0, $iMax = count($status_info); $i < $iMax; $i++) {
             if (DEBUG) {
                 echo "$i: $status_info[$i]\n";
@@ -134,7 +134,7 @@ function create_data_sql_string($tablename, $filename, $cfgZipType)
     // Get table data from MySQL and output to a string in the correct MySQL syntax
     $dump_buffer .= "-- \r\n-- ".$tablename." dump.\r\n-- \r\n";
     $dump_line+=3;
-    while ($row = mysqli_fetch_row($query_res)) {
+    while (false !== ($row = $GLOBALS['xoopsDB']->fetchRow($query_res))) {
         // Initialise the data string
         $data_string = '';
         // Loop through the records and append data to the string after escaping
@@ -142,7 +142,7 @@ function create_data_sql_string($tablename, $filename, $cfgZipType)
             if (!isset($row[$i]) || is_null($row[$i])) {
                 $data_string = sprintf('%s, NULL', $data_string);
             } else {
-                $data_string = sprintf("%s, '%s'", $data_string, mysqli_real_escape_string($row[$i]));
+                $data_string = sprintf("%s, '%s'", $data_string, $GLOBALS['xoopsDB']->escape($row[$i]));
             }
             //$data_string = str_replace("`","\'",$data_string);
         }
@@ -232,7 +232,7 @@ function Lock_Tables($tablename_array)
         $q .= ' ' . $tablename_array[$i] . ' read,';
     }
     $q = substr($q, 0, strlen($q)-1);
-    mysql_query($q);
+    $GLOBALS['xoopsDB']->queryF($q);
 }
 function backup_data($tablename_array, $backup_structure, $backup_data, $filename, $cfgZipType)
 {
@@ -242,7 +242,7 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
     $dump_buffer .= "-- --------------------------------------------\r\n";
     preg_match_all("/\r\n/", $dump_buffer, $c);
     $dump_line += count($c[0]);
-    mysql_query('FLUSH TABLES');
+    $GLOBALS['xoopsDB']->queryF('FLUSH TABLES');
     Lock_Tables($tablename_array);
     for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
         if ($backup_structure) {
@@ -280,7 +280,7 @@ function restore_data($filename, $restore_structure, $restore_data, $db_selected
             if (!preg_match('`^--`', $cbuff)) {
                 $buffer .= $cbuff;
             }
-            if (false != preg_match('`;`', $cbuff)) {
+            if (false !== preg_match('`;`', $cbuff)) {
                 break;
             }
         }
@@ -304,22 +304,22 @@ function restore_data($filename, $restore_structure, $restore_data, $db_selected
                             //$rand = substr(md5(time()), 0, 8);
                             //$random_tablename = sprintf("%s_bak_%s", $tablename, $rand);
                             mysqli_query("DROP TABLE IF EXISTS $tablename");
-                            //mysql_query("RENAME TABLE $tablename TO $random_tablename");
-                            //echo "Backed up $tablename to $random_tablename.<br />\n";
+                            //$GLOBALS['xoopsDB']->queryF("RENAME TABLE $tablename TO $random_tablename");
+                            //echo "Backed up $tablename to $random_tablename.<br>\n";
                         }
                     }
                     $result = mysqli_query($buffer);
                     if (!$result) {
-                        echo mysqli_error()."<br />\n";
+                        echo $GLOBALS['xoopsDB']->error()."<br>\n";
                     } else {
-                        echo "Table '$tablename' successfully recreated.<br />\n";
+                        echo "Table '$tablename' successfully recreated.<br>\n";
                     }
                 }
             } else {
                 if ($restore_data) {
                     $result = mysqli_query($buffer);
                     if (!$result) {
-                        echo mysqli_error()."<br />\n";
+                        echo $GLOBALS['xoopsDB']->error()."<br>\n";
                     }
                 }
             }
@@ -333,11 +333,11 @@ function get_module_tables($dirname)
     if (!$dirname) {
         return;
     }
-    $module_handler = xoops_getHandler('module');
-    $module = $module_handler->getByDirname($dirname);
+    $moduleHandler = xoops_getHandler('module');
+    $module = $moduleHandler->getByDirname($dirname);
     // Get tables used by this module
     $modtables = $module->getInfo('tables');
-    if (false != $modtables && is_array($modtables)) {
+    if (false !== $modtables && is_array($modtables)) {
         return $modtables;
     }
 }

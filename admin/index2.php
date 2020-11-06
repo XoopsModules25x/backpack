@@ -8,10 +8,10 @@
 ***													***
 *******************************************************
 */
-include_once 'admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation('index2.php');
+$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation('index2.php');
 
 $bp = new backpack();
     if ($bp->err_msg) {
@@ -56,15 +56,15 @@ if (isset($_GET[ 'checkall' ])) {
 }
 
 $tr_comp = '<tr><td class="odd"><strong>'._AM_COMPRESSION.'</strong></td>'
-    .'<td><input type="radio" id="gzip" name="file_compression" value="gzip" checked="checked" />'
+    .'<td><input type="radio" id="gzip" name="file_compression" value="gzip" checked>'
     .'<label for="gz">gzip</label>&nbsp;&nbsp;'
-    .'<input type="radio" id="zip" name="file_compression" value="zip" />'
+    .'<input type="radio" id="zip" name="file_compression" value="zip">'
     .'<label for="sql">zip</label>&nbsp;&nbsp'
-    .'<input type="radio" id="plain" name="file_compression" value="none" />'
+    .'<input type="radio" id="plain" name="file_compression" value="none">'
     .'<label for="sql">text</label>&nbsp;&nbsp</td></tr>';
 $tr_strd = '<tr><td class="odd" style="width:30%;"><strong>'._AM_DETAILSTOBACKUP.'</strong></td>'
-    .'<td><input type="checkbox" name="structure" checked />&nbsp;'._AM_TABLESTRUCTURE.'&nbsp;'
-    .'<input type="checkbox" name="data" checked />&nbsp;'._AM_TABLEDATA.'&nbsp;</td></tr>';
+    .'<td><input type="checkbox" name="structure" checked>&nbsp;'._AM_TABLESTRUCTURE.'&nbsp;'
+    .'<input type="checkbox" name="data" checked>&nbsp;'._AM_TABLEDATA.'&nbsp;</td></tr>';
 
 // Handle URL actions
 switch ($mode) {
@@ -76,10 +76,10 @@ switch ($mode) {
         echo '<tr><td class="odd"><strong>'._AM_SELECTMODULE.'</strong></td><td>'.$mod_selections.'</td></tr>';
         echo $tr_strd;
         echo $tr_comp;
-        echo '<tr><td colspan=2 style="text-align: center;"><input type="submit" value="'._AM_BACKUP.'" /></td></tr></table>';
+        echo '<tr><td colspan=2 style="text-align: center;"><input type="submit" value="'._AM_BACKUP.'"></td></tr></table>';
         echo '</form>';
         //echo '</p>';
-        echo '<br />';
+        echo '<br>';
         break;
     }
     case POST_DB_SELECT_FORM: {
@@ -99,7 +99,7 @@ switch ($mode) {
         echo '<tr><td class="head" colspan="2"><strong>'._AM_SELECTTABLES.'</strong></td></tr>';
         echo '<tr><td class="main_left" colspan="2"><p>'._AM_BACKUPNOTICE.'</p>';
         echo '<p><strong>'._AM_SELECTTABLE.'</strong></p>';
-        $checked   = (!empty($checkall) ? ' checked="checked"' : '');
+        $checked   = (!empty($checkall) ? ' checked' : '');
         for ($i = 0; $i < $num_tables; $i++) {
             if ('module' == $action && $dirname) {
                 $tablename = $xoopsDB->prefix($result[$i]);
@@ -107,8 +107,8 @@ switch ($mode) {
                 $tablename = mysqli_tablename($result, $i);
             }
             $checkbox_string = sprintf(
-                '<input type="checkbox" name="check_id%d" $checked />
-				<input type="hidden" name="tablename%d" value="%s" />&nbsp;%s<br />'."\n",
+                '<input type="checkbox" name="check_id%d" $checked>
+				<input type="hidden" name="tablename%d" value="%s">&nbsp;%s<br>'."\n",
                 $i,
                 $i,
                 $tablename,
@@ -204,8 +204,8 @@ switch ($mode) {
             <html>
             <head>
             <title>'.htmlspecialchars($xoopsConfig['sitename']).'</title>
-            <meta http-equiv="Content-Type" content="text/html; charset='._CHARSET.'" />
-            <meta http-equiv="Refresh" content="'.$time.'; url='.$url.'" />
+            <meta http-equiv="Content-Type" content="text/html; charset='._CHARSET.'">
+            <meta http-equiv="Refresh" content="'.$time.'; url='.$url.'">
             <style type="text/css">
                     body {background-color : #fcfcfc; font-size: 12px; font-family: Trebuchet MS,Verdana, Arial, Helvetica, sans-serif; margin: 0px;}
                     .redirect {width: 70%; margin: 110px; text-align: center; padding: 15px; border: #e0e0e0 1px solid; color: #666666; background-color: #f6f6f6;}
@@ -218,7 +218,7 @@ switch ($mode) {
             <div align="center">
             <div class="redirect">
               <span style="font-size: 16px; font-weight: bold;">'.$message.'</span>
-              <hr style="height: 3px; border: 3px #E18A00 solid; width: 95%;" />
+              <hr style="height: 3px; border: 3px #E18A00 solid; width: 95%;">
               <p>'.sprintf(_AM_IFNOTRELOAD, $url).'</p>
             </div>
             </div>
@@ -228,7 +228,7 @@ switch ($mode) {
             $form = new XoopsThemeForm(_AM_DOWNLOAD_LIST, 'download', $_SERVER['PHP_SELF']) ;
             for ($i=0, $iMax = count($download_fname); $i < $iMax; $i++) {
                 $url = '<a href="download.php?url='.$download_fname[$i]['filename'].'" target="_blank">'.$download_fname[$i]['filename'].'</a>';
-                $url .= $download_fname[$i]['line'].'lines '.$download_fname[$i]['size'].'bytes<br />';
+                $url .= $download_fname[$i]['line'].'lines '.$download_fname[$i]['size'].'bytes<br>';
                 $form->addElement(new XoopsFormLabel($i, $url)) ;
             }
             $form->addElement(new XoopsFormButton('', 'purgeallfiles', _AM_PURGE_FILES, 'submit'));
@@ -258,7 +258,7 @@ switch ($mode) {
         echo $tr_strd;
         echo $tr_comp;
         echo '<tr><td colspan="2" style="text-align: center;"><input type="submit" value="'._AM_BACKUP.'"></td></tr></table></form>';
-        echo '<br />';
+        echo '<br>';
     }
 }
-include 'admin_footer.php';
+require __DIR__ . '/admin_footer.php';
