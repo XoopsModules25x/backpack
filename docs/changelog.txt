@@ -1,0 +1,32 @@
+==================================
+Version 2.01 - 2020/11/03
+==================================
+- Fixed bugs minor
+
+==================================
+Version 2.00 - 2020/10/15
+==================================
+- Update deprecated PHP functions for compatibilty PHP 7.0.x and higher 
+- Update deprecated SQL functions for compatibilty MariaDB 
+- Fixed bugs minor
+
+==================================
+Version 1.01 - 2012/08/17
+==================================
+- Correction of French language files
+- Update and correction of file: xoops_version.php
+- Fixed links in the file: ./admin/footer_admin.php
+- Fixed a bug "go to module"
+- Fixed a bug "Cannot modify header information - headers already sent by" in file : ./admin/optimizer.php
+
+==================================
+Version 1.00 - 2012/08/13
+==================================
+- Update deprecated functions
+- New blue logo
+- Changed to standardized XOOPS Module GUI
+
+==================================
+Version 0.97 - Before 2012/08/13
+==================================
+- Baseline

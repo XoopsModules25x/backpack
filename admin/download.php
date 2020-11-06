@@ -1,58 +1,51 @@
 <?php
-/***************************************************************************
-                           download.php  -  description
-                           ----------------------------
-    begin                : Wed Apr 21 2004
-    copyleft             : (C) 2004 - 2007 Bluemoon inc.
-    home page            : http://www.bluemooninc.biz/
-    auther               : Yoshi Sakai
-    email                : webmaster@bluemooninc.biz
-    Special Thanks to    : Nat Sakimura,funran7
-
-    $Id: download.php,v 0.92 2008/04/10 11:45:36 yoshis Exp $
-
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-ini_set("memory_limit","20M");
-include '../../../include/cp_header.php';
-include '../include/ext2mime.php';		// Load the decode array of extension to MIME
-include 'backup.ini.php';
-
-if (!is_object($xoopsUser) && !$xoopsUser->isAdmin()){
-	xoops_cp_header();
-	redirect_header(XOOPS_URL,2,"User permission error");
-	exit();
+/*
+*******************************************************
+***													***
+*** backpack										***
+*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Original author : Yoshi Sakai					***
+***													***
+*******************************************************
+*/
+ini_set('memory_limit','20M');
+if (!ini_get('safe_mode')) {
+	set_time_limit(0);
 }
+include_once 'admin_header.php';
+xoops_cp_header();
+$indexAdmin = new ModuleAdmin();
+echo $indexAdmin->addNavigation('download.php.php');
+
+include '../include/ext2mime.php';		// Load the decode array of extension to MIME
+
 $fpathname = htmlspecialchars ( rawurldecode($_GET['url']) , ENT_QUOTES );
 $dl_filename = $fpathname;
+if ( defined('XOOPS_VAR_PATH')) {
+	$backup_dir = XOOPS_VAR_PATH . '/caches/';
+}else{
+	$backup_dir = XOOPS_ROOT_PATH . '/cache/';
+}
 $fpathname = $backup_dir.$fpathname;
 ob_clean();
 if(!file_exists($fpathname)){
-	if(file_exists($fpathname.".log")){
-		echo "<B>Already downloaded by </B>";
-		$fp=fopen($fpathname.".log",'r');
+	if(file_exists($fpathname.'.log')){
+		echo '<strong>Already downloaded by </strong>';
+		$fp = fopen($fpathname.'.log','r');
 		while(!feof($fp)) {
 			$line = fgets($fp);
-			echo $line."<BR />";
+			echo $line.'<br />';
 		}
 		fclose($fp);
 		exit();
 	}
-	print("Error - $fpathname does not exist.");
+	print('Error - '.$fpathname.' does not exist.');
 	return ;
 }
 $browser = $version =0;
 UsrBrowserAgent($browser,$version);
-@ignore_user_abort();
-@set_time_limit(0);
+ignore_user_abort();
+
 $fnamedotpos = strrpos($dl_filename,'.');
 $fext = substr($dl_filename,$fnamedotpos+1);
 $ctype = isset($ext2mime[$fext]) ? $ext2mime[$fext] : "application/octet-stream-dummy" ;
@@ -72,8 +65,8 @@ header("Content-Length: " . filesize($fpathname) );
 header("Content-type: " . $ctype);
 header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Last-Modified: ' . date("D M j G:i:s T Y"));
-//header('Content-Disposition: attachment; filename="' . $dl_filename . '"');
-header("Content-Disposition: inline; filename=" . $dl_filename);
+header('Content-Disposition: attachment; filename="' . $dl_filename . '"');
+//header("Content-Disposition: inline; filename=" . $dl_filename);
 header("x-extension: " . $ctype );
 
 if ($browser == 'IE') {
@@ -83,7 +76,7 @@ if ($browser == 'IE') {
     header('Pragma: no-cache');
 }
 
-$fp=fopen($fpathname,'r');
+$fp = fopen($fpathname,'r');
 while(!feof($fp)) {
 	$buffer = fread($fp, 1024*6); //speed-limit 64kb/s
 	print $buffer;
@@ -132,4 +125,3 @@ function UsrBrowserAgent(&$browser,&$version) {
     }
     return $browser;
 }
-?>
