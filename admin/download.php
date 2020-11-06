@@ -51,7 +51,7 @@ ignore_user_abort();
 
 $fnamedotpos = strrpos($dl_filename, '.');
 $fext = substr($dl_filename, $fnamedotpos+1);
-$ctype = $ext2mime[$fext] ?? "application/octet-stream-dummy";
+$ctype = $ext2mime[$fext] ?? 'application/octet-stream-dummy';
 if ('gz' == $fext) {
     $content_encoding = 'x-gzip';
 }
