@@ -436,12 +436,15 @@ class backpack {
 		$mod_selections .= '</select>';
 		return $mod_selections;
 	}
-	/**
-	 * Maximum upload size as limited by PHP
-	 * Used with permission from Moodle (http://moodle.org) by Martin Dougiamas
-	 *
-	 * this section generates $max_upload_size in bytes
-	 */
+
+    /**
+     * Maximum upload size as limited by PHP
+     * Used with permission from Moodle (http://moodle.org) by Martin Dougiamas
+     *
+     * this section generates $max_upload_size in bytes
+     * @param int $size
+     * @return float|int|mixed
+     */
 	
 	public function get_real_size($size=0) {
 	/// Converts numbers like 10M into bytes

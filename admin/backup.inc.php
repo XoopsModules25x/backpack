@@ -320,11 +320,14 @@ function make_module_selection($select_dirname='',$addblank=0)
 	$mod_selections .= "</select>\n";
 	return $mod_selections;
 }
+
 /**
  * Maximum upload size as limited by PHP
  * Used with permission from Moodle (http://moodle.org) by Martin Dougiamas
  *
  * this section generates $max_upload_size in bytes
+ * @param int $size
+ * @return float|int|mixed
  */
 
 function get_real_size($size=0) {
