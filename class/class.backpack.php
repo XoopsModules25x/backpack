@@ -86,7 +86,7 @@ class backpack {
 		if ($this->debug) echo $tablename." .field_info\n\n";
 		while ($field_info = mysqli_fetch_array($result)) {
 			if ($this->debug) {
-				for ($i = 0; $i < count($field_info); $i++) {
+				for ($i = 0, $iMax = count($field_info); $i < $iMax; $i++) {
 					echo $i.': '.$field_info[$i]."\n";
 				}
 			}
@@ -144,7 +144,7 @@ class backpack {
 		$result = $xoopsDB->query('SHOW TABLE STATUS');
 		if ($this->debug) echo "\nstatus_info\n\n";
 		while ($status_info = mysqli_fetch_array($result)) {
-			for ($i = 0; $i < count($status_info); $i++) {
+			for ($i = 0, $iMax = count($status_info); $i < $iMax; $i++) {
 				if ($this->debug) echo "$i: $status_info[$i]\n";
 				if ($status_info[0] == $tablename) $table_type = sprintf('TYPE=%s', $status_info[1]);
 			}
@@ -289,7 +289,7 @@ class backpack {
 	public function Lock_Tables($tablename_array){
 		global $xoopsDB;
 	    $q = 'LOCK TABLES';
-		for ($i = 0; $i <count($tablename_array); $i++) {
+		for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
 	      $q .= ' ' .$tablename_array[$i] .' read,';
 	    }
 	    $q = substr($q,0,strlen($q)-1);
@@ -306,7 +306,7 @@ class backpack {
 	    //mysqli_query($xoopsDB->conn,'FLUSH TABLES');
 		$xoopsDB->queryF('FLUSH TABLES');
 		$this->Lock_Tables($tablename_array);
-		for ($i = 0; $i <count($tablename_array); $i++) {
+		for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
 			if ( $backup_structure ) $this->create_table_sql_string( $tablename_array[$i] );
 			if ( $backup_data      ){
 				$this->create_data_sql_string ( $tablename_array[$i], $filename, $cfgZipType);

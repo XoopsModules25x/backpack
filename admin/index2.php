@@ -200,7 +200,7 @@ switch ($mode) {
             </html>';
 		}else{
 			$form = new XoopsThemeForm( _AM_DOWNLOAD_LIST , 'download', $_SERVER['PHP_SELF'] ) ;
-			for ($i=0; $i<count($download_fname); $i++){
+			for ($i=0, $iMax = count($download_fname); $i < $iMax; $i++){
 				$url = '<a href="download.php?url='.$download_fname[$i]['filename'].'" target="_blank">'.$download_fname[$i]['filename'].'</a>';
 				$url .= $download_fname[$i]['line'].'lines '.$download_fname[$i]['size'].'bytes<br />';
 				$form->addElement( new XoopsFormLabel( $i , $url ) ) ;

@@ -34,7 +34,7 @@ function create_table_sql_string($tablename){
 	if (DEBUG) echo "field_info\n\n";
 	while ($field_info = mysqli_fetch_array($result)) {
 		if (DEBUG) {
-			for ($i = 0; $i < count($field_info); $i++) {
+			for ($i = 0, $iMax = count($field_info); $i < $iMax; $i++) {
 				echo "$i: $field_info[$i]\n";
 			}
 		}
@@ -90,7 +90,7 @@ function create_table_sql_string($tablename){
 	$result = mysqli_query('SHOW TABLE STATUS');
 	if (DEBUG) echo "\nstatus_info\n\n";
 	while ($status_info = mysql_fetch_array($result)) {
-		for ($i = 0; $i < count($status_info); $i++) {
+		for ($i = 0, $iMax = count($status_info); $i < $iMax; $i++) {
 			if (DEBUG) echo "$i: $status_info[$i]\n";
 
 			if ($status_info[0] == $tablename) $table_type = sprintf('TYPE=%s', $status_info[1]);
@@ -207,7 +207,7 @@ function check_dump_buffer($filename,$cfgZipType){
 function Lock_Tables($tablename_array){
     $q = 'LOCK TABLES';
 
-	for ($i = 0; $i <count($tablename_array); $i++) {
+	for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
       $q .= ' ' . $tablename_array[$i] . ' read,';
     }
     $q = substr($q,0,strlen($q)-1);
@@ -222,7 +222,7 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
 	$dump_line += count($c[0]);
     mysql_query('FLUSH TABLES');
 	Lock_Tables($tablename_array);
-	for ($i = 0; $i <count($tablename_array); $i++) {
+	for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
 		if ( $backup_structure ) create_table_sql_string( $tablename_array[$i] );
 		if ( $backup_data      ) create_data_sql_string ( $tablename_array[$i], $filename, $cfgZipType);
 		check_dump_buffer( $filename , $cfgZipType );
