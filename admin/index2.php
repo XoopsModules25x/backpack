@@ -135,9 +135,7 @@ switch ($mode) {
     }
     case POST_SELECT_TABLES_FORM: {
         $bp->purge_allfiles();
-        if (!ini_get('safe_mode')) {
-            set_time_limit(0);
-        }
+
         $sql_string = '';
         $alltables = $backup_structure = $backup_data =0;
         if (isset($_GET['alltables'])) {

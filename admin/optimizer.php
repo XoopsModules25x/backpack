@@ -11,9 +11,6 @@
 
 use Xmf\Module\Admin;
 
-if (!ini_get('safe_mode')) {
-    set_time_limit(0);
-}
 $ok = 0;
 $op = '';
 $message = '';

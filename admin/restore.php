@@ -51,9 +51,6 @@ if ($bp->err_msg) {
 // Handle URL actions
 switch ($mode) {
     case RESTORE_DATA: {
-        if (!ini_get('safe_mode')) {
-            set_time_limit(TIME_LIMIT);
-        }
         echo '<p><strong>'._AM_RESTORE_OK.'</strong><br>'._AM_RESTORE_MESS1.'</p>';
         $fnamedotpos = strrpos($filename, '.');
         $fext = substr($filename, $fnamedotpos+1);

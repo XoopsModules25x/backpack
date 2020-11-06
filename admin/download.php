@@ -12,9 +12,7 @@
 use Xmf\Module\Admin;
 
 ini_set('memory_limit', '20M');
-if (!ini_get('safe_mode')) {
-    set_time_limit(0);
-}
+
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 $adminObject = Admin::getInstance();
