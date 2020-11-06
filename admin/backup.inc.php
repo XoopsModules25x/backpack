@@ -51,9 +51,9 @@ function create_table_sql_string($tablename){
 	if (DEBUG) echo "\nindex_info\n\n";
 	while ($row = mysqli_fetch_array($result)) {
         $kname    = $row['Key_name'];
-        $ktype  = (isset($row['Index_type'])) ? $row['Index_type'] : '';
+        $ktype  = $row['Index_type'] ?? '';
         if (!$ktype && (isset($row['Comment']))) $ktype = $row['Comment']; // For Under MySQL v4.0.2
-        $sub_part = (isset($row['Sub_part'])) ? $row['Sub_part'] : '';
+        $sub_part = $row['Sub_part'] ?? '';
          if ('PRIMARY' != $kname && 0 == $row['Non_unique']) {
             $kname = 'UNIQUE KEY `'.$kname.'`';
         }
