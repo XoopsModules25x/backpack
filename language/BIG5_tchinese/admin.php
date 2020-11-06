@@ -1,28 +1,28 @@
 <?php
 // $Id: admin.php,v 1.1 2005/11/02 19:00:34 yoshis Exp $
 define("_AM_TITLE", "BackPack");
-define("_AM_BACKUPTITLE","³Æ¥÷¸ê®Æ®w");
-define("_AM_MODULEBACKUP","³Æ¥÷¼Ò²Õ");
-define("_AM_SELECTTABLES","³Æ¥÷¸ê®Æªí");
-define("_AM_RESTORE","ÁÙ­ì");
-define("_AM_OPTIMIZE","³Ì¨Î¤Æ");
-define("_AM_DETAILSTOBACKUP","¿ï¾Ü³Æ¥÷¶µ¥Ø");
-define("_AM_SELECTMODULE","¿ï¾Ü¼Ò²Õ");
-define("_AM_COMPRESSION","À£ÁY");
-define("_AM_OTHER","¨ä¥L");
-define("_AM_SELECTAFILE","¿ï¾ÜÀÉ®×");
-define("_AM_DETAILSTORESTORE","¿ï¾Ü³Æ¥÷¶µ¥Ø");
-define("_AM_TABLESTRUCTURE","¸ê®Æªíµ²ºc");
-define("_AM_TABLEDATA","¸ê®Æªí¤º®e");
-define("_AM_BACKUP","³Æ¥÷");
-define("_AM_RESET","­«³]");
-define("_AM_RESTORETITLE","ÁÙ­ì");
-define("_AM_BACKUPNOTICE","·í§A«ö¤U'³Æ¥÷'«á¡A¨t²Î±N¬°±z³Æ¥÷©Ò¿ï¾Üªº¸ê®Æªí¡A¨Ã±N³Æ¥÷ÀÉ®×¤U¸ü¨ì±zªº¹q¸£¡C");
-define("_AM_SELECTTABLE","¿ï¾Ü»İ³Æ¥÷ªº¸ê®Æªí");
-define("_AM_CHECKALL","¥ş¿ï");
-define("_AM_RETURNTOSTART","¦^¨ìbackpack­º­¶");
-define("_AM_OPT_WARNING","ª`·N: ³Ì¨Î¤Æ¹Lµ{¤¤¡A§A±NµLªk¦s¨ú¸ê®Æ®w");
-define("_AM_OPT_STARTING","³Ì¨Î¤Æ¸ê®Æ®w %s ªá¶O %s ¬í¡C");
+define("_AM_BACKUPTITLE","å‚™ä»½è³‡æ–™îw");
+define("_AM_MODULEBACKUP","å‚™ä»½æ¨¡çµ„");
+define("_AM_SELECTTABLES","å‚™ä»½è³‡æ–™è¡¨");
+define("_AM_RESTORE","é‚„åŸ");
+define("_AM_OPTIMIZE","æœ€ä½³åŒ–");
+define("_AM_DETAILSTOBACKUP","é¸æ“‡å‚™ä»½é …ç›®");
+define("_AM_SELECTMODULE","é¸æ“‡æ¨¡çµ„");
+define("_AM_COMPRESSION","å£“î°Y");
+define("_AM_OTHER","å…¶î”L");
+define("_AM_SELECTAFILE","é¸æ“‡æª”æ¡ˆ");
+define("_AM_DETAILSTORESTORE","é¸æ“‡å‚™ä»½é …ç›®");
+define("_AM_TABLESTRUCTURE","è³‡æ–™è¡¨çµî©c");
+define("_AM_TABLEDATA","è³‡æ–™è¡¨å…§îe");
+define("_AM_BACKUP","å‚™ä»½");
+define("_AM_RESET","é‡î¢]");
+define("_AM_RESTORETITLE","é‚„åŸ");
+define("_AM_BACKUPNOTICE","ç•¶î–AæŒ‰î“U'å‚™ä»½'å¾ŒîAî—tçµ±î Nç‚ºî zå‚™ä»½æ‰€é¸æ“‡çš„è³‡æ–™è¡¨îAä¸¦î Nå‚™ä»½æª”æ¡ˆî“Uè¼‰åˆ°î zçš„î¨qè…¦îC");
+define("_AM_SELECTTABLE","é¸æ“‡éœ€å‚™ä»½çš„è³‡æ–™è¡¨");
+define("_AM_CHECKALL","å…¨é¸");
+define("_AM_RETURNTOSTART","î•^åˆ°backpacké¦–é ");
+define("_AM_OPT_WARNING","î™`î¦N: æœ€ä½³åŒ–î¨Lî¤{ä¸­îAî–Aî Nî¤Lî™kî•så–è³‡æ–™îw");
+define("_AM_OPT_STARTING","æœ€ä½³åŒ–è³‡æ–™îw %s èŠ±î¥O %s ç§’îC");
 // After V0.86
 define("_AM_RESTORETITLE1","Upload and restore");
 define("_AM_RESTORETITLE2","Restore from %s folder files");
@@ -36,4 +36,4 @@ define("_AM_PURGED_ALLFILES","All download files are purged.");
 define("_AM_READY_TO_DOWNLOAD","Ready to download.");
 // After V0.90
 define("_AM_IFNOTRELOAD","If the download does not automatically start, please click <a href='%s'>here</a>");
-?>
+

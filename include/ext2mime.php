@@ -313,4 +313,4 @@ $ext2mime = [
 	"zac"=>"application/x-zaurus-zac",
 	"zip"=>"application/zip",
 ];
-?>
+

@@ -4,11 +4,11 @@
 define('_MI_MOD_NAME', 'Backpack');
 define('_MI_MOD_DESC', 'Bluemoon XOOPS Backup/Restore Module');
 define('_MI_MOD_IMG_DESC', 'Backup and Restore Module for XOOPS');
-define("_MI_BACKUPTITLE","Šeƒ—Œè‡Ä®w");
-define("_MI_MODULEBACKUP","Šeƒ—ŽÐ‰Ó");
-define("_MI_SELECTTABLES","Šeƒ—Œè‡Ä…ë");
-define("_MI_RESTORE","‘x‡Œ");
-define("_MI_OPTIMIZE","Šk„Ì‚Ä");
+define("_MI_BACKUPTITLE","ï‘¢?ï—½ï‹ˆåº«");
+define("_MI_MODULEBACKUP","ï‘¢?î¿ï‘");
+define("_MI_SELECTTABLES","ï‘¢?ï—½ï‹ˆï†µ");
+define("_MI_RESTORE","î” ?");
+define("_MI_OPTIMIZE","ï‘¨ïƒ¹î¾·");
 
 
-?>
+
