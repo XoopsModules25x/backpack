@@ -204,7 +204,7 @@ switch ($mode) {
             echo '
             <html>
             <head>
-            <title>'.htmlspecialchars($xoopsConfig['sitename']).'</title>
+            <title>' . htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES | ENT_HTML5) . '</title>
             <meta http-equiv="Content-Type" content="text/html; charset='._CHARSET.'">
             <meta http-equiv="Refresh" content="'.$time.'; url='.$url.'">
             <style type="text/css">
