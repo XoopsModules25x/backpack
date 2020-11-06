@@ -3,22 +3,22 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************
 */
 // Defines
-define ('TIME_LIMIT',300);
-define ('DB_SELECT_FORM', 1);
-define ('POST_DB_SELECT_FORM', 2);
-define ('POST_SELECT_TABLES_FORM', 3);
-define ('RESTORE_DATA', 4);
-define ('POST_CONFIG_FORM', 5);
-define ('DELETE_CONFIG_FILE', 6);
-define ('POST_SELECT_MODULE_FORM',7);
-define ('MAX_DUMPLINE',131071);
-define ('MAX_DUMPSIZE',1024);
+define('TIME_LIMIT', 300);
+define('DB_SELECT_FORM', 1);
+define('POST_DB_SELECT_FORM', 2);
+define('POST_SELECT_TABLES_FORM', 3);
+define('RESTORE_DATA', 4);
+define('POST_CONFIG_FORM', 5);
+define('DELETE_CONFIG_FILE', 6);
+define('POST_SELECT_MODULE_FORM', 7);
+define('MAX_DUMPLINE', 131071);
+define('MAX_DUMPSIZE', 1024);
 
 // For the export features...
 $cfg['ZipDump']               = true;   // Allow the use of zip/gzip/bzip
@@ -40,34 +40,34 @@ $db_user = XOOPS_DB_USER;
 $db_pass = XOOPS_DB_PASS;
 
 $sys_tables = [
-	'groups',
-	'users',
-	'groups_users_link',
-	'group_permission',
-	'modules',
-	'newblocks',
-	'block_module_link',
-	'tplfile',
-	'tplsource',
-	'tplset',
-	'config',
-	'configcategory',
-	'configoption',
-	'avatar',
-	'avatar_user_link',
-	'xoopsnotifications',
-	'image',
-	'imagebody',
-	'imagecategory',
-	'imgset',
-	'online',
-	'priv_msgs',
-	'smiles',
-	'session',
-	'xoopscomments',
-	'bannerclient',
-	'banner',
-	'bannerfinish'
+    'groups',
+    'users',
+    'groups_users_link',
+    'group_permission',
+    'modules',
+    'newblocks',
+    'block_module_link',
+    'tplfile',
+    'tplsource',
+    'tplset',
+    'config',
+    'configcategory',
+    'configoption',
+    'avatar',
+    'avatar_user_link',
+    'xoopsnotifications',
+    'image',
+    'imagebody',
+    'imagecategory',
+    'imgset',
+    'online',
+    'priv_msgs',
+    'smiles',
+    'session',
+    'xoopscomments',
+    'bannerclient',
+    'banner',
+    'bannerfinish'
 ];
 $footer = '<div class="adminfooter">'."\n".'<div style="text-align: center;">'."\n"
     . '    <a href="http://www.xoops.org" rel="external"><img src="'.$pathIcon32.'/xoopsmicrobutton.gif" alt="xoops" title="xoops"></a>'."\n"
@@ -81,4 +81,3 @@ if (!defined('PMA_IS_WINDOWS')) {
         define('PMA_IS_WINDOWS', 0);
     }
 }
-

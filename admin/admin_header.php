@@ -3,7 +3,7 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************
@@ -37,13 +37,13 @@ xoops_loadLanguage('modinfo', $thisModuleDir);
 if (file_exists($GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php'))) {
     include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
 } else {
-    redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING, FALSE);
+    redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING, false);
 }
 $myts = MyTextSanitizer::getInstance();
 
 if ($xoopsUser) {
     $moduleperm_handler = xoops_getHandler('groupperm');
-    if (!$moduleperm_handler->checkRight('module_admin', $xoopsModule->getVar( 'mid' ), $xoopsUser->getGroups())) {
+    if (!$moduleperm_handler->checkRight('module_admin', $xoopsModule->getVar('mid'), $xoopsUser->getGroups())) {
         redirect_header(XOOPS_URL, 1, _NOPERM);
         exit();
     }
@@ -53,8 +53,8 @@ if ($xoopsUser) {
 }
 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
-	include_once(XOOPS_ROOT_PATH.'/class/template.php');
-	$xoopsTpl = new XoopsTpl();
+    include_once(XOOPS_ROOT_PATH.'/class/template.php');
+    $xoopsTpl = new XoopsTpl();
 }
 
 $xoopsTpl->assign('pathIcon16', $pathIcon16);

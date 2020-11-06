@@ -3,7 +3,7 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************

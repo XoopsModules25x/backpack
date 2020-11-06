@@ -3,7 +3,7 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************
@@ -313,4 +313,3 @@ $ext2mime = [
     'zac'     => 'application/x-zaurus-zac',
     'zip'     => 'application/zip',
 ];
-

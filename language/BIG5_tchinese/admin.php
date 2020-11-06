@@ -36,4 +36,3 @@ define('_AM_PURGED_ALLFILES', 'All download files are purged.');
 define('_AM_READY_TO_DOWNLOAD', 'Ready to download.');
 // After V0.90
 define('_AM_IFNOTRELOAD', "If the download does not automatically start, please click <a href='%s'>here</a>");
-

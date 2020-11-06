@@ -3,12 +3,12 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************
 */
-$module_dirname = basename( __DIR__ ) ;
+$module_dirname = basename(__DIR__) ;
 
 $modversion['name'] = _MI_MOD_NAME;
 $modversion['version'] = 2.01;

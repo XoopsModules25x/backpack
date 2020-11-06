@@ -36,5 +36,4 @@ define('_AM_PURGE_FILES', 'ダウンロード・ファイルを全て削除');
 define('_AM_PURGED_ALLFILES', 'ダウンロード・ファイルは全て削除されました。');
 define('_AM_READY_TO_DOWNLOAD', 'ダウンロード・ファイルの準備が出来ました。');
 // After V0.90
-define('_AM_IFNOTRELOAD','ダウンロードが自動的に始まらない場合は<a href="%s">ここ</a>をクリックしてください');
-
+define('_AM_IFNOTRELOAD', 'ダウンロードが自動的に始まらない場合は<a href="%s">ここ</a>をクリックしてください');

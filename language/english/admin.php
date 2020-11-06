@@ -3,7 +3,7 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************
@@ -46,8 +46,8 @@ define('_AM_READY_TO_DOWNLOAD', 'Ready to download.');
 // After V0.90
 define('_AM_IFNOTRELOAD', "If the download does not automatically start, please click <a href='%s'>here</a>");
 // After V0.97
-define('_AM_REPLACEURL','Replace URL(ommit http://)');
-define('_AM_REPLACEURL_DESC','Describe the URL perplace to \''.XOOPS_URL.'\'');
+define('_AM_REPLACEURL', 'Replace URL(ommit http://)');
+define('_AM_REPLACEURL_DESC', 'Describe the URL perplace to \''.XOOPS_URL.'\'');
 // After V1.01
 define('_AM_VERIF_SUR', 'Are you sure you want to continue ?');
 define('_AM_PRECISION', 'Depending on the size of your database, <br />a shorter or longer period is necessary');
@@ -58,17 +58,17 @@ define('_AM_TEMPS_ECOULE', 'Elapsed time');
 define('_AM_UNLOCK_BDD', 'Unlocking tables of database');
 define('_AM_TEMPS_TOT', 'Total time of the operation :');
 // Add version 2
-define('_AM_RESTORE_OK','Restore Complete');
-define('_AM_RESTORE_MESS1','The Restore is complete. Any errors or messages encountered are shown below.');
-define('_AM_NO_FILE','No exist file: ');
-define('_AM_TITLE_BCK','Backup MySQL Data');
+define('_AM_RESTORE_OK', 'Restore Complete');
+define('_AM_RESTORE_MESS1', 'The Restore is complete. Any errors or messages encountered are shown below.');
+define('_AM_NO_FILE', 'No exist file: ');
+define('_AM_TITLE_BCK', 'Backup MySQL Data');
 define('_AM_TITLE_RESTORE', 'Restore MySQL Data');
-define('_AM_SELECT_DATABASE','Select database to backup from ');
-define('_AM_MESS_ERROR_1','Over upload_max_filesize on php.ini');
-define('_AM_MESS_ERROR_2','Over MAX_FILE_SIZE at form');
-define('_AM_MESS_ERROR_3','An error occured while trying to recieve the file. Please try again.');
-define('_AM_MESS_ERROR_4','No Upload File.');
-define('_AM_MESS_ERROR_5','Unknown Error - %s');
-define('_AM_MESS_ERROR_6','Could not upload file.');
-define('_AM_MESS_ERROR_7','Check upload_max_filesize, post_max_size, memory_limit parameters in php.ini');
-define('_AM_NO_TABLE','No table found');
+define('_AM_SELECT_DATABASE', 'Select database to backup from ');
+define('_AM_MESS_ERROR_1', 'Over upload_max_filesize on php.ini');
+define('_AM_MESS_ERROR_2', 'Over MAX_FILE_SIZE at form');
+define('_AM_MESS_ERROR_3', 'An error occured while trying to recieve the file. Please try again.');
+define('_AM_MESS_ERROR_4', 'No Upload File.');
+define('_AM_MESS_ERROR_5', 'Unknown Error - %s');
+define('_AM_MESS_ERROR_6', 'Could not upload file.');
+define('_AM_MESS_ERROR_7', 'Check upload_max_filesize, post_max_size, memory_limit parameters in php.ini');
+define('_AM_NO_TABLE', 'No table found');

@@ -3,7 +3,7 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************
@@ -46,8 +46,8 @@ define('_AM_READY_TO_DOWNLOAD', 'Pr&ecirc;t &#224; t&#233;l&#233;charger.');
 // After V0.90
 define('_AM_IFNOTRELOAD', "Si le t&#233;l&#233;chargement ne d&#233;marre pas automatiquement, veuillez cliquer <a href='%s'>ici</a>");
 // After V0.97
-define('_AM_REPLACEURL','Remplacer le lien (sans http://)');
-define('_AM_REPLACEURL_DESC',"Renseigner le lien. Remplacer par '.XOOPS_URL.'");
+define('_AM_REPLACEURL', 'Remplacer le lien (sans http://)');
+define('_AM_REPLACEURL_DESC', "Renseigner le lien. Remplacer par '.XOOPS_URL.'");
 // After V1.01
 define('_AM_VERIF_SUR', '&Ecirc;tes-vous s&ucirc;r de vouloir continuer ?');
 define('_AM_PRECISION', 'Suivant la taille de votre base de donn&eacute;es, <br />un d&eacute;lai plus ou moins long sera n&eacute;cessaire');
@@ -58,17 +58,17 @@ define('_AM_TEMPS_ECOULE', 'Temps &eacute;coul&eacute;');
 define('_AM_UNLOCK_BDD', 'D&eacute;verrouillage de la BDD');
 define('_AM_TEMPS_TOT', 'Dur&eacute;e totale de l\'op&eacute;ration ');
 // Add version 2
-define('_AM_RESTORE_OK','Restauration complète');
-define('_AM_RESTORE_MESS1','La restauration est terminée. Les erreurs ou messages rencontrés sont indiqués ci-dessous.');
-define('_AM_NO_FILE','Fichier manquant: ');
-define('_AM_TITLE_BCK','Backup des données MySQL');
+define('_AM_RESTORE_OK', 'Restauration complète');
+define('_AM_RESTORE_MESS1', 'La restauration est terminée. Les erreurs ou messages rencontrés sont indiqués ci-dessous.');
+define('_AM_NO_FILE', 'Fichier manquant: ');
+define('_AM_TITLE_BCK', 'Backup des données MySQL');
 define('_AM_TITLE_RESTORE', 'Restaurer les données MySQL');
-define('_AM_SELECT_DATABASE','Sélectionnez la base de données à partir de laquelle effectuer la sauvegarde ');
-define('_AM_MESS_ERROR_1','Augmenter upload_max_filesize dans le php.ini');
-define('_AM_MESS_ERROR_2','Augmenter la valeur de  MAX_FILE_SIZE dans le formulaire');
-define('_AM_MESS_ERROR_3','Une erreur s\'est produite lors de la tentative de réception du fichier. Veuillez réessayer.');
-define('_AM_MESS_ERROR_4','Aucun fichier à télécharger.');
-define('_AM_MESS_ERROR_5','Erreur inconnue - %s');
-define('_AM_MESS_ERROR_6','Impossible de télécharger le fichier.');
-define('_AM_MESS_ERROR_7','Vérifier les paramètres upload_max_filesize, post_max_size, memory_limit dans le php.ini');
-define('_AM_NO_TABLE','Aucune table trouvée');
+define('_AM_SELECT_DATABASE', 'Sélectionnez la base de données à partir de laquelle effectuer la sauvegarde ');
+define('_AM_MESS_ERROR_1', 'Augmenter upload_max_filesize dans le php.ini');
+define('_AM_MESS_ERROR_2', 'Augmenter la valeur de  MAX_FILE_SIZE dans le formulaire');
+define('_AM_MESS_ERROR_3', 'Une erreur s\'est produite lors de la tentative de réception du fichier. Veuillez réessayer.');
+define('_AM_MESS_ERROR_4', 'Aucun fichier à télécharger.');
+define('_AM_MESS_ERROR_5', 'Erreur inconnue - %s');
+define('_AM_MESS_ERROR_6', 'Impossible de télécharger le fichier.');
+define('_AM_MESS_ERROR_7', 'Vérifier les paramètres upload_max_filesize, post_max_size, memory_limit dans le php.ini');
+define('_AM_NO_TABLE', 'Aucune table trouvée');

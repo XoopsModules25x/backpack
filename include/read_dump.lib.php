@@ -3,18 +3,19 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************
 */
-function PMA_splitSqlFile(&$ret, $sql, $release) {
+function PMA_splitSqlFile(&$ret, $sql, $release)
+{
     $sql          = rtrim($sql, "\n\r");
     $sql_len      = strlen($sql);
     $char         = '';
     $string_start = '';
-    $in_string    = FALSE;
-    $nothing      = TRUE;
+    $in_string    = false;
+    $nothing      = true;
     $time0        = time();
 
     for ($i = 0; $i < $sql_len; ++$i) {
@@ -29,21 +30,21 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
                 // returned array
                 if (!$i) {
                     $ret[] = $sql;
-                    return TRUE;
+                    return true;
                 }
                 // Backquotes or no backslashes before quotes: it's indeed the
                 // end of the string -> exit the loop
 
                 if ('`' == $string_start || '\\' != $sql[$i - 1]) {
                     $string_start      = '';
-                    $in_string         = FALSE;
+                    $in_string         = false;
                     break;
                 }
                 // one or more Backslashes before the presumed end of string...
                 else {
                     // ... first checks for escaped backslashes
                     $j                     = 2;
-                    $escaped_backslash     = FALSE;
+                    $escaped_backslash     = false;
                     while ($i-$j > 0 && '\\' == $sql[$i - $j]) {
                         $escaped_backslash = !$escaped_backslash;
                         $j++;
@@ -52,7 +53,7 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
                     // string -> exit the loop
                     if ($escaped_backslash) {
                         $string_start  = '';
-                        $in_string     = FALSE;
+                        $in_string     = false;
                         break;
                     }
                     // ... else loop
@@ -63,39 +64,41 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
         } // end if (in string)
        
         // lets skip comments (/*, -- and #)
-        else if (('-' == $char && $sql_len > $i + 2 && '-' == $sql[$i + 1] && $sql[$i + 2] <= ' ') || '#' == $char || ('/' == $char && $sql_len > $i + 1 && '*' == $sql[$i + 1])) {
+        elseif (('-' == $char && $sql_len > $i + 2 && '-' == $sql[$i + 1] && $sql[$i + 2] <= ' ') || '#' == $char || ('/' == $char && $sql_len > $i + 1 && '*' == $sql[$i + 1])) {
             $i = strpos($sql, '/' == $char ? '*/' : "\n", $i);
             // didn't we hit end of string?
-            if (FALSE === $i) {
+            if (false === $i) {
                 break;
             }
-            if ('/' == $char) $i++;
+            if ('/' == $char) {
+                $i++;
+            }
         }
 
         // We are not in a string, first check for delimiter...
-        else if (';' == $char) {
+        elseif (';' == $char) {
             // if delimiter found, add the parsed part to the returned array
             $ret[]      = ['query' => substr($sql, 0, $i), 'empty' => $nothing];
-            $nothing    = TRUE;
+            $nothing    = true;
             $sql        = ltrim(substr($sql, min($i + 1, $sql_len)));
             $sql_len    = strlen($sql);
             if ($sql_len) {
                 $i      = -1;
             } else {
                 // The submited statement(s) end(s) here
-                return TRUE;
+                return true;
             }
         } // end else if (is delimiter)
 
         // ... then check for start of a string,...
-        else if (('"' == $char) || ('\'' == $char) || ('`' == $char)) {
-            $in_string    = TRUE;
-            $nothing      = FALSE;
+        elseif (('"' == $char) || ('\'' == $char) || ('`' == $char)) {
+            $in_string    = true;
+            $nothing      = false;
             $string_start = $char;
         } // end else if (is start of string)
 
         elseif ($nothing) {
-            $nothing = FALSE;
+            $nothing = false;
         }
 
         // loic1: send a fake header each 30 sec. to bypass browser timeout
@@ -111,7 +114,7 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
         $ret[] = ['query' => $sql, 'empty' => $nothing];
     }
 
-    return TRUE;
+    return true;
 } // end of the 'PMA_splitSqlFile()' function
 
 
@@ -126,33 +129,38 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
  * @return  string   the content of the file or
  *          boolean  FALSE in case of an error.
  */
-function PMA_readFile($path, $mime = '') {
+function PMA_readFile($path, $mime = '')
+{
     global $cfg;
 
     if (!is_file($path)) {
-        return FALSE;
+        return false;
     }
     switch ($mime) {
         case '':
             if (!$file = fopen($path, 'rb')) {
-                return FALSE;
+                return false;
             }
             $test = fread($file, 3);
             fclose($file);
-            if ($test[0] == chr(31) && $test[1] == chr(139)) return PMA_readFile($path, 'application/x-gzip');
-            if ('BZh' == $test) return PMA_readFile($path, 'application/x-bzip');
+            if ($test[0] == chr(31) && $test[1] == chr(139)) {
+                return PMA_readFile($path, 'application/x-gzip');
+            }
+            if ('BZh' == $test) {
+                return PMA_readFile($path, 'application/x-bzip');
+            }
             return PMA_readFile($path, 'text/plain');
         case 'text/plain':
             if (!$file = fopen($path, 'rb')) {
-                return FALSE;
+                return false;
             }
             $content = fread($file, filesize($path));
             fclose($file);
             break;
         case 'application/x-gzip':
             if ($cfg['GZipDump'] && function_exists('gzopen')) {
-               if (!$file = gzopen($path, 'rb')) {
-                    return FALSE;
+                if (!$file = gzopen($path, 'rb')) {
+                    return false;
                 }
                 $content = '';
                 while (!gzeof($file)) {
@@ -160,23 +168,23 @@ function PMA_readFile($path, $mime = '') {
                 }
                 gzclose($file);
             } else {
-                return FALSE;
+                return false;
             }
            break;
         case 'application/x-bzip':
             if ($cfg['BZipDump'] && function_exists('bzdecompress')) {
-               if (!$file = fopen($path, 'rb')) {
-                    return FALSE;
+                if (!$file = fopen($path, 'rb')) {
+                    return false;
                 }
                 $content = fread($file, filesize($path));
                 fclose($file);
                 $content = bzdecompress($content);
             } else {
-                return FALSE;
+                return false;
             }
            break;
         default:
-           return FALSE;
+           return false;
     }
     return $content;
 }
