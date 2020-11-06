@@ -10,6 +10,7 @@
 */
 
 use Xmf\Module\Admin;
+/** @var Admin $adminObject */
 
 $ok      = 0;
 $op      = '';
@@ -21,7 +22,7 @@ $ok      = (isset($_POST['ok'])) ? filter_input(INPUT_POST, 'ok', FILTER_SANITIZ
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 $adminObject = Admin::getInstance();
-$adminObject->displayNavigation('optimizer.php');
+$adminObject->displayNavigation(basename(__FILE__));
 
 function format_time($seconds)
 {

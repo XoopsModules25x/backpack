@@ -10,13 +10,14 @@
 */
 
 use Xmf\Module\Admin;
+/** @var Admin $adminObject */
 
 ini_set('memory_limit', '20M');
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 $adminObject = Admin::getInstance();
-$adminObject->displayNavigation('download.php.php');
+$adminObject->displayNavigation(basename(__FILE__));
 
 require dirname(__DIR__) . '/include/ext2mime.php';        // Load the decode array of extension to MIME
 
