@@ -84,7 +84,7 @@ function create_table_sql_string($tablename)
         $index_string     .= ',' . $crlf;
         if ('PRIMARY' == $x) {
             $index_string .= '   PRIMARY KEY (';
-        } elseif ('UNIQUE' == substr($x, 0, 6)) {
+        } elseif (0 === strpos($x, 'UNIQUE')) {
             $index_string .= '   UNIQUE ' . substr($x, 7) . ' (';
         } elseif ('FULLTEXT' == substr($x, 0, 8)) {
             $index_string .= '   FULLTEXT ' . substr($x, 9) . ' (';
