@@ -8,7 +8,7 @@
 ***													***
 *******************************************************
 */
-$ext2mime = array(
+$ext2mime = [
 	"123"=>"application/vnd.lotus-1-2-3",
 	"3g2"=>"video/3gpp2",
 	"3gp"=>"video/3gpp",
@@ -312,5 +312,5 @@ $ext2mime = array(
 	"Z"=>"application/octet-stream",
 	"zac"=>"application/x-zaurus-zac",
 	"zip"=>"application/zip",
-);
+];
 ?>

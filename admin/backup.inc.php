@@ -61,7 +61,7 @@ function create_table_sql_string($tablename){
             $kname = 'FULLTEXT KEY `'.$kname.'`';
         }
         if (!isset($index[$kname])) {
-            $index[$kname] = array();
+            $index[$kname] = [];
         }
         if ($sub_part > 1) {
             $index[$kname][] = PMA_backquote($row['Column_name'], 0) . '(' . $sub_part . ')';
@@ -245,7 +245,7 @@ function restore_data($filename, $restore_structure, $restore_data, $db_selected
 //		$buffer = fgets($handle);
 		$buffer='';
 		while (!feof($handle)) {
-			$temp = array("\r\n", "\n", "\r","\t");
+			$temp = ["\r\n", "\n", "\r", "\t"];
 			$cbuff = str_replace($temp,"",fgets($handle));
 			if (!preg_match('`^--`',$cbuff)) $buffer .= $cbuff;
 			if (preg_match('`;`',$cbuff)!=false) break;
@@ -382,7 +382,7 @@ function PMA_formatByteDown($value, $limes = 6, $comma = 0)
     $li           = pow(10, $limes);
     $return_value = $value;
     $unit         = $byteunits[0];
-	$byteunits = array('Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
+	$byteunits = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
 	$number_thousands_separator = ',';
 	$number_decimal_separator = '.';
 
@@ -400,6 +400,6 @@ function PMA_formatByteDown($value, $limes = 6, $comma = 0)
         $return_value = number_format($value, 0, $number_decimal_separator, $number_thousands_separator);
     }
 
-    return array($return_value, $unit);
+    return [$return_value, $unit];
 } // end of the 'PMA_formatByteDown' function
 // end function

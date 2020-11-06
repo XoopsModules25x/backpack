@@ -37,7 +37,7 @@ $modversion["module_status"] = 'RC1';
 $modversion['min_php'] = '7.1';
 $modversion['min_xoops'] = '2.5.9';
 $modversion['min_admin']= '1.1';
-$modversion['min_db']= array('mysql'=>'5.5', 'mysqli'=>'5.5');
+$modversion['min_db']= ['mysql' =>'5.5', 'mysqli' =>'5.5'];
 
 //Admin things
 $modversion['system_menu'] = 1 ;

@@ -15,9 +15,9 @@ class backpack {
 	public $dump_size = 0;
     public $dump_line = 0;
 	public $dump_buffer;
-	public $query_res = array();
+	public $query_res = [];
 	public $download_count = 0;
-	public $download_fname = array();
+	public $download_fname = [];
 	public $mime_type = '';
 	public $time_start;
 	public $xoopsModuleConfig;
@@ -113,7 +113,7 @@ class backpack {
 	            $kname = 'FULLTEXT KEY `'.$kname.'`';
 	        }
 	        if (!isset($index[$kname])) {
-	            $index[$kname] = array();
+	            $index[$kname] = [];
 	        }
 	        if ($sub_part > 1) {
 	            $index[$kname][] = $this->PMA_backquote($row['Column_name'], 0) . '(' . $sub_part . ')';
@@ -503,7 +503,7 @@ class backpack {
 	    $dh           = pow(10, $comma);
 	    $li           = pow(10, $limes);
 	    $return_value = $value;
-		$byteunits = array('Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
+		$byteunits = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
 	    $unit         = $byteunits[0];
 		$number_thousands_separator = ',';
 		$number_decimal_separator = '.';
@@ -522,7 +522,7 @@ class backpack {
 	        $return_value = number_format($value, 0, $number_decimal_separator, $number_thousands_separator);
 	    }
 	
-	    return array($return_value, $unit);
+	    return [$return_value, $unit];
 	} // end of the 'PMA_formatByteDown' function
 	public function download_fname(){
 		return $this->download_fname;

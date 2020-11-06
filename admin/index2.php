@@ -26,9 +26,9 @@ $time_start = time();
 $dump_line =0;
 $dump_size =0;
 $download_count = 0;
-$download_fname = array();
+$download_fname = [];
 $mime_type = '';
-$query_res = array(); // for query result
+$query_res = []; // for query result
 $mode = '';
 $action = '';
 $num_tables = '';
@@ -137,7 +137,7 @@ switch ($mode) {
 			$num_tables = $xoopsDB->getRowsNum($result);
 		}
 		$j = 0;
-		$tablename_array = array();
+		$tablename_array = [];
 		if (!$alltables){
 			for ($i = 0; $i < $num_tables; $i++) {
 				$check_id = sprintf('check_id%d', $i);

@@ -14,9 +14,9 @@ if (!ini_get('safe_mode')) {
 $ok = 0;
 $op = '';
 $message = '';
-$table = array();
-$op = (isset($_POST['op'])) ? filter_input(INPUT_POST, 'op', FILTER_SANITIZE_STRING, array('flags' => FILTER_NULL_ON_FAILURE)) : false;
-$ok = (isset($_POST['ok'])) ? filter_input(INPUT_POST, 'ok', FILTER_SANITIZE_STRING, array('flags' => FILTER_NULL_ON_FAILURE)) : false;
+$table = [];
+$op = (isset($_POST['op'])) ? filter_input(INPUT_POST, 'op', FILTER_SANITIZE_STRING, ['flags' => FILTER_NULL_ON_FAILURE]) : false;
+$ok = (isset($_POST['ok'])) ? filter_input(INPUT_POST, 'ok', FILTER_SANITIZE_STRING, ['flags' => FILTER_NULL_ON_FAILURE]) : false;
 
 include_once 'admin_header.php';
 xoops_cp_header();
@@ -73,7 +73,7 @@ switch ($op) {
 		break;
 	default:
 		$ok = 1;
-		xoops_confirm(array( 'op' => 'conf_opt', 'ok' => 1),XOOPS_URL.'/modules/' . $xoopsModule->getVar('dirname') .'/admin/optimizer.php',_AM_OPT_WARNING. '<br />'._AM_PRECISION.'<br />'._AM_VERIF_SUR.'<br /><a href="index.php">'._AM_RETURNTOSTART.'</a>');
+		xoops_confirm(['op' => 'conf_opt', 'ok' => 1], XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/optimizer.php', _AM_OPT_WARNING . '<br />' . _AM_PRECISION . '<br />' . _AM_VERIF_SUR . '<br /><a href="index.php">' . _AM_RETURNTOSTART . '</a>');
 }
 if ($ok != 1) {
 	echo $message;

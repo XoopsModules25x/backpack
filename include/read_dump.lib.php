@@ -75,7 +75,7 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
         // We are not in a string, first check for delimiter...
         else if ($char == ';') {
             // if delimiter found, add the parsed part to the returned array
-            $ret[]      = array('query' => substr($sql, 0, $i), 'empty' => $nothing);
+            $ret[]      = ['query' => substr($sql, 0, $i), 'empty' => $nothing];
             $nothing    = TRUE;
             $sql        = ltrim(substr($sql, min($i + 1, $sql_len)));
             $sql_len    = strlen($sql);
@@ -108,7 +108,7 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
 
     // add any rest to the returned array
     if (!empty($sql) && preg_match('@[^[:space:]]+@', $sql)) {
-        $ret[] = array('query' => $sql, 'empty' => $nothing);
+        $ret[] = ['query' => $sql, 'empty' => $nothing];
     }
 
     return TRUE;

@@ -44,7 +44,7 @@
 	</style>
 <?php
 	global $xoopsDB, $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
-	$tblCol = Array();
+	$tblCol = [];
 	$tblCol[0]=$tblCol[1]=$tblCol[2]=$tblCol[3]=$tblCol[4]='';
 //	$tblCol[$currentoption] = 'current';
 	$verinfo =  $xoopsModule->getVar( 'name' ) . "&nbsp;v" . sprintf( "%2.2f" ,  $xoopsModule->getVar('version') / 100.0 ) ;

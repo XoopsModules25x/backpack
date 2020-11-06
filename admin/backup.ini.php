@@ -39,7 +39,7 @@ $db_host = XOOPS_DB_HOST;
 $db_user = XOOPS_DB_USER;
 $db_pass = XOOPS_DB_PASS;
 
-$sys_tables = array(
+$sys_tables = [
 	'groups',
 	'users',
 	'groups_users_link',
@@ -68,7 +68,7 @@ $sys_tables = array(
 	'bannerclient',
 	'banner',
 	'bannerfinish'
-);
+];
 $footer = '<div class="adminfooter">'."\n".'<div style="text-align: center;">'."\n"
     . '    <a href="http://www.xoops.org" rel="external"><img src="'.$pathIcon32.'/xoopsmicrobutton.gif" alt="xoops" title="xoops"></a>'."\n"
     . '  </div>'."\n" . '  <div class="center smallsmall italic pad5"> ce module est maintenu par <a href="https://store.chg-web.com" rel="external">Cedric MONTUY CHG-WEB</a>' . "\n" . '</div>';
