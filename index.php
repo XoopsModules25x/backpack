@@ -11,9 +11,8 @@
 
 use Xmf\Request;
 
-if (!include('../../mainfile.php')) {
-    die('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 if (!empty(Request::getString('HTTP_REFERER', '', 'SERVER'))) {
     if (preg_match('`backpack/admin`i', Request::getString('HTTP_REFERER', '', 'SERVER'))) {
         header('HTTP/1.0 303 See Other ');
