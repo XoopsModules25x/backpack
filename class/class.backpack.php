@@ -100,7 +100,8 @@ class backpack
         }
         while (false !== ($field_info = mysqli_fetch_array($result))) {
             if ($this->debug) {
-                for ($i = 0, $iMax = count($field_info); $i < $iMax; $i++) {
+                $iMax = count($field_info);
+                for ($i = 0;  $i < $iMax; $i++) {
                     echo $i . ': ' . $field_info[$i] . "\n";
                 }
             }
@@ -164,7 +165,8 @@ class backpack
             echo "\nstatus_info\n\n";
         }
         while (false !== ($status_info = mysqli_fetch_array($result))) {
-            for ($i = 0, $iMax = count($status_info); $i < $iMax; $i++) {
+            $iMax = count($status_info);
+            for ($i = 0;  $i < $iMax; $i++) {
                 if ($this->debug) {
                     echo "$i: $status_info[$i]\n";
                 }
@@ -334,7 +336,8 @@ class backpack
     {
         global $xoopsDB;
         $q = 'LOCK TABLES';
-        for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
+        $iMax = count($tablename_array);
+        for ($i = 0;  $i < $iMax; $i++) {
             $q .= ' ' . $tablename_array[$i] . ' read,';
         }
         $q = substr($q, 0, strlen($q) - 1);
@@ -352,7 +355,8 @@ class backpack
         //mysqli_query($xoopsDB->conn,'FLUSH TABLES');
         $xoopsDB->queryF('FLUSH TABLES');
         $this->Lock_Tables($tablename_array);
-        for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
+        $iMax = count($tablename_array);
+        for ($i = 0;  $i < $iMax; $i++) {
             if ($backup_structure) {
                 $this->create_table_sql_string($tablename_array[$i]);
             }

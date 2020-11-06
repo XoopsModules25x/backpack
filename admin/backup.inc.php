@@ -40,7 +40,8 @@ function create_table_sql_string($tablename)
     }
     while (false !== ($field_info = mysqli_fetch_array($result))) {
         if (DEBUG) {
-            for ($i = 0, $iMax = count($field_info); $i < $iMax; $i++) {
+            $iMax = count($field_info);
+            for ($i = 0; $i < $iMax; $i++) {
                 echo "$i: $field_info[$i]\n";
             }
         }
@@ -102,7 +103,8 @@ function create_table_sql_string($tablename)
         echo "\nstatus_info\n\n";
     }
     while (false !== ($status_info = $GLOBALS['xoopsDB']->fetchBoth($result))) {
-        for ($i = 0, $iMax = count($status_info); $i < $iMax; $i++) {
+        $iMax = count($status_info);
+        for ($i = 0;  $i < $iMax; $i++) {
             if (DEBUG) {
                 echo "$i: $status_info[$i]\n";
             }
@@ -234,7 +236,8 @@ function Lock_Tables($tablename_array)
 {
     $q = 'LOCK TABLES';
 
-    for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
+    $iMax = count($tablename_array);
+    for ($i = 0;  $i < $iMax; $i++) {
         $q .= ' ' . $tablename_array[$i] . ' read,';
     }
     $q = substr($q, 0, strlen($q) - 1);
@@ -251,7 +254,8 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
     $dump_line += count($c[0]);
     $GLOBALS['xoopsDB']->queryF('FLUSH TABLES');
     Lock_Tables($tablename_array);
-    for ($i = 0, $iMax = count($tablename_array); $i < $iMax; $i++) {
+    $iMax = count($tablename_array);
+    for ($i = 0;  $i < $iMax; $i++) {
         if ($backup_structure) {
             create_table_sql_string($tablename_array[$i]);
         }
