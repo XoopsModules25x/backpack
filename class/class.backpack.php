@@ -147,9 +147,9 @@ class backpack
             $index_string .= ',' . $crlf;
             if ('PRIMARY' == $x) {
                 $index_string .= '   PRIMARY KEY (';
-            } elseif ('UNIQUE' == substr($x, 0, 6)) {
+            } elseif (0 === strpos($x, 'UNIQUE')) {
                 $index_string .= '   UNIQUE ' . substr($x, 7) . ' (';
-            } elseif ('FULLTEXT' == substr($x, 0, 8)) {
+            } elseif (0 === strpos($x, 'FULLTEXT')) {
                 $index_string .= '   FULLTEXT ' . substr($x, 9) . ' (';
             } else {
                 $index_string .= '   KEY `' . $x . '` (';
