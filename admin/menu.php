@@ -10,7 +10,7 @@
 */
 defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
 
-$path = dirname(dirname(dirname(__DIR__)));
+$path = dirname(__DIR__, 3);
 include_once $path . '/mainfile.php';
 
 $dirname         = basename(dirname(__DIR__));
