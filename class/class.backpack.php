@@ -426,16 +426,14 @@ class backpack
                             echo "Table '$tablename' successfully recreated.<br>\n";
                         }
                     }
-                } else {
                     //echo "[".$buffer."]";die;
-                    if ($restore_data) {
+                } elseif ($restore_data) {
                         //$result = mysqli_query($buffer);
                         $xoopsDB->queryF($buffer);
                         if (!$result) {
                             echo $GLOBALS['xoopsDB']->error()."<br>\n";
                         }
                     }
-                }
             }
         }
         fclose($handle);

@@ -315,14 +315,12 @@ function restore_data($filename, $restore_structure, $restore_data, $db_selected
                         echo "Table '$tablename' successfully recreated.<br>\n";
                     }
                 }
-            } else {
-                if ($restore_data) {
+            } elseif ($restore_data) {
                     $result = mysqli_query($buffer);
                     if (!$result) {
                         echo $GLOBALS['xoopsDB']->error()."<br>\n";
                     }
                 }
-            }
         }
     }
     fclose($handle);
