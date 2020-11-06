@@ -20,13 +20,9 @@ $module          = $moduleHandler->getByDirname($dirname);
 $pathIcon32      = $module->getInfo('icons32');
 $pathModuleAdmin = $module->getInfo('dirmoduleadmin');
 $pathLanguage    = $path . $pathModuleAdmin;
+$thisModuleDir  = $GLOBALS['xoopsModule']->getVar('dirname');
 
-
-if (!file_exists($fileinc = $pathLanguage . '/language/' . $GLOBALS['xoopsConfig']['language'] . '/' . 'main.php')) {
-    $fileinc = $pathLanguage . '/language/english/main.php';
-}
-
-require_once $fileinc;
+xoops_loadLanguage('main', $thisModuleDir);
 
 $adminmenu = [];
 $i = 1;
