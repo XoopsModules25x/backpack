@@ -75,7 +75,7 @@ $footer = '<div class="adminfooter">'."\n".'<div style="text-align: center;">'."
 
 // Whether the os php is running on is windows or not
 if (!defined('PMA_IS_WINDOWS')) {
-    if (defined('PHP_OS') && stristr(PHP_OS, 'win')) {
+    if (defined('PHP_OS') && false !== stripos(PHP_OS, 'win')) {
         define('PMA_IS_WINDOWS', 1);
     } else {
         define('PMA_IS_WINDOWS', 0);
