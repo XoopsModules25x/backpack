@@ -8,6 +8,9 @@
 ***													***
 *******************************************************
 */
+
+use Xmf\Module\Admin;
+
 if (!ini_get('safe_mode')) {
     set_time_limit(0);
 }
@@ -20,7 +23,7 @@ $ok = (isset($_POST['ok'])) ? filter_input(INPUT_POST, 'ok', FILTER_SANITIZE_STR
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 $adminObject->displayNavigation('optimizer.php');
 
 function format_time($seconds)

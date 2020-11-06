@@ -8,10 +8,13 @@
 ***													***
 *******************************************************
 */
+
+use Xmf\Module\Admin;
+
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$aboutAdmin = \Xmf\Module\Admin::getInstance();
+$aboutAdmin = Admin::getInstance();
 
 $aboutAdmin->displayNavigation('about.php');
 $aboutAdmin->renderAbout('2MHAG2L3NZG8G', false);

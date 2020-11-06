@@ -8,13 +8,16 @@
 ***													***
 *******************************************************
 */
+
+use Xmf\Module\Admin;
+
 ini_set('memory_limit', '20M');
 if (!ini_get('safe_mode')) {
     set_time_limit(0);
 }
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 $adminObject->displayNavigation('download.php.php');
 
 require dirname(__DIR__) . '/include/ext2mime.php';		// Load the decode array of extension to MIME
