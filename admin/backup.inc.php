@@ -173,7 +173,7 @@ function make_download($filename,$cfgZipType){
 	fwrite($fp, $op_buffer);
 	fclose($fp);
 	unset($op_buffer);
-	if(!file_exists($fpathname)){
+	if(!is_file($fpathname)){
 		print("Error - $filename does not exist.");
 		return ;
 	}

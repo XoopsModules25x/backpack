@@ -129,7 +129,7 @@ function PMA_splitSqlFile(&$ret, $sql, $release) {
 function PMA_readFile($path, $mime = '') {
     global $cfg;
 
-    if (!file_exists($path)) {
+    if (!is_file($path)) {
         return FALSE;
     }
     switch ($mime) {

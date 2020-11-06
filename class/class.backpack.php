@@ -240,7 +240,7 @@ class backpack {
 		fwrite($fp, $op_buffer);
 		fclose($fp);
 		unset($op_buffer);
-		if(!file_exists($fpathname)){
+		if(!is_file($fpathname)){
 			print("Error - $filename does not exist.");
 			return false;
 		}
@@ -324,7 +324,7 @@ class backpack {
 	public function restore_data($filename, $restore_structure, $restore_data, $db_selected, $replace_url='')
 	{
 		global $xoopsDB;
-		if (!file_exists($filename)) exit();
+		if (!is_file($filename)) exit();
 		$handle = fopen($filename, 'r');
 	
 		$prefix ='';
