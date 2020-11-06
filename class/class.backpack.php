@@ -457,7 +457,7 @@ class backpack
         // TABLES (loading mysql.sql)
         $sql_file_path = XOOPS_TRUST_PATH . '/modules/' . $dirname . '/sql/mysql.sql' ;
         $prefix_mod    = $dirname ;
-        if (file_exists($sql_file_path)) {
+        if (is_file($sql_file_path)) {
             $sql_lines = file($sql_file_path) ;
             foreach ($sql_lines as $sql_line) {
                 if (preg_match('/^CREATE TABLE \`?([a-zA-Z0-9_-]+)\`? /i', $sql_line, $regs)) {
