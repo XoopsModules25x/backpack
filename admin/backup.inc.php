@@ -139,7 +139,7 @@ function create_data_sql_string($tablename, $filename, $cfgZipType)
         $data_string = '';
         // Loop through the records and append data to the string after escaping
         for ($i = 0; $i < mysqli_num_fields($query_res); $i++) {
-            if (!isset($row[$i]) || is_null($row[$i])) {
+            if (!isset($row[$i]) || null === $row[$i]) {
                 $data_string = sprintf('%s, NULL', $data_string);
             } else {
                 $data_string = sprintf("%s, '%s'", $data_string, $GLOBALS['xoopsDB']->escape($row[$i]));

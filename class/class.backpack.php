@@ -200,7 +200,7 @@ class backpack
                 if ('' != $data_string) {
                     $data_string .= ',';
                 }
-                if (!isset($row[$i]) || is_null($row[$i])) {
+                if (!isset($row[$i]) || null === $row[$i]) {
                     $data_string .= 'NULL';
                 } else {
                     //$data_string .= '"'.$GLOBALS['xoopsDB']->escape($row[$i]).'"';
