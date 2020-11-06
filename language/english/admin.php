@@ -64,7 +64,7 @@ define('_AM_RESTORE_MESS1', 'The Restore is complete. Any errors or messages enc
 define('_AM_NO_FILE', 'No exist file: ');
 define('_AM_TITLE_BCK', 'Backup MySQL Data');
 define('_AM_TITLE_RESTORE', 'Restore MySQL Data');
-define('_AM_SELECT_DATABASE', 'SELECT database TO backup FROM ');
+define('_AM_SELECT_DATABASE', 'Select database to backup from ');
 define('_AM_MESS_ERROR_1', 'Over upload_max_filesize on php.ini');
 define('_AM_MESS_ERROR_2', 'Over MAX_FILE_SIZE at form');
 define('_AM_MESS_ERROR_3', 'An error occured while trying to recieve the file. Please try again.');
