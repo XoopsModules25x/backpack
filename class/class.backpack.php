@@ -98,7 +98,7 @@ class backpack
         if ($this->debug) {
             echo $tablename . " .field_info\n\n";
         }
-        while (false !== ($field_info = mysqli_fetch_array($result))) {
+        while (false !== ($field_info = $xoopsDB->fetchBoth($result))) {
             if ($this->debug) {
                 $iMax = count($field_info);
                 for ($i = 0;  $i < $iMax; $i++) {
@@ -118,7 +118,7 @@ class backpack
         if ($this->debug) {
             echo "\nindex_info\n\n";
         }
-        while (false !== ($row = mysqli_fetch_array($result))) {
+        while (false !== ($row = $xoopsDB->fetchBoth($result))) {
             $kname = $row['Key_name'];
             $ktype = $row['Index_type'] ?? '';
             if (!$ktype && (isset($row['Comment']))) {
@@ -164,7 +164,7 @@ class backpack
         if ($this->debug) {
             echo "\nstatus_info\n\n";
         }
-        while (false !== ($status_info = mysqli_fetch_array($result))) {
+        while (false !== ($status_info = $xoopsDB->fetchBoth($result))) {
             $iMax = count($status_info);
             for ($i = 0;  $i < $iMax; $i++) {
                 if ($this->debug) {
@@ -528,7 +528,8 @@ class backpack
         $scan['K']  = 1024;
         $scan['k']  = 1024;
 
-        while (list($key) = each($scan)) {
+//        while (list($key) = each($scan)) {
+        foreach (array_keys($scan) as $key) {
             if ((strlen($size) > strlen($key)) && (substr($size, strlen($size) - strlen($key)) == $key)) {
                 $size = substr($size, 0, strlen($size) - strlen($key)) * $scan[$key];
                 break;
