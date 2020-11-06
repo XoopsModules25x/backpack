@@ -258,7 +258,7 @@ class backpack {
 		        if (preg_match('/sql/', $file)) {
 					$fileDate = filemtime( $this->backup_dir.$file );
 		            if ($beforeDays){
-		            	$beforeDate = time() - 86400 * intval($beforeDays);
+		            	$beforeDate = time() - 86400 * (int)$beforeDays;
 		            	if ( $fileDate < $beforeDate ){
 				            if ($this->debug) echo "DELETE - $file $fileDate\n<BR>";
 			            	unlink($this->backup_dir.$file);

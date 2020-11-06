@@ -238,7 +238,7 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
 function restore_data($filename, $restore_structure, $restore_data, $db_selected)
 {
 	if (!file_exists($filename)) exit();
-	$handle = fopen("$filename", 'r');
+	$handle = fopen((string)$filename, 'r');
 
 	$prefix ='';
 	while (!feof($handle)) {
