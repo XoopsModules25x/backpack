@@ -1,4 +1,5 @@
 <?php
+
 // $Id: admin.php,v 1.3 2005/08/08 07:03:06 yoshis Exp $
 define('_AM_TITLE', 'BackPack');
 define('_AM_BACKUPTITLE', '備莉ｽ資料庫');

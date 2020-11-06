@@ -8,6 +8,7 @@
 ***													***
 *******************************************************
 */
+
 // Defines
 define('TIME_LIMIT', 300);
 define('DB_SELECT_FORM', 1);
@@ -21,23 +22,23 @@ define('MAX_DUMPLINE', 131071);
 define('MAX_DUMPSIZE', 1024);
 
 // For the export features...
-$cfg['ZipDump']               = true;   // Allow the use of zip/gzip/bzip
-$cfg['GZipDump']              = true;   // compression for
-$cfg['BZipDump']              = true;   // dump files
+$cfg['ZipDump']  = true;   // Allow the use of zip/gzip/bzip
+$cfg['GZipDump'] = true;   // compression for
+$cfg['BZipDump'] = true;   // dump files
 //Check for php.ini
 //memory_limit = 8M      ; Maximum amount of memory a script may consume (8MB)
 //; Maximum size of POST data that PHP will accept.
 //post_max_size = 8M
 //; Maximum allowed size for uploaded files.
 //upload_max_filesize = 2M
-$maxbyte = '8000000';	// Upload Max FileSize ( Dipend on php.ini def = 2M )
+$maxbyte = '8000000';    // Upload Max FileSize ( Dipend on php.ini def = 2M )
 //
 // Start a session and get variables
 //
 $db_selected = XOOPS_DB_NAME;
-$db_host = XOOPS_DB_HOST;
-$db_user = XOOPS_DB_USER;
-$db_pass = XOOPS_DB_PASS;
+$db_host     = XOOPS_DB_HOST;
+$db_user     = XOOPS_DB_USER;
+$db_pass     = XOOPS_DB_PASS;
 
 $sys_tables = [
     'groups',
@@ -67,11 +68,21 @@ $sys_tables = [
     'xoopscomments',
     'bannerclient',
     'banner',
-    'bannerfinish'
+    'bannerfinish',
 ];
-$footer = '<div class="adminfooter">'."\n".'<div style="text-align: center;">'."\n"
-    . '    <a href="https://www.xoops.org" rel="external"><img src="'.$pathIcon32.'/xoopsmicrobutton.gif" alt="xoops" title="xoops"></a>'."\n"
-    . '  </div>'."\n" . '  <div class="center smallsmall italic pad5"> ce module est maintenu par <a href="https://store.chg-web.com" rel="external">Cedric MONTUY CHG-WEB</a>' . "\n" . '</div>';
+$footer     = '<div class="adminfooter">'
+              . "\n"
+              . '<div style="text-align: center;">'
+              . "\n"
+              . '    <a href="https://www.xoops.org" rel="external"><img src="'
+              . $pathIcon32
+              . '/xoopsmicrobutton.gif" alt="xoops" title="xoops"></a>'
+              . "\n"
+              . '  </div>'
+              . "\n"
+              . '  <div class="center smallsmall italic pad5"> ce module est maintenu par <a href="https://store.chg-web.com" rel="external">Cedric MONTUY CHG-WEB</a>'
+              . "\n"
+              . '</div>';
 
 // Whether the os php is running on is windows or not
 if (!defined('PMA_IS_WINDOWS')) {

@@ -1,4 +1,5 @@
 <?php
+
 /*
 *******************************************************
 ***													***
@@ -47,7 +48,7 @@ define('_AM_READY_TO_DOWNLOAD', 'Ready to download.');
 define('_AM_IFNOTRELOAD', "If the download does not automatically start, please click <a href='%s'>here</a>");
 // After V0.97
 define('_AM_REPLACEURL', 'Replace URL(ommit http://)');
-define('_AM_REPLACEURL_DESC', 'Describe the URL perplace to \''.XOOPS_URL.'\'');
+define('_AM_REPLACEURL_DESC', 'Describe the URL perplace to \'' . XOOPS_URL . '\'');
 // After V1.01
 define('_AM_VERIF_SUR', 'Are you sure you want to continue ?');
 define('_AM_PRECISION', 'Depending on the size of your database, <br>a shorter or longer period is necessary');
@@ -63,7 +64,7 @@ define('_AM_RESTORE_MESS1', 'The Restore is complete. Any errors or messages enc
 define('_AM_NO_FILE', 'No exist file: ');
 define('_AM_TITLE_BCK', 'Backup MySQL Data');
 define('_AM_TITLE_RESTORE', 'Restore MySQL Data');
-define('_AM_SELECT_DATABASE', 'Select database to backup from ');
+define('_AM_SELECT_DATABASE', 'SELECT database TO backup FROM ');
 define('_AM_MESS_ERROR_1', 'Over upload_max_filesize on php.ini');
 define('_AM_MESS_ERROR_2', 'Over MAX_FILE_SIZE at form');
 define('_AM_MESS_ERROR_3', 'An error occured while trying to recieve the file. Please try again.');

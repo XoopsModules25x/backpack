@@ -96,37 +96,37 @@ if (!defined('PMA_USR_OS')) {
     // 2. browser and version
     if (preg_match_all("#Opera (.*)(\[[a-z]{2}\];)?$#isU", $_SERVER['HTTP_USER_AGENT'], $version)) {
         $navigateur = 'Opéra';
-        $ver = $version[1][0];
+        $ver        = $version[1][0];
     } elseif (preg_match_all('#MSIE (.*);#isU', $_SERVER['HTTP_USER_AGENT'], $version)) {
         $navigateur = 'Internet Explorer';
-        $ver = $version[1][0];
+        $ver        = $version[1][0];
     } elseif (preg_match_all('#Firefox(.*)$#isU', $_SERVER['HTTP_USER_AGENT'], $version)) {
-        $ver = str_replace('/', '', $version[1][0]);
+        $ver        = str_replace('/', '', $version[1][0]);
         $navigateur = 'Firefox';
     } elseif (preg_match_all('#Chrome(.*) Safari#isU', $_SERVER['HTTP_USER_AGENT'], $version)) {
-        $ver = str_replace('/', '', $version[1][0]);
+        $ver        = str_replace('/', '', $version[1][0]);
         $navigateur = 'Chrome';
     } elseif (preg_match_all("#Opera(.*) \(#isU", $_SERVER['HTTP_USER_AGENT'], $version)) {
-        $ver = str_replace('/', '', $version[1][0]);
+        $ver        = str_replace('/', '', $version[1][0]);
         $navigateur = 'Opéra';
     } elseif (preg_match('#Nokia#', $_SERVER['HTTP_USER_AGENT'])) {
-        $ver = '';
+        $ver        = '';
         $navigateur = 'Nokia';
     } elseif (preg_match('#Safari#', $_SERVER['HTTP_USER_AGENT'])) {
         $navigateur = 'Safari';
-        $ver = '';
+        $ver        = '';
     } elseif (preg_match('#SeaMonkey#', $_SERVER['HTTP_USER_AGENT'])) {
         $navigateur = 'SeaMonkey';
-        $ver = '';
+        $ver        = '';
     } elseif (preg_match('#PSP#', $_SERVER['HTTP_USER_AGENT'])) {
         $navigateur = 'PSP';
-        $ver = '';
+        $ver        = '';
     } elseif (preg_match('#Netscape#', $_SERVER['HTTP_USER_AGENT'])) {
         $navigateur = 'Netscape';
-        $ver = '';
+        $ver        = '';
     } else {
         $navigateur = 'Inconnu';
-        $ver = '';
+        $ver        = '';
     }
     define('PMA_USR_BROWSER_VER', $ver);
     define('PMA_USR_BROWSER_AGENT', $navigateur);

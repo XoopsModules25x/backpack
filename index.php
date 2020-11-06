@@ -21,4 +21,4 @@ if (!empty(Request::getString('HTTP_REFERER', '', 'SERVER'))) {
     }
 }
 header('HTTP/1.0 401 Unauthorized');
-header('Location: '.XOOPS_URL);
+header('Location: ' . XOOPS_URL);

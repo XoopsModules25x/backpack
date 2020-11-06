@@ -18,38 +18,38 @@ xoops_cp_header();
 $adminObject = Admin::getInstance();
 $adminObject->displayNavigation('download.php.php');
 
-require dirname(__DIR__) . '/include/ext2mime.php';		// Load the decode array of extension to MIME
+require dirname(__DIR__) . '/include/ext2mime.php';        // Load the decode array of extension to MIME
 
-$fpathname = htmlspecialchars(rawurldecode($_GET['url']), ENT_QUOTES);
+$fpathname   = htmlspecialchars(rawurldecode($_GET['url']), ENT_QUOTES);
 $dl_filename = $fpathname;
 if (defined('XOOPS_VAR_PATH')) {
     $backup_dir = XOOPS_VAR_PATH . '/caches/';
 } else {
     $backup_dir = XOOPS_ROOT_PATH . '/cache/';
 }
-$fpathname = $backup_dir.$fpathname;
+$fpathname = $backup_dir . $fpathname;
 ob_clean();
 if (!file_exists($fpathname)) {
-    if (file_exists($fpathname.'.log')) {
+    if (file_exists($fpathname . '.log')) {
         echo '<strong>Already downloaded by </strong>';
-        $fp = fopen($fpathname.'.log', 'r');
+        $fp = fopen($fpathname . '.log', 'r');
         while (!feof($fp)) {
             $line = fgets($fp);
-            echo $line.'<br>';
+            echo $line . '<br>';
         }
         fclose($fp);
         exit();
     }
-    print('Error - '.$fpathname.' does not exist.');
-    return ;
+    print('Error - ' . $fpathname . ' does not exist.');
+    return;
 }
-$browser = $version =0;
+$browser = $version = 0;
 UsrBrowserAgent($browser, $version);
 ignore_user_abort();
 
 $fnamedotpos = strrpos($dl_filename, '.');
-$fext = substr($dl_filename, $fnamedotpos+1);
-$ctype = $ext2mime[$fext] ?? 'application/octet-stream-dummy';
+$fext        = substr($dl_filename, $fnamedotpos + 1);
+$ctype       = $ext2mime[$fext] ?? 'application/octet-stream-dummy';
 if ('gz' == $fext) {
     $content_encoding = 'x-gzip';
 }
@@ -81,7 +81,7 @@ if ('IE' == $browser) {
 
 $fp = fopen($fpathname, 'r');
 while (!feof($fp)) {
-    $buffer = fread($fp, 1024*6); //speed-limit 64kb/s
+    $buffer = fread($fp, 1024 * 6); //speed-limit 64kb/s
     print $buffer;
     flush();
     ob_flush();
@@ -96,10 +96,10 @@ if ($xoopsUser) {
 } else {
     $uname = 'Anonymous';
 }
-$str = $uname . ',' . date('Y-m-d H:i:s', time());
-$postlog = $fpathname.'.log';
-$fp = fopen($postlog, 'a');
-fwrite($fp, $str."\n");
+$str     = $uname . ',' . date('Y-m-d H:i:s', time());
+$postlog = $fpathname . '.log';
+$fp      = fopen($postlog, 'a');
+fwrite($fp, $str . "\n");
 fclose($fp);
 unlink($fpathname);
 //xoops_cp_footer();
@@ -109,27 +109,27 @@ unlink($fpathname);
 function UsrBrowserAgent(&$browser, &$version)
 {
     if (preg_match('@Opera(/| )([0-9].[0-9]{1,2})@', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
-        $version= $log_version[2];
-        $browser='OPERA';
+        $version = $log_version[2];
+        $browser = 'OPERA';
     } elseif (preg_match('@MSIE ([0-9].[0-9]{1,2})@', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
-        $version= $log_version[1];
-        $browser='IE';
+        $version = $log_version[1];
+        $browser = 'IE';
     } elseif (preg_match('@OmniWeb/([0-9].[0-9]{1,2})@', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
-        $version= $log_version[1];
-        $browser='OMNIWEB';
+        $version = $log_version[1];
+        $browser = 'OMNIWEB';
     } elseif (preg_match('@(Konqueror/)(.*)(;)@', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
-        $version= $log_version[2];
-        $browser='KONQUEROR';
+        $version = $log_version[2];
+        $browser = 'KONQUEROR';
     } elseif (preg_match('@Mozilla/([0-9].[0-9]{1,2})@', $_SERVER['HTTP_USER_AGENT'], $log_version)
-               && preg_match('@Safari/([0-9]*)@', $_SERVER['HTTP_USER_AGENT'], $log_version2)) {
-        $version= $log_version[1] . '.' . $log_version2[1];
-        $browser='SAFARI';
+              && preg_match('@Safari/([0-9]*)@', $_SERVER['HTTP_USER_AGENT'], $log_version2)) {
+        $version = $log_version[1] . '.' . $log_version2[1];
+        $browser = 'SAFARI';
     } elseif (preg_match('@Mozilla/([0-9].[0-9]{1,2})@', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
-        $version= $log_version[1];
-        $browser='MOZILLA';
+        $version = $log_version[1];
+        $browser = 'MOZILLA';
     } else {
-        $version= 0;
-        $browser='OTHER';
+        $version = 0;
+        $browser = 'OTHER';
     }
     return $browser;
 }
