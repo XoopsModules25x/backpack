@@ -42,7 +42,7 @@ if (file_exists($GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php')))
 $myts = MyTextSanitizer::getInstance();
 
 if ($xoopsUser) {
-    $moduleperm_handler = xoops_gethandler('groupperm');
+    $moduleperm_handler = xoops_getHandler('groupperm');
     if (!$moduleperm_handler->checkRight('module_admin', $xoopsModule->getVar( 'mid' ), $xoopsUser->getGroups())) {
         redirect_header(XOOPS_URL, 1, _NOPERM);
         exit();

@@ -9,7 +9,7 @@
 *******************************************************
 */
 // Define this to enable debugging
-DEFINE ('DEBUG', 0);
+define ('DEBUG', 0);
 
 function PMA_backquote($a_name, $do_it = TRUE){
     if ($do_it
@@ -295,7 +295,7 @@ function get_module_tables($dirname)
 {
     global $xoopsConfig;
     if (!$dirname ) return;
-    $module_handler = xoops_gethandler('module');
+    $module_handler = xoops_getHandler('module');
     $module = $module_handler->getByDirname($dirname);
     // Get tables used by this module
     $modtables = $module->getInfo('tables');

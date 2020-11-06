@@ -57,10 +57,10 @@ class backpack {
 		$this->backup_dir = $backup_dir;
 	}
 	public function xoopsModuleConfig($dirname){
-		$module_handler = xoops_gethandler('module');
+		$module_handler = xoops_getHandler('module');
 		$this_module = $module_handler->getByDirname($dirname);
 		$mid = $this_module->getVar('mid');
-		$config_handler = xoops_gethandler('config');
+		$config_handler = xoops_getHandler('config');
 		$this->xoopsModuleConfig = $config_handler->getConfigsByCat(0, $mid);
 	}
 	public function PMA_backquote($a_name, $do_it = TRUE){
@@ -395,7 +395,7 @@ class backpack {
 	public function get_module_tables($dirname){
 		global $xoopsConfig,$xoopsDB;
 		if (!$dirname ) return;
-		$module_handler = xoops_gethandler('module');
+		$module_handler = xoops_getHandler('module');
 		$module = $module_handler->getByDirname($dirname);
 		// Get tables used by this module
 		$modtables = $module->getInfo('tables');
