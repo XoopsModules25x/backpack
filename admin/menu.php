@@ -20,9 +20,11 @@ $module          = $moduleHandler->getByDirname($dirname);
 $pathIcon32      = $module->getInfo('icons32');
 $pathModuleAdmin = $module->getInfo('dirmoduleadmin');
 $pathLanguage    = $path . $pathModuleAdmin;
-$thisModuleDir   = $GLOBALS['xoopsModule']->getVar('dirname');
+//$thisModuleDir   = $GLOBALS['xoopsModule']->getVar('dirname');
+$moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-xoops_loadLanguage('main', $thisModuleDir);
+xoops_loadLanguage('main', $moduleDirName);
 
 $adminmenu              = [];
 $i                      = 1;
