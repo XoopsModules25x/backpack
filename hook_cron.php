@@ -23,7 +23,7 @@ function backpack_cron($parameter = null)
     $cfgZipType = 'gzip';
     $bp         = new backpack($dirname, $parameter);
     if ($bp->err_msg) {
-        echo "<font color='red'>" . $bp->err_msg . '</font>';
+        echo "<span style=\"color: red; \">" . $bp->err_msg . '</span>';
     }
     $bp->backup_data($tablename_array, $backup_structure, $backup_data, $filename, $cfgZipType);
 }

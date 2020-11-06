@@ -45,7 +45,7 @@ if (isset($_POST['replace_url'])) {
 
 $bp = new backpack();
 if ($bp->err_msg) {
-    echo '<font color="red">' . $bp->err_msg . '</font>';
+    echo '<span style="color: red; ">' . $bp->err_msg . '</span>';
 }
 
 // Handle URL actions

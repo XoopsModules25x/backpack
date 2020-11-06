@@ -19,7 +19,7 @@ $adminObject->displayNavigation(basename(__FILE__));
 
 $bp = new backpack();
 if ($bp->err_msg) {
-    sprintf('<font color="red">%s</font>', $bp->err_msg);
+    sprintf('<span style="color: red; ">%s</span>', $bp->err_msg);
 }
 function mysqli_tablename($result, $i)
 {
