@@ -80,7 +80,7 @@ function PMA_splitSqlFile(&$ret, $sql, $release)
             $nothing = true;
             $sql     = ltrim(substr($sql, min($i + 1, $sql_len)));
             $sql_len = strlen($sql);
-            if ($sql_len) {
+            if ($sql_len !== 0) {
                 $i = -1;
             } else {
                 // The submited statement(s) end(s) here
@@ -140,7 +140,7 @@ function PMA_readFile($path, $mime = '')
             }
             $test = fread($file, 3);
             fclose($file);
-            if ($test[0] == chr(31) && $test[1] == chr(139)) {
+            if ($test[0] === chr(31) && $test[1] === chr(139)) {
                 return PMA_readFile($path, 'application/x-gzip');
             }
             if ('BZh' == $test) {

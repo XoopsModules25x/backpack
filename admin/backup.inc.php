@@ -35,11 +35,11 @@ function create_table_sql_string($tablename)
 
     // Get the field info and output to a string in the correct MySQL syntax
     $result = mysqli_query("DESCRIBE $tablename");
-    if (DEBUG) {
+    if (DEBUG !== 0) {
         echo "field_info\n\n";
     }
     while (false !== ($field_info = mysqli_fetch_array($result))) {
-        if (DEBUG) {
+        if (DEBUG !== 0) {
             $iMax = count($field_info);
             for ($i = 0; $i < $iMax; $i++) {
                 echo "$i: $field_info[$i]\n";
@@ -50,7 +50,7 @@ function create_table_sql_string($tablename)
         $field_not_null = ('YES' == $field_info[2]) ? '' : ' NOT NULL';
         $field_default  = (null === $field_info[4]) ? '' : sprintf(" default '%s'", $field_info[4]);;
         $field_auto_increment = (null === $field_info[5]) ? '' : sprintf(' %s', $field_info[5]);
-        $field_string         .= $field_string ? ',' : $field_header;
+        $field_string         .= $field_string !== '' ? ',' : $field_header;
         $field_string         .= $crlf . sprintf('  `%s` %s%s%s%s', $field_name, $field_type, $field_not_null, $field_auto_increment, $field_default);
     }
     // Get the index info and output to a string in the correct MySQL syntax
@@ -268,7 +268,7 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
         }
     }
     mysqli_query('UNLOCK TABLES');
-    if ($dump_buffer) {
+    if ($dump_buffer !== '') {
         make_download($filename, $cfgZipType);
     }
 }
@@ -361,15 +361,10 @@ function make_module_selection($select_dirname = '', $addblank = 0)
     $mod_selections = "<select name=\"dirname\">\n";
     $mod_selections .= $addblank ? "<option value=''></option>\n" : '';
     while (list($name, $dirname) = $xoopsDB->fetchRow($result)) {
-        if (0 == strcmp($dirname, $select_dirname)) {
-            $opt = 'selected';
-        } else {
-            $opt = '';
-        }
+        $opt = 0 == strcmp($dirname, $select_dirname) ? 'selected' : '';
         $mod_selections .= "<option value=\"${dirname}\" ${opt}>${name}</option>\n";
     }
-    $mod_selections .= "</select>\n";
-    return $mod_selections;
+    return $mod_selections . "</select>\n";
 }
 
 /**
@@ -384,7 +379,7 @@ function make_module_selection($select_dirname = '', $addblank = 0)
 function get_real_size($size = 0)
 {
     /// Converts numbers like 10M into bytes
-    if (!$size) {
+    if ($size === 0) {
         return 0;
     }
     $scan['MB'] = 1048576;
@@ -396,7 +391,7 @@ function get_real_size($size = 0)
     $scan['K']  = 1024;
     $scan['k']  = 1024;
 
-    while (list($key) = each($scan)) {
+    foreach (array_keys($scan) as $key) {
         if ((strlen($size) > strlen($key)) && (substr($size, strlen($size) - strlen($key)) == $key)) {
             $size = substr($size, 0, strlen($size) - strlen($key)) * $scan[$key];
             break;

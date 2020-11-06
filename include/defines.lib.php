@@ -64,7 +64,7 @@ if (!defined('PMA_MYSQL_INT_VERSION')) {
 }
 
 if (!defined('PMA_USR_OS')) {
-    if (!isset($_SERVER['HTTP_USER_AGENT']) or empty($_SERVER['HTTP_USER_AGENT'])) {
+    if (!isset($_SERVER['HTTP_USER_AGENT']) || empty($_SERVER['HTTP_USER_AGENT'])) {
         die('PHP version is too old');
     }
 
