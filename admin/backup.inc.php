@@ -126,7 +126,7 @@ function create_data_sql_string($tablename,$filename,$cfgZipType){
 			if (!isset($row[$i]) || is_null($row[$i]))
 				$data_string = sprintf('%s, NULL', $data_string);
 			else
-				$data_string = sprintf("%s, '%s'", $data_string, mysqli_escape_string($row[$i]));
+				$data_string = sprintf("%s, '%s'", $data_string, mysqli_real_escape_string($row[$i]));
 			//$data_string = str_replace("`","\'",$data_string);
 		}
 		// Remove the first 2 characters (", ") from the data string

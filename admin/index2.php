@@ -77,7 +77,7 @@ switch ($mode) {
 		// Get list of tables in the database and output form
 		if ('module' == $action && $dirname){
 			$result = get_module_tables($dirname);
-			$num_tables = sizeof($result);
+			$num_tables = count($result);
 			$checkall = true;
 		}else{
 			$result = $xoopsDB->queryF('SHOW TABLES FROM '.$db_selected);
@@ -131,7 +131,7 @@ switch ($mode) {
 				$result = $sys_tables;
 			else
 				$result = $bp->get_module_tables($dirname);
-			$num_tables = sizeof($result);
+			$num_tables = count($result);
 		}else{
 			$result = $xoopsDB->queryF('SHOW TABLES FROM '.$db_selected);
 			$num_tables = $xoopsDB->getRowsNum($result);
