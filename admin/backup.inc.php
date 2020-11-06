@@ -236,9 +236,8 @@ function Lock_Tables($tablename_array)
 {
     $q = 'LOCK TABLES';
 
-    $iMax = count($tablename_array);
-    for ($i = 0;  $i < $iMax; $i++) {
-        $q .= ' ' . $tablename_array[$i] . ' read,';
+    foreach ($tablename_array as $iValue) {
+        $q .= ' ' . $iValue . ' read,';
     }
     $q = substr($q, 0, strlen($q) - 1);
     $GLOBALS['xoopsDB']->queryF($q);
@@ -254,13 +253,12 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
     $dump_line += count($c[0]);
     $GLOBALS['xoopsDB']->queryF('FLUSH TABLES');
     Lock_Tables($tablename_array);
-    $iMax = count($tablename_array);
-    for ($i = 0;  $i < $iMax; $i++) {
+    foreach ($tablename_array as $iValue) {
         if ($backup_structure) {
-            create_table_sql_string($tablename_array[$i]);
+            create_table_sql_string($iValue);
         }
         if ($backup_data) {
-            create_data_sql_string($tablename_array[$i], $filename, $cfgZipType);
+            create_data_sql_string($iValue, $filename, $cfgZipType);
         }
         check_dump_buffer($filename, $cfgZipType);
         $time_now = time();

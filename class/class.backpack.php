@@ -336,9 +336,8 @@ class backpack
     {
         global $xoopsDB;
         $q = 'LOCK TABLES';
-        $iMax = count($tablename_array);
-        for ($i = 0;  $i < $iMax; $i++) {
-            $q .= ' ' . $tablename_array[$i] . ' read,';
+        foreach ($tablename_array as $iValue) {
+            $q .= ' ' . $iValue . ' read,';
         }
         $q = substr($q, 0, strlen($q) - 1);
         $xoopsDB->queryF($q);
@@ -355,13 +354,12 @@ class backpack
         //mysqli_query($xoopsDB->conn,'FLUSH TABLES');
         $xoopsDB->queryF('FLUSH TABLES');
         $this->Lock_Tables($tablename_array);
-        $iMax = count($tablename_array);
-        for ($i = 0;  $i < $iMax; $i++) {
+        foreach ($tablename_array as $iValue) {
             if ($backup_structure) {
-                $this->create_table_sql_string($tablename_array[$i]);
+                $this->create_table_sql_string($iValue);
             }
             if ($backup_data) {
-                $this->create_data_sql_string($tablename_array[$i], $filename, $cfgZipType);
+                $this->create_data_sql_string($iValue, $filename, $cfgZipType);
             }
             $this->check_dump_buffer($filename, $cfgZipType);
             $time_now = time();
