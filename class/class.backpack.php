@@ -146,18 +146,18 @@ class backpack {
 		while ($status_info = mysqli_fetch_array($result)) {
 			for ($i = 0; $i < count($status_info); $i++) {
 				if ($this->debug) echo "$i: $status_info[$i]\n";
-				if ($status_info[0] == $tablename) $table_type = sprintf("TYPE=%s", $status_info[1]);
+				if ($status_info[0] == $tablename) $table_type = sprintf('TYPE=%s', $status_info[1]);
 			}
 		}
 	
 		// Append the index string to the field string
-		$field_string = sprintf("%s%s", $field_string, $index_string);
+		$field_string = sprintf('%s%s', $field_string, $index_string);
 	
 		// Put the field string in parantheses
-		$field_string = sprintf("%s)", $field_string);
+		$field_string = sprintf('%s)', $field_string);
 		
 		// Finalise the MySQL create table string
-		$field_string .= $table_type.";";
+		$field_string .= $table_type . ';';
 		$field_string = "-- \r\n-- ".$tablename." structure.\r\n-- ".$crlf.$field_string.$crlf;
 		$this->dump_buffer .= $field_string;
 		preg_match_all("/\r\n/",$field_string,$c);
@@ -177,9 +177,9 @@ class backpack {
 			$data_string = '';
 			// Loop through the records and append data to the string after escaping
 			for ($i = 0; $i < mysqli_num_fields($this->query_res); $i++) {
-				if ( $data_string != "") $data_string .= ",";
+				if ($data_string != '') $data_string .= ',';
 				if (!isset($row[$i]) || is_null($row[$i]))
-					$data_string .= "NULL";
+					$data_string .= 'NULL';
 				else
 					//$data_string .= '"'.mysqli_real_escape_string($row[$i]).'"';
 				$data_string .= '"'.$xoopsDB->escape($row[$i]).'"';
@@ -196,7 +196,7 @@ class backpack {
 					$data_string = mb_convert_encoding($data_string, $xoopsModuleConfig['encodingto'],_CHARSET);
 			}*/
 			// Put the data string in parantheses and prepend "VALUES "
-			$data_string = sprintf("VALUES (%s)", $data_string);
+			$data_string = sprintf('VALUES (%s)', $data_string);
 			// Finalise the MySQL insert into string for this record
 			$field_string = sprintf("INSERT INTO `%s` %s;\r\n", $tablename, $data_string);
 			$this->dump_buffer .= $field_string;
@@ -208,19 +208,19 @@ class backpack {
 	public function make_download($filename,$cfgZipType){
 	
 		if (($cfgZipType == 'bzip') && function_exists('bzcompress')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
-			$filename .= $this->download_count>0 ? "-".$this->download_count.".sql" : ".sql"  ;
+			$filename .= $this->download_count>0 ? '-' . $this->download_count . '.sql' : '.sql';
 		    $ext       = 'bz2';
 		    $this->mime_type = 'application/x-bzip';
 	        $op_buffer = bzcompress($this->dump_buffer);
 		} elseif (($cfgZipType == 'gzip') && function_exists('gzencode')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
-			$filename .= $this->download_count>0 ? "-".$this->download_count.".sql" : ".sql"  ;
+			$filename .= $this->download_count>0 ? '-' . $this->download_count . '.sql' : '.sql';
 		    $ext       = 'gz';
 		    $content_encoding = 'x-gzip';
 		    $this->mime_type = 'application/x-gzip';
 	        // without the optional parameter level because it bug
 		    $op_buffer = gzencode($this->dump_buffer,9);
 		} elseif (($cfgZipType == 'zip') && function_exists('gzcompress')) {	// (PMA_PHP_INT_VERSION >= 40000 && 
-			$filename .= $this->download_count>0 ? "-".$this->download_count : "";
+			$filename .= $this->download_count>0 ? '-' . $this->download_count : '';
 		    $ext       = 'zip';
 		    $this->mime_type = 'application/x-zip';
 	        $extbis = '.sql';
@@ -228,14 +228,14 @@ class backpack {
 	        $zipfile -> addFile($this->dump_buffer, $filename . $extbis);
 	        $op_buffer = $zipfile -> file();
 		} else {
-			$filename .= $this->download_count>0 ? "-".$this->download_count : "";
+			$filename .= $this->download_count>0 ? '-' . $this->download_count : '';
 		    $ext       = 'sql';
 			$cfgZipType = 'none';
-		    $this->mime_type = "text/plain";
+		    $this->mime_type = 'text/plain';
 		    $op_buffer = $this->dump_buffer;
 		}
 		$fpathname = $this->backup_dir.$filename.'.'.$ext;
-		if ($this->debug) echo $fpathname."<br />";
+		if ($this->debug) echo $fpathname . '<br />';
 		$fp = fopen($fpathname,'w');
 		fwrite($fp, $op_buffer);
 		fclose($fp);
@@ -255,7 +255,7 @@ class backpack {
 	public function purge_allfiles($beforeDays=NULL){
 		if ($handle = opendir( $this->backup_dir )) {
 		    while (false !== ($file = readdir($handle))) {
-		        if (preg_match("/sql/",$file)) {
+		        if (preg_match('/sql/', $file)) {
 					$fileDate = filemtime( $this->backup_dir.$file );
 		            if ($beforeDays){
 		            	$beforeDate = time() - 86400 * intval($beforeDays);
@@ -281,7 +281,7 @@ class backpack {
 			$this->make_download($filename,$cfgZipType);
 			//unset($GLOBALS['dump_buffer']);
 			//unset($GLOBALS['$this->dump_line']);
-			$this->dump_buffer = "";
+			$this->dump_buffer = '';
 			$this->dump_line = 0;
 			$this->dump_size = 0;
 		}
@@ -339,20 +339,20 @@ class backpack {
 				if (!preg_match('/^--/',$cbuff)) $buffer .= $cbuff;
 				if (preg_match('/;/',$cbuff)!=false) break;
 			}
-			if (preg_match("/^CREATE TABLE|^INSERT INTO|^DELETE/i",$buffer)){
+			if (preg_match('/^CREATE TABLE|^INSERT INTO|^DELETE/i', $buffer)){
 				if (!$prefix){
 					$match = explode(' ',$buffer);
 					$prefix = explode('_',$match[2]);
-					$prefix = preg_replace("/^`/","", $prefix[0]);
+					$prefix = preg_replace('/^`/', '', $prefix[0]);
 				}
-				$buffer = preg_replace("/".$prefix."_/" , XOOPS_DB_PREFIX."_" , $buffer);
+				$buffer = preg_replace('/' . $prefix . '_/', XOOPS_DB_PREFIX . '_', $buffer);
 				if ($replace_url){
 					$pattern = 'http://' . $replace_url;
 					$buffer = preg_replace( '/' . preg_quote($pattern, '/') . '/' , XOOPS_URL , $buffer);
 				}
 			}
 			// 20100218
-			$buffer = preg_replace("/on update CURRENT_TIMESTAMP default \'CURRENT_TIMESTAMP\'/i","",$buffer);
+			$buffer = preg_replace("/on update CURRENT_TIMESTAMP default \'CURRENT_TIMESTAMP\'/i", '', $buffer);
 			if ($buffer) {
 				// if this line is a create table query then check if the table already exists
 				

@@ -28,7 +28,7 @@ function format_time($seconds){
     $total_time = $seconds - ($hour*3600);
     $min = $seconds / 60;
     $sec = $seconds % 60;
-    $format = sprintf("%02d",$hour).":".sprintf("%02d",$min).":".sprintf("%02d",$sec);
+    $format = sprintf('%02d', $hour) . ':' . sprintf('%02d', $min) . ':' . sprintf('%02d', $sec);
     return $format;
 }
 if ($ok != 1) {

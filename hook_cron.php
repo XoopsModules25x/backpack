@@ -20,6 +20,6 @@ function backpack_cron($parameter=NULL){
 	$filename = 'xdb'.date('YmdHis',time());
 	$cfgZipType =  'gzip';
 	$bp = new backpack($dirname,$parameter);
-	if ($bp->err_msg) echo "<font color='red'>" . $bp->err_msg ."</font>";
+	if ($bp->err_msg) echo "<font color='red'>" . $bp->err_msg . '</font>';
 	$bp->backup_data($tablename_array, $backup_structure, $backup_data, $filename, $cfgZipType);
 }

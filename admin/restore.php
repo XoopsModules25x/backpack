@@ -125,7 +125,7 @@ switch ($mode) {
 			//$restore_structure = ($_POST['structure'] == "on") ? 1 : 0;
 			$restore_structure = (filter_input(INPUT_POST,'structure',FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) == 'on') ? 1 : 0;
 			//$restore_data = ($_POST['data'] == "on") ? 1 : 0;
-			$restore_data = (filter_input(INPUT_POST,'data',FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) == "on") ? 1 : 0;
+			$restore_data = (filter_input(INPUT_POST,'data',FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) == 'on') ? 1 : 0;
 			echo '<form method="post" action="restore.php?mode='.RESTORE_DATA.'&filename=$upload_name&restore_structure=$restore_structure&restore_data=$restore_data\">\n';
 			sprintf('<form method="post" action="restore.php?mode=%s&filename=%s&restore_structure=%s&restore_data=%s">',RESTORE_DATA,$upload_name,$restore_structure,$restore_data);
 		}

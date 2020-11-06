@@ -69,23 +69,23 @@ if (!defined('PMA_USR_OS')) {
     } 
 
     // 1. Platform
-	if(preg_match_all("#Windows NT (.*)[;|\)]#isU", $_SERVER["HTTP_USER_AGENT"], $version)){  
+	if(preg_match_all("#Windows NT (.*)[;|\)]#isU", $_SERVER['HTTP_USER_AGENT'], $version)){
     	$os = 'Win';  
-	} elseif(preg_match_all("#Mac (.*);#isU", $_SERVER["HTTP_USER_AGENT"], $version)){  
+	} elseif(preg_match_all('#Mac (.*);#isU', $_SERVER['HTTP_USER_AGENT'], $version)){
     	$os = 'Mac';  
-	} elseif(preg_match("#Mac#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#Mac#', $_SERVER['HTTP_USER_AGENT'])){
 	    $os = 'Mac';  
-	} elseif(preg_match("#SunOS#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#SunOS#', $_SERVER['HTTP_USER_AGENT'])){
 	    $os = 'SunOS';  
-	} elseif(preg_match("#Fedora#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#Fedora#', $_SERVER['HTTP_USER_AGENT'])){
 	    $os = 'Fedora';  
-	} elseif(preg_match("#Haiku#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#Haiku#', $_SERVER['HTTP_USER_AGENT'])){
 	    $os = 'Haiku';  
-	} elseif(preg_match("#Ubuntu#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#Ubuntu#', $_SERVER['HTTP_USER_AGENT'])){
 	    $os = 'Linux Ubuntu';  
-	} elseif(preg_match("#FreeBSD#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#FreeBSD#', $_SERVER['HTTP_USER_AGENT'])){
 	    $os = 'FreeBSD';  
-	} elseif(preg_match("#Linux#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#Linux#', $_SERVER['HTTP_USER_AGENT'])){
 	    $os = 'Linux';  
 	} else {  
 	    $os = 'Inconnu';  
@@ -94,34 +94,34 @@ if (!defined('PMA_USR_OS')) {
 	unset($os); 
 
     // 2. browser and version
-	if(preg_match_all("#Opera (.*)(\[[a-z]{2}\];)?$#isU", $_SERVER["HTTP_USER_AGENT"], $version)){  
+	if(preg_match_all("#Opera (.*)(\[[a-z]{2}\];)?$#isU", $_SERVER['HTTP_USER_AGENT'], $version)){
     	$navigateur = 'Opéra';
 		$ver = $version[1][0];  
-	} elseif(preg_match_all("#MSIE (.*);#isU", $_SERVER["HTTP_USER_AGENT"], $version)){  
+	} elseif(preg_match_all('#MSIE (.*);#isU', $_SERVER['HTTP_USER_AGENT'], $version)){
     	$navigateur = 'Internet Explorer';
 		$ver = $version[1][0];  
-	} elseif(preg_match_all("#Firefox(.*)$#isU", $_SERVER["HTTP_USER_AGENT"], $version)){  
+	} elseif(preg_match_all('#Firefox(.*)$#isU', $_SERVER['HTTP_USER_AGENT'], $version)){
     	$ver = str_replace('/', '', $version[1][0]);  
 	    $navigateur = 'Firefox';  
-	} elseif(preg_match_all("#Chrome(.*) Safari#isU", $_SERVER["HTTP_USER_AGENT"], $version)){  
+	} elseif(preg_match_all('#Chrome(.*) Safari#isU', $_SERVER['HTTP_USER_AGENT'], $version)){
     	$ver = str_replace('/', '', $version[1][0]);  
 	    $navigateur = 'Chrome';  
-	} elseif(preg_match_all("#Opera(.*) \(#isU", $_SERVER["HTTP_USER_AGENT"], $version)){  
+	} elseif(preg_match_all("#Opera(.*) \(#isU", $_SERVER['HTTP_USER_AGENT'], $version)){
     	$ver = str_replace('/', '', $version[1][0]);  
     	$navigateur = 'Opéra';  
-	} elseif(preg_match("#Nokia#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#Nokia#', $_SERVER['HTTP_USER_AGENT'])){
 		$ver = '';
 	    $navigateur = 'Nokia';  
-	} elseif(preg_match("#Safari#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#Safari#', $_SERVER['HTTP_USER_AGENT'])){
 	    $navigateur = 'Safari';
 		$ver = '';  
-	} elseif(preg_match("#SeaMonkey#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#SeaMonkey#', $_SERVER['HTTP_USER_AGENT'])){
 	    $navigateur = 'SeaMonkey';
 		$ver = '';  
-	} elseif(preg_match("#PSP#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#PSP#', $_SERVER['HTTP_USER_AGENT'])){
 	    $navigateur = 'PSP';
 		$ver = '';  
-	} elseif(preg_match("#Netscape#", $_SERVER["HTTP_USER_AGENT"])){  
+	} elseif(preg_match('#Netscape#', $_SERVER['HTTP_USER_AGENT'])){
 	    $navigateur = 'Netscape';  
 		$ver = '';
 	} else {  

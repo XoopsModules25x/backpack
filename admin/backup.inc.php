@@ -27,7 +27,7 @@ function create_table_sql_string($tablename){
 
 	// Start the SQL string for this table
 	$field_header = "CREATE TABLE `$tablename` (";
-	$field_string = "";
+	$field_string = '';
 	
 	// Get the field info and output to a string in the correct MySQL syntax
 	$result = mysqli_query("DESCRIBE $tablename");
@@ -40,11 +40,11 @@ function create_table_sql_string($tablename){
 		}
 		$field_name = $field_info[0];
 		$field_type = $field_info[1];
-		$field_not_null = ($field_info[2] == "YES") ? "" : " NOT NULL";
-		$field_default = ($field_info[4] == NULL) ? "" : sprintf(" default '%s'", $field_info[4]);;
-		$field_auto_increment = ($field_info[5] == NULL) ? "" : sprintf(" %s", $field_info[5]);
-		$field_string .= $field_string ? "," : $field_header ;
-		$field_string .= $crlf.sprintf("  `%s` %s%s%s%s",  $field_name, $field_type, $field_not_null, $field_auto_increment, $field_default);
+		$field_not_null = ($field_info[2] == 'YES') ? '' : ' NOT NULL';
+		$field_default = ($field_info[4] == NULL) ? '' : sprintf(" default '%s'", $field_info[4]);;
+		$field_auto_increment = ($field_info[5] == NULL) ? '' : sprintf(' %s', $field_info[5]);
+		$field_string .= $field_string ? ',' : $field_header ;
+		$field_string .= $crlf.sprintf('  `%s` %s%s%s%s', $field_name, $field_type, $field_not_null, $field_auto_increment, $field_default);
 	}
 	// Get the index info and output to a string in the correct MySQL syntax
 	$result = mysqli_query("SHOW KEYS FROM $tablename");	//SHOW INDEX FROM 
@@ -70,7 +70,7 @@ function create_table_sql_string($tablename){
         }
     } // end while
     mysqli_free_result($result);
-    $index_string = "";
+    $index_string = '';
     while (list($x, $columns) = @each($index)) {
         $index_string     .= ',' . $crlf;
         if ($x == 'PRIMARY') {
@@ -87,24 +87,24 @@ function create_table_sql_string($tablename){
     $index_string .= $crlf;
 	
 	// Get the table type and output it to a string in the correct MySQL syntax
-	$result = mysqli_query("SHOW TABLE STATUS");
+	$result = mysqli_query('SHOW TABLE STATUS');
 	if (DEBUG) echo "\nstatus_info\n\n";
 	while ($status_info = mysql_fetch_array($result)) {
 		for ($i = 0; $i < count($status_info); $i++) {
 			if (DEBUG) echo "$i: $status_info[$i]\n";
 
-			if ($status_info[0] == $tablename) $table_type = sprintf("TYPE=%s", $status_info[1]);
+			if ($status_info[0] == $tablename) $table_type = sprintf('TYPE=%s', $status_info[1]);
 		}
 	}
 
 	// Append the index string to the field string
-	$field_string = sprintf("%s%s", $field_string, $index_string);
+	$field_string = sprintf('%s%s', $field_string, $index_string);
 
 	// Put the field string in parantheses
-	$field_string = sprintf("%s)", $field_string);
+	$field_string = sprintf('%s)', $field_string);
 	
 	// Finalise the MySQL create table string
-	$field_string .= $table_type.";";
+	$field_string .= $table_type . ';';
 	$field_string = "-- \r\n-- ".$tablename." structure.\r\n-- ".$crlf.$field_string.$crlf;
 	$dump_buffer .= $field_string;
 	preg_match_all("/\r\n/",$field_string,$c);
@@ -120,11 +120,11 @@ function create_data_sql_string($tablename,$filename,$cfgZipType){
 	$dump_line+=3;
 	while ($row = mysqli_fetch_row($query_res)) {
 		// Initialise the data string
-		$data_string = "";
+		$data_string = '';
 		// Loop through the records and append data to the string after escaping
 		for ($i = 0; $i < mysqli_num_fields($query_res); $i++) {
 			if (!isset($row[$i]) || is_null($row[$i]))
-				$data_string = sprintf("%s, NULL", $data_string);
+				$data_string = sprintf('%s, NULL', $data_string);
 			else
 				$data_string = sprintf("%s, '%s'", $data_string, mysqli_escape_string($row[$i]));
 			//$data_string = str_replace("`","\'",$data_string);
@@ -132,7 +132,7 @@ function create_data_sql_string($tablename,$filename,$cfgZipType){
 		// Remove the first 2 characters (", ") from the data string
 		$data_string = substr($data_string, 2);
 		// Put the data string in parantheses and prepend "VALUES "
-		$data_string = sprintf("VALUES (%s)", $data_string);
+		$data_string = sprintf('VALUES (%s)', $data_string);
 		// Finalise the MySQL insert into string for this record
 		$dump_buffer .= sprintf("INSERT INTO `%s` %s;\r\n", $tablename, $data_string);
 		$dump_line++;
@@ -143,19 +143,19 @@ function make_download($filename,$cfgZipType){
 	global $backup_dir,$dump_line,$dump_buffer,$download_count,$download_fname,$mime_type;
 
 	if (($cfgZipType == 'bzip') && function_exists('bzcompress')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
-		$filename .= $download_count>0 ? "-".$download_count.".sql" : ".sql"  ;
+		$filename .= $download_count>0 ? '-' . $download_count . '.sql' : '.sql';
 	    $ext       = 'bz2';
 	    $mime_type = 'application/x-bzip';
         $op_buffer = bzcompress($dump_buffer);
 	} else if (($cfgZipType == 'gzip') && function_exists('gzencode')) {	// (PMA_PHP_INT_VERSION >= 40004 && 
-		$filename .= $download_count>0 ? "-".$download_count.".sql" : ".sql"  ;
+		$filename .= $download_count>0 ? '-' . $download_count . '.sql' : '.sql';
 	    $ext       = 'gz';
 	    $content_encoding = 'x-gzip';
 	    $mime_type = 'application/x-gzip';
         // without the optional parameter level because it bug
 	    $op_buffer = gzencode($dump_buffer,9);
 	} else if (($cfgZipType == 'zip') && function_exists('gzcompress')) {	// (PMA_PHP_INT_VERSION >= 40000 && 
-		$filename .= $download_count>0 ? "-".$download_count : "";
+		$filename .= $download_count>0 ? '-' . $download_count : '';
 	    $ext       = 'zip';
 	    $mime_type = 'application/x-zip';
         $extbis = '.sql';
@@ -165,7 +165,7 @@ function make_download($filename,$cfgZipType){
 	} else {
 	    $ext       = 'sql';
 		$cfgZipType = 'none';
-	    $mime_type = "text/plain";
+	    $mime_type = 'text/plain';
 	    $op_buffer = $dump_buffer;
 	}
 	$fpathname = $backup_dir.$filename.'.'.$ext;
@@ -186,7 +186,7 @@ function purge_allfiles(){
 	global $backup_dir;
 	if ($handle = opendir( $backup_dir )) {
     while (false !== ($file = readdir($handle))) {
-        if (preg_match("/sql/",$file)) {
+        if (preg_match('/sql/', $file)) {
             //echo "$file\n<BR>";
             unlink($backup_dir.$file);
         }
@@ -205,10 +205,10 @@ function check_dump_buffer($filename,$cfgZipType){
 	}
 }
 function Lock_Tables($tablename_array){
-    $q = "LOCK TABLES";
+    $q = 'LOCK TABLES';
 
 	for ($i = 0; $i <count($tablename_array); $i++) {
-      $q .= " " .$tablename_array[$i] ." read,";
+      $q .= ' ' . $tablename_array[$i] . ' read,';
     }
     $q = substr($q,0,strlen($q)-1);
     mysql_query($q);
@@ -220,7 +220,7 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
 	$dump_buffer .= "-- --------------------------------------------\r\n";
 	preg_match_all("/\r\n/",$dump_buffer,$c);
 	$dump_line += count($c[0]);
-    mysql_query("FLUSH TABLES");
+    mysql_query('FLUSH TABLES');
 	Lock_Tables($tablename_array);
 	for ($i = 0; $i <count($tablename_array); $i++) {
 		if ( $backup_structure ) create_table_sql_string( $tablename_array[$i] );
@@ -232,13 +232,13 @@ function backup_data($tablename_array, $backup_structure, $backup_data, $filenam
             header('X-pmaPing: Pong');
         }
 	}
-    mysqli_query("UNLOCK TABLES");
+    mysqli_query('UNLOCK TABLES');
     if ( $dump_buffer ) make_download( $filename ,$cfgZipType );
 }
 function restore_data($filename, $restore_structure, $restore_data, $db_selected)
 {
 	if (!file_exists($filename)) exit();
-	$handle = fopen("$filename", "r");
+	$handle = fopen("$filename", 'r');
 
 	$prefix ='';
 	while (!feof($handle)) {
@@ -246,23 +246,23 @@ function restore_data($filename, $restore_structure, $restore_data, $db_selected
 		$buffer='';
 		while (!feof($handle)) {
 			$temp = ["\r\n", "\n", "\r", "\t"];
-			$cbuff = str_replace($temp,"",fgets($handle));
+			$cbuff = str_replace($temp, '', fgets($handle));
 			if (!preg_match('`^--`',$cbuff)) $buffer .= $cbuff;
 			if (preg_match('`;`',$cbuff)!=false) break;
 		}
-		if (preg_match("/^CREATE TABLE|^INSERT INTO|^DELETE/i",$buffer)){
+		if (preg_match('/^CREATE TABLE|^INSERT INTO|^DELETE/i', $buffer)){
 			if (!$prefix){
-				$match = explode(" ",$buffer);
-				$prefix = explode("_",$match[2]);
-				$prefix = preg_replace("/^`/","", $prefix[0]);
+				$match = explode(' ', $buffer);
+				$prefix = explode('_', $match[2]);
+				$prefix = preg_replace('/^`/', '', $prefix[0]);
 			}
-			$buffer = preg_replace("/".$prefix."_/" , XOOPS_DB_PREFIX."_" , $buffer);
+			$buffer = preg_replace('/' . $prefix . '_/', XOOPS_DB_PREFIX . '_', $buffer);
 		}
 		if ($buffer) {
 			// if this line is a create table query then check if the table already exists
 			if (preg_match('`^CREATE TABLE`i',$buffer) ) {
 				if ($restore_structure) { 
-					$tablename = explode(" ", $buffer);
+					$tablename = explode(' ', $buffer);
 					$tablename = preg_replace('/`/','',$tablename[2]);
 					$result = $xoopsDB->queryF('SHOW TABLES FROM '.$db_selected);
 					for ($i = 0; $i < $xoopsDB->getRowsNum($result); $i++) {
@@ -306,15 +306,15 @@ function get_module_tables($dirname)
 function make_module_selection($select_dirname='',$addblank=0)
 {
     global $xoopsDB;
-	$sql = "SELECT name,dirname FROM ".$xoopsDB->prefix('modules');
+	$sql = 'SELECT name,dirname FROM ' . $xoopsDB->prefix('modules');
 	if (!$result = $xoopsDB->query($sql)) {
 		return false;
 	}
 	$mod_selections  = "<select name=\"dirname\">\n";
-	$mod_selections .= $addblank ? "<option value=''></option>\n" : "" ;
+	$mod_selections .= $addblank ? "<option value=''></option>\n" : '';
 	while(list($name, $dirname) = $xoopsDB->fetchRow( $result ) ) {
-		if (strcmp($dirname,$select_dirname)==0) $opt = "selected";
-		else $opt="";
+		if (strcmp($dirname,$select_dirname)==0) $opt = 'selected';
+		else $opt= '';
 		$mod_selections .= "<option value=\"${dirname}\" ${opt}>${name}</option>\n";
 	}
 	$mod_selections .= "</select>\n";

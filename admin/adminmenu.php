@@ -47,25 +47,25 @@
 	$tblCol = [];
 	$tblCol[0]=$tblCol[1]=$tblCol[2]=$tblCol[3]=$tblCol[4]='';
 //	$tblCol[$currentoption] = 'current';
-	$verinfo =  $xoopsModule->getVar( 'name' ) . "&nbsp;v" . sprintf( "%2.2f" ,  $xoopsModule->getVar('version') / 100.0 ) ;
+	$verinfo = $xoopsModule->getVar( 'name' ) . '&nbsp;v' . sprintf('%2.2f', $xoopsModule->getVar('version') / 100.0 ) ;
 
 	echo "<div id='buttontop'>";
 	echo "<table style='width: 100%; padding: 0;' cellspacing='0'><tr>";
 	echo "<td style='width: 45%; font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;'>
-		<a href='http://www.bluemooninc.biz/' target='_blank'>"._AM_BACKPACK_SITE."</a></td>";
+		<a href='http://www.bluemooninc.biz/' target='_blank'>"._AM_BACKPACK_SITE . '</a></td>';
 	echo "<td style='width: 55%; font-size: 10px; text-align: right; color: #2F5376; padding: 0 6px; line-height: 18px;'><b>"
-		.$verinfo."</b></td>";
-	echo "</tr></table>";
-	echo "</div>";
+		.$verinfo . '</b></td>';
+	echo '</tr></table>';
+	echo '</div>';
 
 	echo "<div id='buttonbar'>";
-	echo "<ul>";
-	echo "<li id='".$tblCol[0]."'><a href='index.php'><span>"._AM_BACKUPTITLE."</span></a></li>";
-	echo "<li id='".$tblCol[1]."'><a href='index.php?mode=". POST_SELECT_MODULE_FORM."'><span>"._AM_MODULEBACKUP."</span></a></li>";
-	echo "<li id='".$tblCol[2]."'><a href='index.php?mode=". POST_DB_SELECT_FORM."&action=backup'><span>"._AM_SELECTTABLES."</span></a></li>";
-	echo "<li id='".$tblCol[3]."'><a href='restore.php'><span>"._AM_RESTORE."</span></a></li>";
-	echo "<li id='".$tblCol[4]."'><a href='optimizer.php'><span>"._AM_OPTIMIZE."</span></a></li>";
+	echo '<ul>';
+	echo "<li id='".$tblCol[0]."'><a href='index.php'><span>"._AM_BACKUPTITLE . '</span></a></li>';
+	echo "<li id='".$tblCol[1]."'><a href='index.php?mode=". POST_SELECT_MODULE_FORM."'><span>"._AM_MODULEBACKUP . '</span></a></li>';
+	echo "<li id='".$tblCol[2]."'><a href='index.php?mode=". POST_DB_SELECT_FORM."&action=backup'><span>"._AM_SELECTTABLES . '</span></a></li>';
+	echo "<li id='".$tblCol[3]."'><a href='restore.php'><span>"._AM_RESTORE . '</span></a></li>';
+	echo "<li id='".$tblCol[4]."'><a href='optimizer.php'><span>"._AM_OPTIMIZE . '</span></a></li>';
 	//if (($xoopsModuleConfig['usecatperm'] == 1) || ($xoopsModuleConfig['usefileperm'] == 1)) {
 	//}
-	echo "</ul></div>&nbsp;<br />";
+	echo '</ul></div>&nbsp;<br />';
 ?>

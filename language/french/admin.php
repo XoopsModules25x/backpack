@@ -8,43 +8,43 @@
 ***													***
 *******************************************************
 */
-define("_AM_TITLE", "BackPack");
-define("_AM_BACKUPTITLE","Sauvegarde des tables MySQL");
-define("_AM_MODULEBACKUP","Sauvegarde d&#39;un module");
-define("_AM_SELECTTABLES","S&#233;lection des tables et sauvegarde");
-define("_AM_RESTORE","Restauration");
-define("_AM_OPTIMIZE","Optimisation de table");
-define("_AM_RESTORETITLE","Restauration des tables MySQL");
-define("_AM_DETAILSTOBACKUP","S&#233;lectionnez les d&#233;tails de la sauvegarde");
-define("_AM_SELECTMODULE","S&#233;lectionnez un module");
-define("_AM_COMPRESSION","Compression");
-define("_AM_OTHER","Autre");
-define("_AM_SELECTAFILE","S&#233;lection de fichiers");
-define("_AM_DETAILSTORESTORE","S&#233;lection des &#233;l&#233;ments &#224; restaurer");
-define("_AM_TABLESTRUCTURE","Structure de Table");
-define("_AM_TABLEDATA","Donn&#233;es de Table");
-define("_AM_BACKUP","Sauvegarde");
-define("_AM_RESET","Nettoyer");
-define("_AM_BACKUPNOTICE","Une fois que vous aurez cliqu&#233; sur le bouton &#39;Sauvegarde&#39; les tables s&#233;lectionn&#233;es seront sauvegard&#233;es et un fichier &#224; t&#233;l&#233;charger sera d&#233;marr&#233; afin que vous puissiez le sauvegarder sur votre ordinateur.");
-define("_AM_SELECTTABLE","S&#233;lection des tables MySQL. Tables &#224; sauvegarder");
-define("_AM_CHECKALL","Toutes coch&#233;es");
-define("_AM_RETURNTOSTART","Retour au d&#233;part");
-define("_AM_OPT_WARNING","ATTENTION : VOTRE BASE DE DONNEES SERA INDISPONIBLE PENDANT L&#39;OPTIMISATION .");
-define("_AM_OPT_STARTING","DEBUT DE L&#39;OPTIMISATION SUR LA BASE DE DONNEES %s dans %s SECONDES.");
-define("_AM_BACKPACK_SITE","Site de Support");
+define('_AM_TITLE', 'BackPack');
+define('_AM_BACKUPTITLE', 'Sauvegarde des tables MySQL');
+define('_AM_MODULEBACKUP', 'Sauvegarde d&#39;un module');
+define('_AM_SELECTTABLES', 'S&#233;lection des tables et sauvegarde');
+define('_AM_RESTORE', 'Restauration');
+define('_AM_OPTIMIZE', 'Optimisation de table');
+define('_AM_RESTORETITLE', 'Restauration des tables MySQL');
+define('_AM_DETAILSTOBACKUP', 'S&#233;lectionnez les d&#233;tails de la sauvegarde');
+define('_AM_SELECTMODULE', 'S&#233;lectionnez un module');
+define('_AM_COMPRESSION', 'Compression');
+define('_AM_OTHER', 'Autre');
+define('_AM_SELECTAFILE', 'S&#233;lection de fichiers');
+define('_AM_DETAILSTORESTORE', 'S&#233;lection des &#233;l&#233;ments &#224; restaurer');
+define('_AM_TABLESTRUCTURE', 'Structure de Table');
+define('_AM_TABLEDATA', 'Donn&#233;es de Table');
+define('_AM_BACKUP', 'Sauvegarde');
+define('_AM_RESET', 'Nettoyer');
+define('_AM_BACKUPNOTICE', 'Une fois que vous aurez cliqu&#233; sur le bouton &#39;Sauvegarde&#39; les tables s&#233;lectionn&#233;es seront sauvegard&#233;es et un fichier &#224; t&#233;l&#233;charger sera d&#233;marr&#233; afin que vous puissiez le sauvegarder sur votre ordinateur.');
+define('_AM_SELECTTABLE', 'S&#233;lection des tables MySQL. Tables &#224; sauvegarder');
+define('_AM_CHECKALL', 'Toutes coch&#233;es');
+define('_AM_RETURNTOSTART', 'Retour au d&#233;part');
+define('_AM_OPT_WARNING', 'ATTENTION : VOTRE BASE DE DONNEES SERA INDISPONIBLE PENDANT L&#39;OPTIMISATION .');
+define('_AM_OPT_STARTING', 'DEBUT DE L&#39;OPTIMISATION SUR LA BASE DE DONNEES %s dans %s SECONDES.');
+define('_AM_BACKPACK_SITE', 'Site de Support');
 // After V0.86
-define("_AM_RESTORETITLE1","Envoi et restaure");
-define("_AM_RESTORETITLE2","Restaure depuis %s dossier des fichiers");
-define("_AM_SELECTAFILE_DESC",'Maximum : %s%s (Rappel : 1MB = 1024 Ko)');
-define("_AM_UPLOADEDFILENAME","Saisir les noms des fichiers &#224; charger");
-define("_AM_UPLOADEDFILENAME_DESC",' Envoi avant restauration. Le fichier sera supprim&#233; apr&#232;s restauration.');
+define('_AM_RESTORETITLE1', 'Envoi et restaure');
+define('_AM_RESTORETITLE2', 'Restaure depuis %s dossier des fichiers');
+define('_AM_SELECTAFILE_DESC', 'Maximum : %s%s (Rappel : 1MB = 1024 Ko)');
+define('_AM_UPLOADEDFILENAME', 'Saisir les noms des fichiers &#224; charger');
+define('_AM_UPLOADEDFILENAME_DESC', ' Envoi avant restauration. Le fichier sera supprim&#233; apr&#232;s restauration.');
 // After V0.88
-define("_AM_DOWNLOAD_LIST","T&#233;l&#233;charger la liste");
-define("_AM_PURGE_FILES","Purge tous les fichiers de t&#233;l&#233;chargement.");
-define("_AM_PURGED_ALLFILES","T&#233;l&#233;charger tous les fichiers qui sont purg&#233;s.");
-define("_AM_READY_TO_DOWNLOAD","Pr&ecirc;t &#224; t&#233;l&#233;charger.");
+define('_AM_DOWNLOAD_LIST', 'T&#233;l&#233;charger la liste');
+define('_AM_PURGE_FILES', 'Purge tous les fichiers de t&#233;l&#233;chargement.');
+define('_AM_PURGED_ALLFILES', 'T&#233;l&#233;charger tous les fichiers qui sont purg&#233;s.');
+define('_AM_READY_TO_DOWNLOAD', 'Pr&ecirc;t &#224; t&#233;l&#233;charger.');
 // After V0.90
-define("_AM_IFNOTRELOAD","Si le t&#233;l&#233;chargement ne d&#233;marre pas automatiquement, veuillez cliquer <a href='%s'>ici</a>");
+define('_AM_IFNOTRELOAD', "Si le t&#233;l&#233;chargement ne d&#233;marre pas automatiquement, veuillez cliquer <a href='%s'>ici</a>");
 // After V0.97
 define('_AM_REPLACEURL','Remplacer le lien (sans http://)');
 define('_AM_REPLACEURL_DESC',"Renseigner le lien. Remplacer par '.XOOPS_URL.'");

@@ -48,8 +48,8 @@ ignore_user_abort();
 
 $fnamedotpos = strrpos($dl_filename,'.');
 $fext = substr($dl_filename,$fnamedotpos+1);
-$ctype = isset($ext2mime[$fext]) ? $ext2mime[$fext] : "application/octet-stream-dummy" ;
-if ($fext=="gz") $content_encoding = 'x-gzip';
+$ctype = isset($ext2mime[$fext]) ? $ext2mime[$fext] : 'application/octet-stream-dummy';
+if ($fext == 'gz') $content_encoding = 'x-gzip';
 //echo $fext.$ctype; exit();
 if ($browser == 'IE' && (ini_get('zlib.output_compression')) ) {
     ini_set('zlib.output_compression', 'Off');
@@ -60,18 +60,18 @@ if ($browser == 'IE' && (ini_get('zlib.output_compression')) ) {
 if (!empty($content_encoding)) {
     header('Content-Encoding: ' . $content_encoding);
 }
-header("Content-Transfer-Encoding: binary");
-header("Content-Length: " . filesize($fpathname) );
-header("Content-type: " . $ctype);
+header('Content-Transfer-Encoding: binary');
+header('Content-Length: ' . filesize($fpathname) );
+header('Content-type: ' . $ctype);
 header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-header('Last-Modified: ' . date("D M j G:i:s T Y"));
+header('Last-Modified: ' . date('D M j G:i:s T Y'));
 header('Content-Disposition: attachment; filename="' . $dl_filename . '"');
 //header("Content-Disposition: inline; filename=" . $dl_filename);
-header("x-extension: " . $ctype );
+header('x-extension: ' . $ctype );
 
 if ($browser == 'IE') {
     header('Pragma: public');
-	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 } else {
     header('Pragma: no-cache');
 }
@@ -88,8 +88,8 @@ fclose($fp);
 //
 // Save download log
 //
-if ($xoopsUser) $uname = $xoopsUser->getVar('uname'); else $uname = "Anonymous";
-$str = $uname.",".date("Y-m-d H:i:s", time());
+if ($xoopsUser) $uname = $xoopsUser->getVar('uname'); else $uname = 'Anonymous';
+$str = $uname . ',' . date('Y-m-d H:i:s', time());
 $postlog = $fpathname.'.log';
 $fp = fopen($postlog, 'a');
 fwrite($fp, $str."\n");

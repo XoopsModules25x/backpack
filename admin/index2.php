@@ -159,21 +159,21 @@ switch ($mode) {
 			}
 		}
 		if ($dirname){
-			$filename =$dirname.date("YmdHis",time());
+			$filename =$dirname.date('YmdHis', time());
 		}elseif($alltables){
-			$filename ="xdb".date("YmdHis",time());
+			$filename = 'xdb' . date('YmdHis', time());
 		}else{
-			$filename ="xtbl".date("YmdHis",time());
+			$filename = 'xtbl' . date('YmdHis', time());
 		}
 		$cfgZipType = filter_input(INPUT_POST,'file_compression',FILTER_SANITIZE_STRING); //$_POST['file_compression'] ;
 		$bp->backup_data($tablename_array, $backup_structure, $backup_data, $filename, $cfgZipType);
 		$download_fname = $bp->download_fname();
 		if ( $bp->download_count == 1 ){
 			//redirect_header("./download.php?url=".$download_fname[0]['filename'], 1, _AM_READY_TO_DOWNLOAD);
-		    $url="./download.php?url=".$download_fname[0]['filename'];
+		    $url= './download.php?url=' . $download_fname[0]['filename'];
 		    $time=1;
 		    $message=_AM_READY_TO_DOWNLOAD;
-            $url = preg_replace("/&amp;/i", '&', htmlspecialchars($url, ENT_QUOTES));
+            $url = preg_replace('/&amp;/i', '&', htmlspecialchars($url, ENT_QUOTES));
             echo '
             <html>
             <head>
