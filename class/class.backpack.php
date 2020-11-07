@@ -165,7 +165,7 @@ class backpack
         }
         while (false !== ($status_info = $xoopsDB->fetchBoth($result))) {
             $iMax = count($status_info);
-            for ($i = 0;  $i < $iMax; $i++) {
+            for ($i = 0; $i < $iMax; ++$i) {
                 if ($this->debug) {
                     echo "$i: $status_info[$i]\n";
                 }
