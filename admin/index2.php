@@ -169,7 +169,7 @@ switch ($mode) {
         $j               = 0;
         $tablename_array = [];
         if (!$alltables) {
-            for ($i = 0; $i < $num_tables; $i++) {
+            for ($i = 0; $i < $num_tables; ++$i) {
                 $check_id  = sprintf('check_id%d', $i);
                 $tablename = sprintf('tablename%d', $i);
 
