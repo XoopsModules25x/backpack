@@ -204,7 +204,7 @@ function make_download($filename, $cfgZipType)
     $download_fname[$download_count]['filename'] = $filename . '.' . $ext;
     $download_fname[$download_count]['line']     = $dump_line;
     $download_fname[$download_count]['size']     = filesize($fpathname);
-    $download_count++;
+    ++$download_count;
 }
 
 function purge_allfiles()
