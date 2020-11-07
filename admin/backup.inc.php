@@ -142,7 +142,8 @@ function create_data_sql_string($tablename, $filename, $cfgZipType)
         // Initialise the data string
         $data_string = '';
         // Loop through the records and append data to the string after escaping
-        for ($i = 0; $i < mysqli_num_fields($query_res); $i++) {
+        $query_num = mysqli_num_fields($query_res);
+        for ($i = 0; $i < $query_num); ++$i) {
             if (!isset($row[$i]) || null === $row[$i]) {
                 $data_string = sprintf('%s, NULL', $data_string);
             } else {
