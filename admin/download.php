@@ -58,9 +58,9 @@ if ('gz' == $fext) {
 if ('IE' == $browser && (ini_get('zlib.output_compression'))) {
     ini_set('zlib.output_compression', 'Off');
 }
-if (!empty($content_encoding)) {
-    header('Content-Encoding: ' . $content_encoding);
-}
+//if (!empty($content_encoding)) {
+//    header('Content-Encoding: ' . $content_encoding);
+//}
 header('Content-Transfer-Encoding: binary');
 header('Content-Length: ' . filesize($fpathname));
 header('Content-type: ' . $ctype);
