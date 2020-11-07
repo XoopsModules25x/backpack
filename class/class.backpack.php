@@ -165,7 +165,7 @@ class backpack
         }
         while (false !== ($status_info = $xoopsDB->fetchBoth($result))) {
             $iMax = count($status_info);
-            for ($i = 0;  $i < $iMax; ++$i) {
+            for ($i = 0; $i < $iMax; ++$i) {
                 if ($this->debug) {
                     echo "$i: $status_info[$i]\n";
                 }
@@ -334,6 +334,9 @@ class backpack
     public function Lock_Tables($tablename_array)
     {
         global $xoopsDB;
+        if (!is_array($tablename_array) || empty($tablename_array)) {
+            return false;
+        }
         $q = 'LOCK TABLES';
         foreach ($tablename_array as $iValue) {
             $q .= ' ' . $iValue . ' read,';

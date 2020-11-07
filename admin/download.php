@@ -58,9 +58,6 @@ if ('gz' == $fext) {
 if ('IE' == $browser && (ini_get('zlib.output_compression'))) {
     ini_set('zlib.output_compression', 'Off');
 }
-//if (!empty($content_encoding)) {
-//    header('Content-Encoding: ' . $content_encoding);
-//}
 if (!empty($content_encoding)) {
     header('Content-Encoding: ' . $content_encoding);
 }
@@ -106,6 +103,7 @@ unlink($fpathname);
 //xoops_cp_footer();
 //
 // Check User Browser
+// @TODO - add check for Microsoft Edge browser
 //
 function UsrBrowserAgent(&$browser, &$version)
 {

@@ -35,7 +35,7 @@ function create_table_sql_string($tablename)
 
     // Get the field info and output to a string in the correct MySQL syntax
     $result = mysqli_query("DESCRIBE $tablename");
-    if (DEBUG !== 0) {
+    if (0 !== DEBUG) {
         echo "field_info\n\n";
     }
     while (false !== ($field_info = mysqli_fetch_array($result))) {
@@ -55,7 +55,7 @@ function create_table_sql_string($tablename)
     }
     // Get the index info and output to a string in the correct MySQL syntax
     $result = mysqli_query("SHOW KEYS FROM $tablename");    //SHOW INDEX FROM
-    if (DEBUG) {
+    if (0 !== DEBUG) {
         echo "\nindex_info\n\n";
     }
     while (false !== ($row = mysqli_fetch_array($result))) {
@@ -99,13 +99,13 @@ function create_table_sql_string($tablename)
 
     // Get the table type and output it to a string in the correct MySQL syntax
     $result = mysqli_query('SHOW TABLE STATUS');
-    if (DEBUG) {
+    if (0 !== DEBUG) {
         echo "\nstatus_info\n\n";
     }
     while (false !== ($status_info = $GLOBALS['xoopsDB']->fetchBoth($result))) {
         $iMax = count($status_info);
-        for ($i = 0;  $i < $iMax; ++$i) {
-            if (DEBUG) {
+        for ($i = 0; $i < $iMax; ++$i) {
+            if (0 !== DEBUG) {
                 echo "$i: $status_info[$i]\n";
             }
 
@@ -142,7 +142,8 @@ function create_data_sql_string($tablename, $filename, $cfgZipType)
         // Initialise the data string
         $data_string = '';
         // Loop through the records and append data to the string after escaping
-        for ($i = 0; $i < mysqli_num_fields($query_res); ++$i) {
+        $query_num = mysqli_num_fields($query_res);
+        for ($i = 0; $i < $query_num); ++$i) {
             if (!isset($row[$i]) || null === $row[$i]) {
                 $data_string = sprintf('%s, NULL', $data_string);
             } else {
@@ -156,7 +157,7 @@ function create_data_sql_string($tablename, $filename, $cfgZipType)
         $data_string = sprintf('VALUES (%s)', $data_string);
         // Finalise the MySQL insert into string for this record
         $dump_buffer .= sprintf("INSERT INTO `%s` %s;\r\n", $tablename, $data_string);
-        $dump_line++;
+        ++$dump_line;
         check_dump_buffer($filename, $cfgZipType);
     }
 }
@@ -203,7 +204,7 @@ function make_download($filename, $cfgZipType)
     $download_fname[$download_count]['filename'] = $filename . '.' . $ext;
     $download_fname[$download_count]['line']     = $dump_line;
     $download_fname[$download_count]['size']     = filesize($fpathname);
-    $download_count++;
+    ++$download_count;
 }
 
 function purge_allfiles()
