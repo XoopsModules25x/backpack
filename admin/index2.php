@@ -176,7 +176,7 @@ switch ($mode) {
                 if (isset($_POST[$check_id])) {
                     if (isset($_POST[$tablename])) {
                         $tablename_array[$j] = filter_input(INPUT_POST, $tablename, FILTER_SANITIZE_STRING);
-                        $j++;
+                        ++j;
                     }
                 }
             }
