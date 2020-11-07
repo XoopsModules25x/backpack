@@ -35,7 +35,7 @@ function create_table_sql_string($tablename)
 
     // Get the field info and output to a string in the correct MySQL syntax
     $result = mysqli_query("DESCRIBE $tablename");
-    if (DEBUG !== 0) {
+    if (0 !== DEBUG) {
         echo "field_info\n\n";
     }
     while (false !== ($field_info = mysqli_fetch_array($result))) {
