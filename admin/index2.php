@@ -181,7 +181,7 @@ switch ($mode) {
                 }
             }
         } else {
-            for ($i = 0; $i < $num_tables; $i++) {
+            for ($i = 0; $i < $num_tables; ++$i) {
                 if ($dirname) {
                     $tablename_array[$i] = $xoopsDB->prefix($result[$i]);
                 } else {
