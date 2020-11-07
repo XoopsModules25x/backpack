@@ -48,7 +48,6 @@ if ($xoopsUser) {
     }
 } else {
     redirect_header(XOOPS_URL . '/user.php', 1, _NOPERM);
-    exit();
 }
 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
