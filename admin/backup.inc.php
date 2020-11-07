@@ -55,7 +55,7 @@ function create_table_sql_string($tablename)
     }
     // Get the index info and output to a string in the correct MySQL syntax
     $result = mysqli_query("SHOW KEYS FROM $tablename");    //SHOW INDEX FROM
-    if (DEBUG) {
+    if (0 !== DEBUG) {
         echo "\nindex_info\n\n";
     }
     while (false !== ($row = mysqli_fetch_array($result))) {
