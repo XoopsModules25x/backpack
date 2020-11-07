@@ -80,7 +80,7 @@ $footer     = '<div class="adminfooter">'
               . "\n"
               . '  </div>'
               . "\n"
-              . '  <div class="center smallsmall italic pad5"> ce module est maintenu par <a href="https://store.chg-web.com" rel="external">Cedric MONTUY CHG-WEB</a>'
+              . '  <div class="center smallsmall italic pad5"> this module is maintained by <a href="https://store.chg-web.com" rel="external">Cedric MONTUY CHG-WEB</a>'
               . "\n"
               . '</div>';
 
