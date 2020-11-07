@@ -105,7 +105,7 @@ function create_table_sql_string($tablename)
     while (false !== ($status_info = $GLOBALS['xoopsDB']->fetchBoth($result))) {
         $iMax = count($status_info);
         for ($i = 0; $i < $iMax; ++$i) {
-            if (DEBUG) {
+            if (0 !== DEBUG) {
                 echo "$i: $status_info[$i]\n";
             }
 
