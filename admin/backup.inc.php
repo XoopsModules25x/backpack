@@ -156,7 +156,7 @@ function create_data_sql_string($tablename, $filename, $cfgZipType)
         $data_string = sprintf('VALUES (%s)', $data_string);
         // Finalise the MySQL insert into string for this record
         $dump_buffer .= sprintf("INSERT INTO `%s` %s;\r\n", $tablename, $data_string);
-        $dump_line++;
+        ++$dump_line;
         check_dump_buffer($filename, $cfgZipType);
     }
 }
