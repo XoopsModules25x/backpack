@@ -10,6 +10,8 @@
 */
 
 use Xmf\Module\Admin;
+use Xmf\Request;
+
 /** @var Admin $adminObject */
 
 require_once __DIR__ . '/admin_header.php';
@@ -25,7 +27,7 @@ function mysqli_tablename($result, $i)
 {
     mysqli_data_seek($result, $i);
     $f     = mysqli_fetch_array($result);
-    $fetch = NULL !== $f ? $f[0] : NULL;
+    $fetch = null !== $f ? $f[0] : null;
     return $fetch;
 }
 
@@ -37,28 +39,16 @@ $download_count = 0;
 $download_fname = [];
 $mime_type      = '';
 $query_res      = []; // for query result
-$mode           = '';
-$action         = '';
-$num_tables     = '';
-$checkall       = '';
 
 if (isset($_POST['purgeallfiles'])) {
     $bp->purge_allfiles();
     redirect_header('./index.php', 1, _AM_PURGED_ALLFILES);
 }
 // Make sure we pick up variables passed via URL
-if (isset($_GET['mode'])) {
-    $mode = filter_input(INPUT_GET, 'mode', FILTER_SANITIZE_STRING);
-}
-if (isset($_GET['action'])) {
-    $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-}
-if (isset($_GET['num_tables'])) {
-    $num_tables = filter_input(INPUT_GET, 'num_tables', FILTER_SANITIZE_STRING);
-}
-if (isset($_GET['checkall'])) {
-    $checkall = filter_input(INPUT_GET, 'checkall', FILTER_SANITIZE_STRING);
-}
+$mode       = Request::getString('mode', '', 'GET');
+$action     = Request::getString('action', '', 'GET');
+$num_tables = Request::getString('num_tables', '', 'GET');
+$checkall   = Request::getString('checkall', '', 'GET');
 
 $tr_comp = '<tr><td class="odd"><strong>'
            . _AM_COMPRESSION
