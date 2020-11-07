@@ -16,7 +16,7 @@ use Xmf\Module\Admin;
 $path = dirname(__DIR__, 3);
 require_once $path . '/include/cp_header.php';
 
-global $xoopsModule;
+//global $xoopsModule, $xoopsUser;
 
 $thisModuleDir  = $GLOBALS['xoopsModule']->getVar('dirname');
 $thisModulePath = dirname(__DIR__);
@@ -28,9 +28,9 @@ require_once $thisModulePath . '/include/read_dump.lib.php';
 
 $adminObject = Admin::getInstance();
 
-$pathIcon16      = '../' . $xoopsModule->getInfo('icons16');
-$pathIcon32      = '../' . $xoopsModule->getInfo('icons32');
-$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
+$pathIcon16      = '../' . $GLOBALS['xoopsModule']->getInfo('icons16');
+$pathIcon32      = '../' . $GLOBALS['xoopsModule']->getInfo('icons32');
+$pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
 // Include backup functions
 require_once $thisModulePath . '/admin/backup.ini.php';
 require_once $thisModulePath . '/class/class.backpack.php';
@@ -41,9 +41,9 @@ xoops_loadLanguage('modinfo', $thisModuleDir);
 
 $myts = MyTextSanitizer::getInstance();
 
-if ($xoopsUser) {
+if ($GLOBALS['xoopsUser']) {
     $modulepermHandler = xoops_getHandler('groupperm');
-    if (!$modulepermHandler->checkRight('module_admin', $xoopsModule->getVar('mid'), $xoopsUser->getGroups())) {
+    if (!$modulepermHandler->checkRight('module_admin', $GLOBALS['xoopsModule']->getVar('mid'), $GLOBALS['xoopsUser']->getGroups())) {
         redirect_header(XOOPS_URL, 1, _NOPERM);
     }
 } else {
