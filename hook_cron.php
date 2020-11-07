@@ -16,7 +16,7 @@ function backpack_cron($parameter = null)
     $alltables  = $backup_structure = $backup_data = 1;
     $result     = $xoopsDB->queryF('SHOW TABLES FROM ' . $db_selected);
     $num_tables = $xoopsDB->getRowsNum($result);
-    for ($i = 0; $i < $num_tables; $i++) {
+    for ($i = 0; $i < $num_tables; ++$i) {
         $tablename_array[$i] = mysqli_tablename($result, $i);
     }
     $filename   = 'xdb' . date('YmdHis', time());
