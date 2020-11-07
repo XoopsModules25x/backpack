@@ -107,7 +107,7 @@ switch ($mode) {
         echo '<tr><td class="main_left" colspan="2"><p>' . _AM_BACKUPNOTICE . '</p>';
         echo '<p><strong>' . _AM_SELECTTABLE . '</strong></p>';
         $checked = (!empty($checkall) ? ' checked' : '');
-        for ($i = 0; $i < $num_tables; $i++) {
+        for ($i = 0; $i < $num_tables; ++$i) {
             if ('module' == $action && $dirname) {
                 $tablename = $xoopsDB->prefix($result[$i]);
             } else {
@@ -169,7 +169,7 @@ switch ($mode) {
         $j               = 0;
         $tablename_array = [];
         if (!$alltables) {
-            for ($i = 0; $i < $num_tables; $i++) {
+            for ($i = 0; $i < $num_tables; ++$i) {
                 $check_id  = sprintf('check_id%d', $i);
                 $tablename = sprintf('tablename%d', $i);
 
@@ -181,7 +181,7 @@ switch ($mode) {
                 }
             }
         } else {
-            for ($i = 0; $i < $num_tables; $i++) {
+            for ($i = 0; $i < $num_tables; ++$i) {
                 if ($dirname) {
                     $tablename_array[$i] = $xoopsDB->prefix($result[$i]);
                 } else {
@@ -232,7 +232,7 @@ switch ($mode) {
         } else {
             $form = new XoopsThemeForm(_AM_DOWNLOAD_LIST, 'download', $_SERVER['PHP_SELF']);
             $iMax = count($download_fname);
-            for ($i = 0;  $i < $iMax; $i++) {
+            for ($i = 0;  $i < $iMax; ++$i) {
                 $url = '<a href="download.php?url=' . $download_fname[$i]['filename'] . '" target="_blank">' . $download_fname[$i]['filename'] . '</a>';
                 $url .= $download_fname[$i]['line'] . 'lines ' . $download_fname[$i]['size'] . 'bytes<br>';
                 $form->addElement(new XoopsFormLabel($i, $url));

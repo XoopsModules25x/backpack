@@ -41,7 +41,7 @@ function create_table_sql_string($tablename)
     while (false !== ($field_info = mysqli_fetch_array($result))) {
         if (DEBUG !== 0) {
             $iMax = count($field_info);
-            for ($i = 0; $i < $iMax; $i++) {
+            for ($i = 0; $i < $iMax; ++$i) {
                 echo "$i: $field_info[$i]\n";
             }
         }
@@ -104,7 +104,7 @@ function create_table_sql_string($tablename)
     }
     while (false !== ($status_info = $GLOBALS['xoopsDB']->fetchBoth($result))) {
         $iMax = count($status_info);
-        for ($i = 0;  $i < $iMax; $i++) {
+        for ($i = 0;  $i < $iMax; ++$i) {
             if (DEBUG) {
                 echo "$i: $status_info[$i]\n";
             }
@@ -142,7 +142,7 @@ function create_data_sql_string($tablename, $filename, $cfgZipType)
         // Initialise the data string
         $data_string = '';
         // Loop through the records and append data to the string after escaping
-        for ($i = 0; $i < mysqli_num_fields($query_res); $i++) {
+        for ($i = 0; $i < mysqli_num_fields($query_res); ++$i) {
             if (!isset($row[$i]) || null === $row[$i]) {
                 $data_string = sprintf('%s, NULL', $data_string);
             } else {
@@ -309,7 +309,7 @@ function restore_data($filename, $restore_structure, $restore_data, $db_selected
                     $tablename = explode(' ', $buffer);
                     $tablename = preg_replace('/`/', '', $tablename[2]);
                     $result    = $xoopsDB->queryF('SHOW TABLES FROM ' . $db_selected);
-                    for ($i = 0; $i < $xoopsDB->getRowsNum($result); $i++) {
+                    for ($i = 0; $i < $xoopsDB->getRowsNum($result); ++$i) {
                         if (mysqli_tablename($result, $i) == $tablename) {
                             //$rand = substr(md5(time()), 0, 8);
                             //$random_tablename = sprintf("%s_bak_%s", $tablename, $rand);

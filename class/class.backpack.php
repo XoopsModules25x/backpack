@@ -101,7 +101,7 @@ class backpack
         while (false !== ($field_info = $xoopsDB->fetchBoth($result))) {
             if ($this->debug) {
                 $iMax = count($field_info);
-                for ($i = 0;  $i < $iMax; $i++) {
+                for ($i = 0;  $i < $iMax; ++$i) {
                     echo $i . ': ' . $field_info[$i] . "\n";
                 }
             }
@@ -165,7 +165,7 @@ class backpack
         }
         while (false !== ($status_info = $xoopsDB->fetchBoth($result))) {
             $iMax = count($status_info);
-            for ($i = 0;  $i < $iMax; $i++) {
+            for ($i = 0;  $i < $iMax; ++$i) {
                 if ($this->debug) {
                     echo "$i: $status_info[$i]\n";
                 }
@@ -203,7 +203,7 @@ class backpack
             // Initialise the data string
             $data_string = '';
             // Loop through the records and append data to the string after escaping
-            for ($i = 0; $i < $xoopsDB->getFieldsNum($this->query_res); $i++) {
+            for ($i = 0; $i < $xoopsDB->getFieldsNum($this->query_res); ++$i) {
                 if ('' != $data_string) {
                     $data_string .= ',';
                 }
@@ -422,7 +422,7 @@ class backpack
 //                        $result    = mysqli_list_tables($db_selected);
                         $sql = "SHOW TABLES FROM $db_selected";
                         $result = $xoopsDB->query($sql);
-                        for ($i = 0; $i < $GLOBALS['xoopsDB']->getRowsNum($result); $i++) {
+                        for ($i = 0; $i < $GLOBALS['xoopsDB']->getRowsNum($result); ++$i) {
                             if (mysqli_tablename($result, $i) == $tablename) {
                                 //$rand = substr(md5(time()), 0, 8);
                                 //$random_tablename = sprintf("%s_bak_%s", $tablename, $rand);
