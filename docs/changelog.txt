@@ -28,6 +28,14 @@
 - Foreach usage possible (mamba)
 - displayNavigation() (mamba)
 - mysqli_fetch_array() (mamba)
+- $i++ to ++$i (zyspec)
+- check that $tablename_array is an array (zyspec)
+- validate that fetch_array returned valid results (zyspec)
+- @TODO - add check for Microsoft Edge browser (zyspec)
+- code cosmetics (zyspec)
+- delete exit() (zyspec)
+- check for "0 !== DEBUG" (zyspec)
+
 
 ==================================
 Version 2.01 - 2020/11/03
