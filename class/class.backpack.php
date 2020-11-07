@@ -334,6 +334,9 @@ class backpack
     public function Lock_Tables($tablename_array)
     {
         global $xoopsDB;
+        if (!is_array($tablename_array) || empty($tablename_array)) {
+            return false;
+        }
         $q = 'LOCK TABLES';
         foreach ($tablename_array as $iValue) {
             $q .= ' ' . $iValue . ' read,';
