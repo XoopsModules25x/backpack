@@ -203,7 +203,7 @@ class backpack
             // Initialise the data string
             $data_string = '';
             // Loop through the records and append data to the string after escaping
-            for ($i = 0; $i < $xoopsDB->getFieldsNum($this->query_res); $i++) {
+            for ($i = 0; $i < $xoopsDB->getFieldsNum($this->query_res); ++$i) {
                 if ('' != $data_string) {
                     $data_string .= ',';
                 }
