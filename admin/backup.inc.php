@@ -41,7 +41,7 @@ function create_table_sql_string($tablename)
     while (false !== ($field_info = mysqli_fetch_array($result))) {
         if (DEBUG !== 0) {
             $iMax = count($field_info);
-            for ($i = 0; $i < $iMax; $i++) {
+            for ($i = 0; $i < $iMax; ++$i) {
                 echo "$i: $field_info[$i]\n";
             }
         }
