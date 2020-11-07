@@ -107,7 +107,7 @@ switch ($mode) {
         echo '<tr><td class="main_left" colspan="2"><p>' . _AM_BACKUPNOTICE . '</p>';
         echo '<p><strong>' . _AM_SELECTTABLE . '</strong></p>';
         $checked = (!empty($checkall) ? ' checked' : '');
-        for ($i = 0; $i < $num_tables; $i++) {
+        for ($i = 0; $i < $num_tables; ++$i) {
             if ('module' == $action && $dirname) {
                 $tablename = $xoopsDB->prefix($result[$i]);
             } else {
