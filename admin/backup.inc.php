@@ -99,7 +99,7 @@ function create_table_sql_string($tablename)
 
     // Get the table type and output it to a string in the correct MySQL syntax
     $result = mysqli_query('SHOW TABLE STATUS');
-    if (DEBUG) {
+    if (0 !== DEBUG) {
         echo "\nstatus_info\n\n";
     }
     while (false !== ($status_info = $GLOBALS['xoopsDB']->fetchBoth($result))) {
