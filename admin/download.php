@@ -103,6 +103,7 @@ unlink($fpathname);
 //xoops_cp_footer();
 //
 // Check User Browser
+// @TODO - add check for Microsoft Edge browser
 //
 function UsrBrowserAgent(&$browser, &$version)
 {
