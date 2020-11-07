@@ -25,7 +25,7 @@ function mysqli_tablename($result, $i)
 {
     mysqli_data_seek($result, $i);
     $f     = mysqli_fetch_array($result);
-    $fetch = $f[0];
+    $fetch = NULL !== $f ? $f[0] : NULL;
     return $fetch;
 }
 
