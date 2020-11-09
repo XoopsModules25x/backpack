@@ -1,14 +1,53 @@
+<h5>2.01 RC-2   [WORK IN PROGRESS - NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.12, PHP 8.0 RC 3
+<hr>
+- Case mismatch (mamba)-
+- PSR-12: Short form of type keywords (mamba)
+- PSR-12: Missing visibility (mamba)
+- Traditional syntax array (mamba)
+- Redundant closing tag, UTF-8 (mamba)
+- PhpDoc (mamba)
+- Unnecessary double quotes (mamba)
+- Yoda (mamba)
+- Redundant 'else' keyword (mamba)
+- Alias functions usage (mamba)
+- Cascading dirname(...) calls (mamba)
+- Null coalescing operator (mamba)
+- Type casting (mamba)
+- Low performing filesystem operations (mamba)
+- Slow array function used in loop (mamba)
+- 'str(i)str(...)' replaced with 'str(i)pos(...)' (mamba)
+- php-cs-fixer, code cosmetics (mamba)
+- Fully qualified name usage (mamba)
+- 'null === ...' can be used (mamba)
+- 'substr(...)' replaced with 'strpos(...)' (mamba)
+- 'safe_mode' was removed in PHP 5.4.0. (mamba)
+- Insecure 'htmlspecialchars(...)' usage (XSS attacks) (mamba)
+- XMF (mamba)
+- PSR-12: Usage of 'else if' construct (mamba)
+- 'substr(...)' replaced with 'strpos(...)' (mamba)
+- Foreach usage possible (mamba)
+- displayNavigation() (mamba)
+- mysqli_fetch_array() (mamba)
+- $i++ to ++$i (zyspec)
+- check that $tablename_array is an array (zyspec)
+- validate that fetch_array returned valid results (zyspec)
+- @TODO - add check for Microsoft Edge browser (zyspec)
+- code cosmetics (zyspec)
+- delete exit() (zyspec)
+- check for "0 !== DEBUG" (zyspec)
+
+
 ==================================
 Version 2.01 - 2020/11/03
 ==================================
-- Fixed bugs minor
+- Fixed bugs minor (black_beard)
 
 ==================================
 Version 2.00 - 2020/10/15
 ==================================
-- Update deprecated PHP functions for compatibilty PHP 7.0.x and higher 
-- Update deprecated SQL functions for compatibilty MariaDB 
-- Fixed bugs minor
+- Update deprecated PHP functions for compatibilty PHP 7.0.x and higher  (black_beard)
+- Update deprecated SQL functions for compatibilty MariaDB  (black_beard)
+- Fixed bugs minor (black_beard)
 
 ==================================
 Version 1.01 - 2012/08/17

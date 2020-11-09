@@ -3,14 +3,18 @@
 *******************************************************
 ***													***
 *** backpack										***
-*** Cedric MONTUY pour CHG-WEB                      ***	
+*** Cedric MONTUY pour CHG-WEB                      ***
 *** Original author : Yoshi Sakai					***
 ***													***
 *******************************************************
 */
-include_once 'admin_header.php';
+
+use Xmf\Module\Admin;
+/** @var Admin $adminObject */
+
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation('index.php');	
-echo $indexAdmin->renderIndex();
-include 'admin_footer.php';
+$adminObject = Admin::getInstance();
+$adminObject->displayNavigation(basename(__FILE__));
+$adminObject->displayIndex();
+require __DIR__ . '/admin_footer.php';

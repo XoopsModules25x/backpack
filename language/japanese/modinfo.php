@@ -1,14 +1,11 @@
 <?php
-// $Id: modinfo.php,v 1.1.1.1 2005/08/07 03:49:45 yoshis Exp $ 
+// $Id: modinfo.php,v 1.1.1.1 2005/08/07 03:49:45 yoshis Exp $
 
-define('_MI_MOD_NAME', '╔п╔ц╔╞╔я╔ц╔╞');
+define('_MI_MOD_NAME', 'Ц┐░Ц┐┐Ц┌╞Ц┐▒Ц┐┐Ц┌╞');
 define('_MI_MOD_DESC', 'Bluemoon XOOPS Backup/Restore Module');
-define('_MI_MOD_IMG_DESC', 'ёьёоёоёпёсмя╔п╔ц╔╞╔╒╔ц╔в║╕╔Й╔╧╔х╔╒╔Б╔╦╔Е║╪╔К');
-define("_MI_BACKUPTITLE","╔г║╪╔©╔ы║╪╔╧║╕╔п╔ц╔╞╔╒╔ц╔в");
-define("_MI_MODULEBACKUP","╔Б╔╦╔Е║╪╔К║╕╔п╔ц╔╞╔╒╔ц╔в");
-define("_MI_SELECTTABLES","╔ф║╪╔ж╔К║╕╔п╔ц╔╞╔╒╔ц╔в");
-define("_MI_RESTORE","╔Й╔╧╔х╔╒");
-define("_MI_OPTIMIZE","╨ге╛╡╫");
-
-
-?>
+define('_MI_MOD_IMG_DESC', 'О╪╦О╪╞О╪╞О╪╟О╪ЁГ■╗Ц┐░Ц┐┐Ц┌╞Ц┌╒Ц┐┐Ц┐≈Ц┐╩Ц┐╙Ц┌╧Ц┐┬Ц┌╒Ц┐╒Ц┌╦Ц┐╔Ц┐╪Ц┐╚');
+define('_MI_BACKUPTITLE', 'Ц┐┤Ц┐╪Ц┌©Ц┐≥Ц┐╪Ц┌╧Ц┐╩Ц┐░Ц┐┐Ц┌╞Ц┌╒Ц┐┐Ц┐≈');
+define('_MI_MODULEBACKUP', 'Ц┐╒Ц┌╦Ц┐╔Ц┐╪Ц┐╚Ц┐╩Ц┐░Ц┐┐Ц┌╞Ц┌╒Ц┐┐Ц┐≈');
+define('_MI_SELECTTABLES', 'Ц┐├Ц┐╪Ц┐√Ц┐╚Ц┐╩Ц┐░Ц┐┐Ц┌╞Ц┌╒Ц┐┐Ц┐≈');
+define('_MI_RESTORE', 'Ц┐╙Ц┌╧Ц┐┬Ц┌╒');
+define('_MI_OPTIMIZE', 'Ф°─И│╘Е▄√');

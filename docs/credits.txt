@@ -1,0 +1,6 @@
+Credits
+===============
+
+Originally developed by Yoshi Sakai
+
+Version 2.0 was updated to XOOPS 2.5.11 Standard GUI by Cedric MONTUY (black_beard)
